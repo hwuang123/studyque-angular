@@ -1,0 +1,393 @@
+br { clear: left; }
+/* makes the input field shorter once the date picker code
+ * has run (to allow space for the calendar icon
+ */
+input.dp-applied {
+    width: 140px;
+    float: left;
+}
+
+.demo-description {
+    clear: both;
+    padding: 12px;
+    font-size: 1.3em;
+    line-height: 1.4em;
+}
+
+.ui-draggable, .ui-droppable {
+    background-position: top;
+}
+
+.right{
+  text-align: right;
+}
+
+.left{
+  text-align: left;
+}
+
+.center{
+  text-align: center;
+}
+
+.legend{
+  padding: 0.2em 0.5em;
+  margin-left: 2em;
+  border:1px solid white;
+  color:white;
+  font-size:90%;
+  text-align:center;
+  width: 52%;
+  height: 32px;
+}
+
+.fieldset{
+ border:1px solid white;
+ width:100%;	
+}
+
+.inputlegend{
+  padding: 0.2em 0.5em;
+  margin-left: 5%;
+  border:1px solid white;
+  color:white;
+  font-size:90%;
+  text-align:left;
+}
+
+.inputlegend-green{
+  padding: 0.2em 0.5em;
+  margin-left: 5%;
+  border:1px solid green;
+  color:green;
+  font-size:90%;
+  text-align:left;
+}
+.inputfieldset{
+ border:1px solid white;
+  margin: 2% 5% 2% 0%;	
+}
+
+.innerfieldset{
+  border:1px solid green;	
+  margin-left: 0.3em;
+  margin-bottom: 0.3em;
+  margin-right: 0.3em;
+  /*width: 70em;*/
+}
+
+.labelFont11px{
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.dhtmldatepicker {
+    border: 1px solid #909090;
+    font-family: Tahoma;
+    font-size: 12px;
+}
+
+.floatleft {
+    float: left;
+}
+.searchPanelTd
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 75%;
+    font-weight: bold;
+    background-color: #ccffff;	
+}
+
+
+.soldfieldset {
+    padding-top:10px;
+    border:1px solid #666;
+    border-radius:8px;
+    box-shadow:0 0 10px #666;
+}
+
+.floatleftlegend{
+    float: left;
+}
+
+.mylegend {
+   /* position: absolute;
+    top: -2px;
+    background: #fff;
+    padding: 10px 20px;
+    */
+    border: 2px groove threedface;
+    border-top: none;
+    box-shadow: inset 0 -5px 5px rgba(0,0,0,.2);
+    text-shadow: 1px 1px 2px rgba(0,0,0,.3);
+    font-weight: bold;
+    font-size: 1em;
+}
+.mylegend {
+    float: left;
+    margin-left: 2em;
+    font-size: 11px;
+    font-weight: bold;
+}
+.container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    /* background: #CFF; */
+}
+.container div {
+    display: inline-block;
+    background: #CFF;
+}
+
+.border-red {
+    border: 1.2px solid red;
+}
+
+.column-left280{ float: left; width: 280px; background: #CFF; margin-left:1px;}
+.column-left200{ float: left; width: 200px; margin-left:1px;}
+.column-left{ float: left;  margin-left:1em;}
+
+.column-left15{ float: left; width: 15%;  margin-left:1em;}
+.column-left18{ float: left; width: 18%;  margin-left:1em;}
+.column-left20{ float: left; width: 20%;  margin-left:1em;}
+.column-left25{ float: left; width: 25%;  margin-left:1em;}
+.column-left35{ float: left; width: 35%;  margin-left:1em;}
+.column-left40{ float: left; width: 40%;  margin-left:1em;}
+.column-left45{ float: left; width: 45%;  margin-left:1em;}
+.column-right{ float: right; width: 35%;  margin-left:1em;}
+.layoutrow{
+     width:100%; margin: 1em;
+}
+.layoutrow::after{
+    clear:both;
+}
+.column-center{ 
+                float: left;
+                width: 5em; 
+                padding-top: 6em;
+                background: #CFF;
+                justify-content: center;
+                align-items: center;
+              }
+.placeOrderButton {
+    -moz-box-shadow: 3px 4px 0px 0px #8a2a21;
+    -webkit-box-shadow: 3px 4px 0px 0px #8a2a21;
+    box-shadow: 3px 4px 0px 0px #8a2a21;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #eb675e));
+    background:-moz-linear-gradient(top, #c62d1f 5%, #eb675e 100%);
+    background:-webkit-linear-gradient(top, #c62d1f 5%, #eb675e 100%);
+    background:-o-linear-gradient(top, #c62d1f 5%, #eb675e 100%);
+    background:-ms-linear-gradient(top, #c62d1f 5%, #eb675e 100%);
+    background:linear-gradient(to bottom, #c62d1f 5%, #eb675e 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#eb675e',GradientType=0);
+    background-color:#c62d1f;
+    -moz-border-radius:18px;
+    -webkit-border-radius:18px;
+    border-radius:18px;
+    border:1px solid #d02718;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:arial;
+    font-size:17px;
+    font-weight:bold;
+    padding:1px 25px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #810e05;
+}
+.placeOrderButton:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #eb675e), color-stop(1, #c62d1f));
+    background:-moz-linear-gradient(top, #eb675e 5%, #c62d1f 100%);
+    background:-webkit-linear-gradient(top, #eb675e 5%, #c62d1f 100%);
+    background:-o-linear-gradient(top, #eb675e 5%, #c62d1f 100%);
+    background:-ms-linear-gradient(top, #eb675e 5%, #c62d1f 100%);
+    background:linear-gradient(to bottom, #eb675e 5%, #c62d1f 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eb675e', endColorstr='#c62d1f',GradientType=0);
+    background-color:#eb675e;
+    color:#ffff00;
+}
+.placeOrderButton:active {
+    position:relative;
+    top:1px;
+}
+#placeorder_form {
+    width:100%;
+}
+
+.form-group.required.control-label:before{
+    color: red;
+    content: "*";
+    position: absolute;
+    margin-left: -10px;
+ }
+
+ .form-group.required.control-label20:before{
+    color: red;
+    content: "*";
+    position: absolute;
+    margin-left: -20px;
+ }
+
+ .align-left150 {
+  width: 150px;
+  text-align: left !important; /* !important added for priority in SO snippet. */
+  color: white;
+}
+
+.align-left160 {
+  float: left; 
+  margin-top: -12px;
+  width: 160px;
+  text-align: left !important; /* !important added for priority in SO snippet. */
+  color: white;
+}
+
+.align-left172 {
+  width: 172px;
+  text-align: left !important; /* !important added for priority in SO snippet. */
+  color: white;
+}
+
+.align-left178 {
+  width: 178px;
+  text-align: left !important; /* !important added for priority in SO snippet. */
+  color: white;
+}
+
+.align-left184 {
+  width: 184px;
+  text-align: left !important; /* !important added for priority in SO snippet. */
+  color: white;
+}
+
+.align-left190 {
+  margin-left: 15px; 
+  margin-top: -10px;
+  width: 190px;
+  text-align: left !important; /* !important added for priority in SO snippet. */
+  color: white;
+}
+
+.align-left192 {
+  width: 192px;
+  text-align: left !important; /* !important added for priority in SO snippet. */
+  color: white;
+}
+
+ .align-left200 {
+    width: 200px;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+  .align-left222 {
+    width: 222px;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+   .align-left254 {
+    width: 254px;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+  .align-left300 {
+    width: 300px;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+  .align-left310 {
+    width: 310px;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+  .align-left340 {
+    width: 340px;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+
+  .align-left30per {
+    width: 30%;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+  .align-left60per {
+    width: 60%;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+  .align-left280 {
+    width: 280px;
+   }
+
+   .align-left210 {
+    width: 210px;
+    float: left;
+    margin-top: 10px;
+    padding-top: 24px;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+  .float-left230 {
+    width: 230px;
+    float: left;
+    margin-top: 10px;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+  .float-left130 {
+    width: 130px; 
+    float: left;
+    margin-top: 0px;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;
+  }
+
+  .float-left {
+    float: left;
+    margin-top: 0px;
+    text-align: left !important; /* !important added for priority in SO snippet. */
+    color: white;  
+  }
+
+  .form-group > select {
+    width: 190px;
+    height: 32px;
+  }
+
+  .form-group > label {
+    margin-bottom: -8px;
+  }
+
+  .error-message {
+      width: 620px;
+      margin-left: 1em;
+      margin-top: -30px;
+      font-size: 14px;
+  }
+
+  .error-message14 {
+    width: 620px;
+    margin-left: 1em;
+    margin-top: -14px;
+    font-size: 14px;
+}
+
+div.fixed {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 620px;
+ 
+}

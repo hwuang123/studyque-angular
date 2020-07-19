@@ -1,0 +1,13 @@
+.mat-dialog-title .mat-icon {
+    top: 5px;
+    position: relative;
+    cursor: grab;
+}
+
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 36px;
+    background-color: rgb(198, 196, 202);
+}

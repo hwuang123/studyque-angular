@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-studyque';
+  isShow: boolean = true;
+  
+  hideThis(){
+    this.isShow = false;
+  }
 }

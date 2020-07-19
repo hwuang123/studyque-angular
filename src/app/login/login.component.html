@@ -1,0 +1,153 @@
+<!-- <div class="d-flex justify-content-center w-100 pt-5">
+<div class="col-md-4">
+      <div class="login-containerer">  
+      <div class="form-group text-center pt-4">
+      <img class="rounded-circle" id="profile-img" src="/assets/images/avatar_2x.png" width="128" height="128"/>
+      </div>
+      
+      <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+       <div class="input-group ml-4 pl-5">
+
+        <div class="form-group col-md-8">
+          <label for="username">Username</label><br/>
+          <input type="text" class="form-control input-group" name="username" [(ngModel)]="form.username" required
+            #username="ngModel" />
+          <div class="alert alert-danger" role="alert" *ngIf="f.submitted && username.invalid">
+            Username is required!
+          </div>
+        </div>
+   
+
+        <div class="form-group col-md-8">
+          <label for="password">Password</label>
+          <input type="password" class="form-control input-group" name="password" [(ngModel)]="form.password" required
+            minlength="4" #password="ngModel"/>
+          <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+            <div *ngIf="password.errors.required">Password is required</div>
+            <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+          </div>
+        </div>
+
+       </div>
+
+        <div class="form-group text-center">
+          <button class="btn btn-primary btn-lg" type="submit">
+            Login
+          </button>
+        </div>
+        <div class="form-group">
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="f.submitted && isLoginFailed"
+          >
+            Login failed: {{ errorMessage }}
+          </div>
+        </div>
+      </form>
+  
+      <div class="alert alert-success" *ngIf="isLoggedIn">
+        Logged in as {{ roles }}.
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<div id="contentleft">
+  <img src="/assets/images/welcome_heading.png" width="331" height="42" />
+  <p class="title">Vision</p>
+  <p class="text-white">Students of all ages can quickly forget about when or what lessons are due or what day theirexams fall on. We believe that it is imperative to have a program that serves as a scheduler which will provide you complete control where you can have text messages sent to cell phones, an email sent to various email addresses or an automated voice message that can call any phone (cell, home, work). This instrument would make it almost impossible to forget educational related tasks and avoids those late, cram night sessions performing last minute homework assignments.</p>
+  <p class="text-white">Imagine if you have a term paper due a month from now or there's a math test slated for next week. Once registered for StudyCue you create your calendar associated entry and from there setup a reminder. This can afford a student the necessary time for study preparation where the system reminds you every day, once a week or every other week, whatever you deem fit for your specific situation.</p>
+  <p class="text-white">Try StudyCue today and reap the many benefits that this application can supply to reach academic success.<br />
+</div>
+
+<div class="homeimage">
+<img src="/assets/images/homeimage.png"/>
+</div>
+<div class="homeimage">
+<img src="/assets/images/uselogin_image.png"/>
+</div>
+<div class="bg-extended">
+    <div class="align-vertical-center">
+
+        <div class="container">
+
+            <div class="row">
+                
+                <div class="well col-sm-offset-3 col-sm-6" >
+                    
+                    <div class="well-heading well-primary" >
+                         <button [routerLink]="'/userprofile'" class="myButton" style="margin-left:4em; width: 130px; height: 26px;">Place Order</button>
+                    </div>
+  
+                    <form class="well-body" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                     <div class="" style="width:420px; padding-top:2em;">
+                      
+                      <p class="text-white h3 ml-4 pl-5 d-flex justify-content-between">Sign in your account</p>
+                       <div class="form-group label-floating width278" [ngClass]="authenticationError">
+                            <label class="ml-n1 control-label text-white" for="login">*User Name</label>
+                            <input type="text" class="form-control input-group input" name="username" [(ngModel)]="form.username" required
+            #username="ngModel" style="height:1.8em"/>
+                    <div class="bg-danger text-white msgerror" role="alert" *ngIf="f.submitted && username.errors?.required">
+                         <h3>Username is required!</h3>
+                    </div>                              
+                        </div>
+                        <div class="form-group label-floating width278" [ngClass]="authenticationError"  >
+                          <label class="ml-n1 control-label text-white" for="login">*Password</label>
+                          <input type="password" class="form-control input-group input" name="password" [(ngModel)]="form.password" required
+          #password="ngModel" minlength="4" style="height:1.8em; "/>
+         <div class="bg-danger text-white msgerror" role="alert" *ngIf="f.submitted && password.errors?.required">
+              <h3>Password is required</h3>              
+          </div>  
+          <div class="bg-danger text-white msgerror290" role="alert" *ngIf="f.submitted && password.errors?.minlength">
+              <h3>Password must be at least 6 characters</h3>
+          </div> 
+                        </div>
+                        <!-- <div class="form-group label-floating" [ngClass]="authenticationError">
+                            <label class="ml-n1 control-label text-white" for="password">*Password</label>
+                            <input type="password" class="form-control input-group" name="password" [(ngModel)]="form.password" required
+            minlength="4" #password="ngModel" style="height:1.8em"/>
+                           
+                        </div> -->
+                       </div>
+                       
+                        <div class="form-group label-floating" [ngClass]="authenticationError" style="padding-top: 1.5em; margin-left: 0em; " >
+                            <label>
+                                <input type="checkbox" ng-model="rememberMe"/><span class="text-white"> Remember me</span>
+                            </label>
+                        </div>
+
+                        <br/>
+                        
+                        <!-- <div class="col-sm-offset-3 col-sm-6" style="display: inline"> -->
+                         <div class="form-group label-floating width340">
+                            <button type="submit" style="margin-left: 5em; width: 98px; height: 26px;" class="myButton">Login</button>
+                             &nbsp;&nbsp;&nbsp;&nbsp;<button [routerLink]="'/welcome'" class="myButton"  style="width: 98px; height: 26px;">Cancel</button>
+                         </div>
+                        <br/>
+                     <div class="form-group label-floating width488" style="text-align: center; margin-left: -2em;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                       <button (click)="forgetname()" class="myButton" style="width: 140px; height: 26px;">Forget Username</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                       <button (click)="forgetpassword()" class="myButton" style="width: 140px; height: 26px;">Forget Password</button> 
+                     </div>
+                     <div  role="alert" *ngIf="f.submitted && isLoginFailed" class="form-group" style="margin-top: 1em;
+                      text-align: left; padding-left: 2em;">
+                        <span  class="help-block" style="color: red; ">
+                           {{errorMessage}} &nbsp;&nbsp;
+                        </span>
+                                                  
+                        <br/> 
+                        <span *ngIf="f.submitted && isLoginFailed" class="help-block" style="color: red;margin-left: 0px;">
+                            Please check your credentials and try again.
+                        </span>
+                    </div> 
+                    </form>
+                 </div>
+            
+            </div>
+
+        </div>
+    </div>
+</div>

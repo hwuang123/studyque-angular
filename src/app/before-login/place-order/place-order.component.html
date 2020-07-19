@@ -1,0 +1,540 @@
+<div class="container1"  style="width:1590px; margin-left: -14em; text-align: left; color: white;">
+    <h3>&nbsp;&nbsp;&nbsp;&nbsp;Order Options: </h3>
+    <form class="well-body" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="layoutrow">
+            <div class="column-left200">   
+                <fieldset class="fieldset">
+                 <legend class="legend"><h5>Select a Term</h5></legend>
+
+                 <div  *ngFor="let term of terms" style="display: block; text-align: left;">
+                   <label style="padding-left: 1em;">
+                     <input type="radio" [(ngModel)]="userProfile.orderTerm" [(value)]="term.term" name="orderTerm" 
+                     [checked]="term.term == userProfile.orderTerm? true: false" #orderTerm="ngModel"/>&nbsp;&nbsp;<span class="text-white">{{term.label}}</span>
+                   </label>
+                 </div>
+            
+                
+                </fieldset>
+            </div>
+           <div [hidden]="userProfile.orderTerm == ''">
+           <div class="column-left">
+              <div style="width: 634px;">
+              <fieldset class="form-group fieldset" style="margin-left:2px;">  
+             
+                <legend class="legend" style="white-space:nowrap; width:30%; height: 32px;"><h5>User Account</h5></legend>
+                 <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+                     <div class="form-group align-left200 required control-label">
+                       <label for="firstname" class="labellow col-form-label required">Student First Name</label>
+                       <input type="input" [ngClass]="{'border-red': f.submitted && firstname.errors?.required}"
+                              class="form-control form-control-sm input" id="firstname" name="firstname" 
+                              required placeholder="First Name" [(ngModel)]="userProfile.studentBean.firstName"  #firstname="ngModel" >
+                     </div>
+                     <div class="form-group col-xs-9 align-left200">
+                       <label for="middlename" class="labellow col-form-label">Student Middle Name</label>
+                       <input type="input" class="form-control form-control-sm input"
+                        id="middlename" placeholder="Middle Name" name="middlename"
+                         [(ngModel)]="userProfile.studentBean.middleName" #middlename="ngModel">
+                     </div>
+                    <div class="form-group col-xs-9 align-left200 required control-label">
+                       <label for="lastname" class="labellow col-form-label required">Student Last Name</label>
+                       <input type="input" [ngClass]="{'border-red': f.submitted && lastname.errors?.required}"
+                        class="form-control form-control-sm input" id="lastname" name="lastname" 
+                        required placeholder="Last Name" 
+                        [(ngModel)]="userProfile.studentBean.lastName" #lastname="ngModel" >
+                     </div>
+                  </div>
+            
+                <br/>
+                  <div class="form-row error-message">
+                    <span *ngIf="f.submitted && firstname.errors?.required"><font color="red">First Name is a required field</font></span>
+                    <span style="width:228px;">&nbsp;</span>
+                    <span style="margin-right: 30px; float: right;" *ngIf="f.submitted && lastname.errors?.required"><font color="red">Last Name is a required field</font></span>
+                  </div>
+              
+              <div class="form-row" style="width:620px; margin-left:1em;">                    
+               <div class="form-group col-xs-9 float-left230 form-inline" >
+                 <label class="control-label" style="margin-bottom: 0px;">Title :&nbsp;</label>
+                 <div *ngFor="let title of titleOptions" style="width: 34px; text-align: left !important;
+                 margin-left: -2px;"> 
+                  <label class="radio inline">
+                     <input type="radio" [checked]="title.value == userProfile.studentBean.title? true: false"
+                      name="title" [value]="title.value" 
+                      [(ngModel)]="userProfile.studentBean.title" #title="ngModel"/>{{ title.label }}
+                  </label>
+                 </div>
+                </div>
+                
+                <div class="form-group col-xs-9  float-left230 required control-label" style="padding-top: 12px;">
+                 <label class="control-label">Gender :&nbsp;</label>
+                 
+                 <div *ngFor="let gender of genderOptions" style="display: inline;"> 
+                  <label class="radio inline">
+                     <input type="radio"  [checked]="gender.value == userProfile.studentBean.gender? true: false"
+                     (change)="clickGender(gender.value)"
+                      name="gender" id="gender" [value]="gender.value"
+                       [(ngModel)]="userProfile.studentBean.gender" required #gender="ngModel"/>{{ gender.label }}&nbsp;&nbsp;
+                  </label>
+                 </div>
+                </div>
+                 
+                <div class="form-group col-xs-9  required control-label float-left130" >
+                  <label for="age" class="labellow col-form-label required">Student Age</label>
+                  <input type="input" [ngClass]="{'border-red': f.submitted && age.errors?.required}" 
+                   class="form-control form-control-sm input"
+                    style="width: 130px;" id="age" name="age" 
+                    required placeholder="Age" [(ngModel)]="userProfile.studentBean.age" #age="ngModel">
+                </div>      
+     
+
+            </div>
+           <div class="form-row error-message14">
+              <span style="padding-left: 235px; float: left; width: 462px; ">
+               <font  *ngIf="f.submitted && userProfile.studentBean.gender == ''" color="red">Gender is a required field</font>
+             </span>
+             <span style="width: 138px; float: left;">
+               <font *ngIf="f.submitted && age.errors?.required" color="red">Age is a required field</font>
+             </span>         
+           </div> 
+         
+          <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+              <div class="form-group col-xs-9 float-left" style="width: 30%;">
+                <label for="major" class="labellow col-form-label required" style="width: 608px;">Student Major<span style="margin-right: 30px; float: right;" *ngIf="f.submitted && major.errors?.required"><font color="red">student major is a required field</font></span></label>
+                <input type="input"  [ngClass]="{'border-red': f.submitted && major.errors?.required}" 
+                class="form-control form-control-sm input" style="width: 590px;"
+                 id="major" name="major" required placeholder="Student Major"
+                  [(ngModel)]="userProfile.studentBean.major" #major="ngModel">
+              </div>
+            </div>
+            <br/>
+            
+            <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+              <div class="form-group col-xs-9 required control-label align-left200">
+                <label for="username" class="labellow col-form-label required">User Name</label>
+                <input type="input" [ngClass]="{'border-red': f.submitted && username.errors?.required}"
+                 class="form-control form-control-sm input" id="username" name="username"
+                  required placeholder="User Name" [(ngModel)]="userProfile.userName" #username="ngModel" >
+              </div>
+              <div class="form-group col-xs-9 required control-label align-left200" >
+                <label for="middlename" class="labellow col-form-label  required">Password</label>
+              
+                   <input type="password"  class="form-control form-control-sm input"  name="password" [(ngModel)]="userProfile.password" 
+                    [ngClass]="{'border-red': (f.submitted && password.errors?.required) || password.invalid }"
+                    placeholder="Password" required #password="ngModel">   
+              </div>
+             <div class="form-group col-xs-9 required control-label align-left200" >
+                <label for="confirmpassword" class="labellow col-form-label required">Confirm Password</label>
+                <input type="password" 
+                  [ngClass]="{'border-red': (f.submitted && confirmpassword.errors?.required) }"
+                   class="form-control form-control-sm input" id="confirmpassword" name="confirmpassword" 
+                   required validateEqual="password" placeholder="Confirm Password" 
+                   [(ngModel)]="userProfile.confirmPassword" #confirmpassword="ngModel">
+              </div>
+             </div>
+             <div class="form-row error-message14">
+                     <span style="padding-left: 4px; float: left; width: 206px; ">
+                      <font  *ngIf="f.submitted && username.errors?.required" color="red">User Name is a required field</font>
+                    </span>
+                    <span style="width: 200px; float: left;">
+                      <font [hidden]="password.valid || (password.pristine && !f.submitted)" color="red">Password is required</font>
+                    </span>  
+                    <span style="float: right;">
+                      <font [hidden]="confirmpassword.valid || (confirmpassword.pristine && !f.submitted)" color="red">Password do not match</font>
+                    </span>  
+             </div>
+               <br/>            
+            </fieldset>
+         
+            
+          <fieldset class="form-group fieldset" style="margin-left:2px;">  
+            
+            <legend class="legend" style="white-space:nowrap; width:32%; height: 32px;"><h5>Contact Information</h5></legend>
+            
+           <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+              <div class="form-group col-xs-9 required control-label align-left310">
+                <label for="email" class="labellow col-form-label required">Email Address</label>
+                <input type="input"  class="form-control form-control-sm align-left280 input" 
+                [ngClass]="{'border-red': f.submitted && (email.errors?.required|| email.errors?.pattern)}"
+                 id="email" name="email"  [pattern]="emailPattern" 
+                  required placeholder="Email" [(ngModel)]="userProfile.studentBean.email" #email="ngModel" >              
+              </div>
+              <div class="form-group col-xs-9 required control-label align-left300">
+                <label for="confirmemail" class="labellow col-form-label required">Confirm Email Address</label>
+                <input type="input" class="form-control form-control-sm align-left280 input" 
+                 [ngClass]="{'border-red': f.submitted && (confirmemail.errors?.required||confirmemail.errors?.pattern)}" 
+                  id="confirmemail" name="confirmemail" validateEqual="email" [pattern]="emailPattern"  
+                  required placeholder="Confrim Email" [(ngModel)]="userProfile.studentBean.confirmEmail" #confirmemail="ngModel">
+              </div>
+             <div class="error-message14">
+               <div style="width: 310px;">
+                <span style="margin-left: -10px; float: left; " *ngIf="email.errors?.required && f.submitted">
+                       <font color="red">Email is a required field</font></span>
+                <span style="margin-left: -10px; float: left; width: 310px;" [hidden]="email.valid || (email.pristine && !f.submitted) || email.errors?.required">
+                       <font color="red">Invalid Email Pattern</font></span>               
+               </div>
+                                  
+               <span style="width: 300px; float: right;"  *ngIf="f.submitted && confirmemail.errors?.required">
+                  <font color="red">Confirm Email is required</font>
+                </span>
+                <span style="width: 300px; float: right;" [hidden]="confirmemail.valid || (confirmemail.pristine && !f.submitted) || confirmemail.errors?.required">
+                  <font color="red">Email addresses don't match.</font>
+                </span>
+              </div>
+            
+             </div>
+             
+              <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+                <div class="form-group col-xs-9 required control-label align-left310">
+                  <label for="homephone" class="labellow col-form-label required">Home Phone</label>
+                  <input type="input"  class="form-control form-control-sm input align-left280 " [pattern]="phonePattern" 
+                   [ngClass]="{'border-red': f.submitted && (homephone.errors?.required||homephone.errors?.pattern)}"
+                    id="homephone" name="homephone" required placeholder="Home Phone" 
+                    [(ngModel)]="userProfile.studentBean.homePhone" #homephone="ngModel">
+                </div>
+                <div class="form-group col-xs-9 control-label align-left310">
+                  <label for="cellphone" class="labellow col-form-label">Cell Phone</label>
+                  <input type="input" class="form-control form-control-sm input align-left280" 
+                  id="cellphone" name="cellphone" placeholder="Cell Phone" 
+                  [(ngModel)]="userProfile.studentBean.cellPhone" #cellphone="ngModel">
+                </div>  
+              </div>
+              <div class="form-row error-message14"> 
+                <span style="margin-left: 4px; float: left;" *ngIf="f.submitted && homephone.errors?.required"><font color="red">Home Phone is a required field</font></span>
+                <span style="margin-left: 4x; float: left;"  [hidden]="homephone.valid || (homephone.pristine && !f.submitted) || f.submitted && homephone.errors?.required"><font color="red">Invalid Phone Pattern</font></span>
+              </div>
+
+              <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+                <div class="form-group col-xs-9 required control-label align-left30per">
+                  <label for="address" class="labellow col-form-label required">Address</label>
+                  <input type="input" 
+                   [ngClass]="{'border-red': f.submitted && address.errors?.required}" 
+                    class="form-control form-control-sm input" style="width: 590px;" id="address" name="address" 
+                    required placeholder="Address" [(ngModel)]="userProfile.studentBean.address"  #address="ngModel">
+                </div>
+              </div>
+               <div class="error-message14">
+                 <span style="margin-left: 4px; float: left;" *ngIf="f.submitted && address.errors?.required"><font color="red">Address is a required field</font></span>
+               </div>
+           
+              <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+                <div class="form-group col-xs-9 required control-label align-left200">
+                  <label for="city" class="labellow col-form-label required">City</label>
+                  <input type="input" [ngClass]="{'border-red': f.submitted && city.errors?.required}" 
+                   class="form-control form-control-sm input" id="city" name="city" required 
+                   placeholder="City" [(ngModel)]="userProfile.studentBean.city" #city="ngModel">
+                </div>
+                <div class="form-group col-xs-9 required control-label align-left200">
+                  <label for="middlename" class="labellow col-form-label  required">State
+                  
+                  </label>
+                  <br/>
+                  <select [ngClass]="{'border-red': f.submitted && state.errors?.required}" 
+                   id="state" name="state" class="ng-prinstine ng-valid ng-touched input"
+                   [(ngModel)]="userProfile.studentBean.state" required #state="ngModel">
+                   <option *ngFor="let opt of stateOptions" [ngValue]="opt.value"
+                    [selected]="opt.value == userProfile.studentBean.state">{{opt.label}}</option>
+                  </select>
+                 </div>
+                <div class="form-group col-xs-9 required control-label align-left200">
+                  <label for="zip" class="labellow col-form-label required">Zip Code</label>
+                  <input type="input" [ngClass]="{'border-red': f.submitted && zip.errors?.required}" 
+                   class="form-control form-control-sm input" id="zip" name="zip" required 
+                   placeholder="Zip Code" [(ngModel)]="userProfile.studentBean.zip" #zip="ngModel">
+                </div>
+              </div>
+              <div class="form-row error-message14">
+                 <span style="margin-left: 4px; float: left; width: 196px;">
+                   <font *ngIf="f.submitted && city.errors?.required" color="red">City is a required field</font></span>
+                 <span style="margin-left: 4px; float: left; width: 196px;">
+                    <font  *ngIf="f.submitted && state.errors?.required" color="red">State is required</font></span>
+                 <span style="margin-left: 4px; float: left; width: 196px;">
+                      <font  *ngIf="f.submitted && zip.errors?.required" color="red">Zip Code is required</font></span>     
+              </div>
+              
+               <br/>
+           </fieldset> 
+          
+                </div>
+             </div>
+
+         <div class="column-left">
+           <div ng-hide="userProfile.orderTerm === ''" style="width:594px;">
+
+            <fieldset class="form-group fieldset" style="margin-left:2px;">  
+             <legend class="legend" style="white-space:nowrap; width:32%; height: 32px;"><h5>School Information</h5></legend>
+         
+             <div class="form-row" style="width:560px; margin-left:1em; height: 72px;">
+              <div class="form-group col-xs-9 required control-label align-left340">
+                <label for="schoolname" class="labellow col-form-label required">School Name</label>
+                <input type="input" style="width: 340px;"  
+                 [ngClass]="{'border-red': f.submitted && schoolname.errors?.required}"
+                  class="form-control form-control-sm input" id="schoolname" name="schoolname" required 
+                  placeholder="School Name" [(ngModel)]="userProfile.schoolBean.schoolName" #schoolname="ngModel">
+              </div>
+          
+              <div class="form-group col-xs-9 required control-label align-left200" style="margin-left: 15px;">
+                <label for="schoolType" class="labellow col-form-label required">School Type</label>
+                <select class="ng-prinstine ng-valid ng-touched input" 
+                 [ngClass]="{'border-red': f.submitted && schoolType.errors?.required}" 
+                  id="schoolType" name="schoolType" required 
+                  [(ngModel)]="userProfile.schoolBean.schoolType" #schoolType="ngModel">
+                  <option [ngValue]="schoolType.value" [selected]="schoolType.value == userProfile.schoolBean.schoolType" 
+                   *ngFor="let schoolType of schoolTypeOptions" >{{schoolType.label}}</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-row error-message14">
+              <span style="margin-left: 4px; float: left; width: 352px;">
+                <font *ngIf="f.submitted && schoolname.errors?.required" color="red">School Name is required</font></span>
+              <span style="margin-left: 4px; float: left; width: 196px;">
+                 <font  *ngIf="f.submitted && schoolType.errors?.required" color="red">School Type is required</font></span>  
+            </div>
+            <br/>
+             
+          
+            <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+              <div class="form-group col-xs-9 required control-label align-left254">
+                <label for="schoolcity" class="labellow col-form-label required">School City</label>
+                <input type="input" style="width: 240px;" 
+                 [ngClass]="{'border-red': f.submitted && schoolcity.errors?.required}" 
+                 class="form-control form-control-sm input" id="schoolcity" name="schoolcity" 
+                 required placeholder="School City" [(ngModel)]="userProfile.schoolBean.city" #schoolcity="ngModel" >
+              </div>
+              <div class="form-group col-xs-9 required control-label align-left172" style="width: 172px;">
+                <label for="middlename" class="labellow col-form-label  required">School State</label>
+                <select ng-class="{'border-red': f.submitted && state.errors?.required}" 
+                   id="schoolstate" name="schoolstate" class="ng-prinstine ng-valid ng-touched input"
+                   [(ngModel)]="userProfile.schoolBean.state" required 
+                   style="width: 160px;"  #schoolstate="ngModel">
+                    <option *ngFor="let opt of stateOptions" [ngValue]="opt.value"
+                    [selected]="opt.value == userProfile.schoolBean.state">{{opt.label}}</option>
+                  </select>
+              </div>
+              <div class="form-group col-xs-9 required control-label align-left150">
+                <label for="schoolzip" class="labellow col-form-label required">School Zip Code</label>
+                <input type="input" style="width: 120px;" 
+                 [ngClass]="{'border-red': f.submitted && schoolzip.errors?.required}" 
+                 id="schoolzip" name="schoolzip" required class="form-control form-control-sm input" 
+                 required placeholder="School Zip Code" [(ngModel)]="userProfile.schoolBean.zip" #schoolzip="ngModel">
+              </div>
+            </div>
+            <div class="form-row error-message14">
+              <span style="margin-left: 4px; float: left; width: 252px;">
+                 <font *ngIf="f.submitted && schoolcity.errors?.required" color="red">School City is a required field</font></span>
+              <span style="margin-left: 4px; float: left; width: 168px;">
+                 <font *ngIf="f.submitted && schoolstate.errors?.required" color="red">School State is required</font></span>  
+              <span style="margin-left: 4px; float: left; width: 150px;">
+                 <font *ngIf="f.submitted && schoolzip.errors?.required" color="red">School Zip is required</font></span>     
+            </div>
+            <br/>
+
+            </fieldset>
+           <br/>
+
+          <fieldset class="form-group fieldset" style="margin-left:2px;">  
+            <legend class="legend" style="white-space:nowrap; width:35%; height: 32px;"><h5>Guardian Information</h5></legend>
+          <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+              <div class="form-group col-xs-9 required control-label align-left192">
+                <label for="guardianfirstname" class="labellow col-form-label required">Guardian First Name</label>
+                <input type="input" 
+                 [ngClass]="{'border-red': f.submitted && guardianfirstname.errors?.required}" 
+                 class="form-control form-control-sm input" id="guardianfirstname" 
+                 name="guardianfirstname" required placeholder="First Name"
+                  [(ngModel)]="userProfile.guardianBean.firstName" #guardianfirstname="ngModel">
+              </div>
+           <div class="form-group col-xs-9 align-left184">
+                <label for="guardianmiddlename" class="labellow col-form-label">Guardian Middle Name</label>
+                <input type="input" class="form-control form-control-sm input"
+                 id="guardianmiddlename" name="guardianmiddlename" placeholder="Middle Name" 
+                 [(ngModel)]="userProfile.guardianBean.middleName" #guardianmiddlename="ngModel">
+              </div>
+             <div class="form-group col-xs-9  required control-label align-left178">
+                <label for="guardianlastname" class="labellow col-form-label required">Guardian Last Name</label>
+                <input type="input" [ngClass]="{'border-red': f.submitted && guardianlastname.errors?.required}" 
+                 class="form-control form-control-sm input" id="guardianlastname" name="guardianlastname" 
+                 required placeholder="Last Name" [(ngModel)]="userProfile.guardianBean.lastName" #guardianlastname="ngModel">
+              </div>
+              
+              <div class="form-row error-message14">
+                <span style="margin-left: -10px; float: left; width: 346px;">
+                   <font *ngIf="f.submitted && guardianfirstname.errors?.required" color="red">Guardian First Name is required</font></span>
+                <span style="margin-left: 4px; float: left; width: 196px;">
+                   <font *ngIf="f.submitted && guardianlastname.errors?.required" color="red">Guardian Last Name is required</font></span>  
+                
+              </div>
+          </div>
+
+          
+          <div class="form-row" style="width:620px; margin-left:1em;">
+                
+                <div class="form-group col-xs-9 float-left210 required control-label" style="padding-top: 24px;" >
+                 <label class="control-label" style="padding-top: 8px;">Gender :&nbsp;&nbsp;</label>
+                 <div *ngFor="let gender of genderOptions" style="display: inline;"> 
+                   <label class="radio inline">
+                     <input type="radio" [checked]="gender.value == userProfile.guardianBean.gender? true: false"
+                     (change)="clickGuardianGender(gender.value)"
+                      name="guardiangender" [value]="gender.value" 
+                      [(ngModel)]="userProfile.guardianBean.gender" #guardiangender="ngModel"/>{{ gender.label }}&nbsp;&nbsp;
+                   </label>
+                 </div>
+                </div>
+                 
+                <div class="form-group col-xs-9 float-left254 required control-label">
+                  <label for="guardianage" class="labellow col-form-label required">Guardian Age</label>
+                  <input type="input" id="guardianage" name="guardianage" style="width: 162px;"
+                   [ngClass]="{'border-red': f.submitted && guardianage.errors?.required}"
+                    class="form-control form-control-sm input" 
+                    required placeholder="Age" [(ngModel)]="userProfile.guardianBean.age" #guardianage="ngModel">
+                </div>      
+        
+                <div class="form-group col-xs-9 float-left178 required control-label" style="width: 178px;">
+                  <label for="relationship" class="labellow col-form-label required">Relationship With Student</label>
+                  <select class="ng-prinstine ng-valid ng-touched input" required
+                   [ngClass]="{'border-red': f.submitted && relationship.errors?.required}"  id="relationship"
+                    name="relationship" [(ngModel)]="userProfile.guardianBean.relationship"
+                    #relationship="ngModel">
+                    <option *ngFor="let opt of relationOptions" [ngValue]="opt.value"
+                    [selected]="opt.value == userProfile.guardianBean.relationship" >{{opt.label}}</option>
+                  </select>
+                </div>
+                  
+            </div> 
+
+            <div class="form-row error-message14">
+              <span style="margin-left: 5px; float: left; width: 180px;">
+                 <font *ngIf="f.submitted && userProfile.guardianBean.gender == ''" color="red">Guardian gender is required</font></span>
+              <span style="margin-left: 4px; float: left; width: 168px;">
+                 <font *ngIf="f.submitted && guardianage.errors?.required" color="red">Guardian Age is required</font></span>  
+              <span style="margin-left: 4px; float: left; width: 196px;">
+                 <font *ngIf="f.submitted && relationship.errors?.required" color="red">Relationship is required</font></span>  
+            </div>
+
+       
+            <div class="form-row" style="width:620px; margin-left:1em;">
+             <div class="form-inline">
+                
+                <div class="form-group col-xs-9" style="color: white; width: 580px; float: left; margin-top: 0px;">
+                 <label class="control-label" style="margin-bottom: 0px !important;"> Is the address of guardian same as the address of student ?&nbsp;&nbsp;</label>
+
+                 <div *ngFor="let yesorno of yesOrNoOptions" style="display: inline;"> 
+                  <label class="radio inline" >
+                     <input type="radio" name="yesorno" [value]="yesorno.value" (change)="clickSameAddress(yesorno.value)"
+                      [checked]="yesorno.value == userProfile.guardianBean.addressSameAsStudent? true: false"
+                      [(ngModel)]="userProfile.guardianBean.addressSameAsStudent" #yesorno="ngModel" />{{ yesorno.label }}&nbsp;&nbsp;
+                  </label>
+                 </div>
+
+                </div>
+             </div>
+            </div>
+          <br/>
+
+          <div  [hidden]="userProfile.guardianBean.addressSameAsStudent == 'Y'" >
+            <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+              <div class="form-group col-xs-9 float-left222 required control-label">
+                <label for="guardiancity" class="labellow col-form-label required">Guardian City</label>
+                <input type="input"
+                 [required]="userProfile.guardianBean.addressSameAsStudent==='N'" 
+                 style="width: 208px;"  id="guardiancity" name="guardiancity"
+                 [ngClass]="{'border-red': f.submitted && guardiancity.errors?.required}" 
+                 class="form-control form-control-sm input" placeholder="Guardian City" 
+                 [(ngModel)]="userProfile.guardianBean.city" #guardiancity="ngModel">
+              </div>
+             <div class="form-group col-xs-9 required control-label align-left200">
+                <label for="guardianstate" class="labellow col-form-label required">Guardian State</label>
+                <select class="ng-prinstine ng-valid ng-touched input"
+                 [required]="userProfile.guardianBean.addressSameAsStudent==='N'" 
+                 [ngClass]="{'border-red': f.submitted && guardianstate.errors?.required}"
+                  id="guardianstate" name="guardianstate" [(ngModel)]="userProfile.guardianBean.state" 
+                   #guardianstate="ngModel">
+                  <option *ngFor="let opt of stateOptions" [ngValue]="opt.value" [selected]="opt.value == userProfile.guardianBean.state" >{{opt.label}}</option>
+                </select> 
+  
+               </div>
+             <div class="form-group col-xs-99 float-left150 required control-label">
+                <label for="guardianzip" class="labellow col-form-label required">Guardian Zip Code</label>
+                <input type="input" style="width: 138px;" 
+                 [required]="userProfile.guardianBean.addressSameAsStudent==='N'" 
+                 [ngClass]="{'border-red': f.submitted && guardianzip.errors?.required}"
+                 class="form-control form-control-sm input" id="guardianzip" name="guardianzip" 
+                 placeholder="Guardian Zip Code" [(ngModel)]="userProfile.guardianBean.zip" #guardianzip="ngModel">
+              </div>
+            </div>
+            
+            <div class="form-row error-message14">
+              <span style="padding-left: 4px; float: left; width: 224px; ">
+               <font  *ngIf="f.submitted && guardiancity.errors?.required" color="red">Guardian City is a required field</font>
+             </span>
+             <span style="width: 200px; float: left;">
+               <font *ngIf="f.submitted && guardianstate.errors?.required" color="red">Guardian State is required</font>
+             </span>  
+             <span style="float: right;">
+               <font *ngIf="f.submitted && guardianzip.errors?.required" color="red">Guardian Zip is required</font>
+             </span>  
+            </div>
+
+            <!-- <div>
+               <span style="margin-left: 20px; float: left;" *ngIf="f.submitted && guardiancity.errors?.required"><font color="red">Guardian City is a required field</font></span>
+            </div>
+             
+             <div class="help-block" ng-messages="guardianzip.errors" style="float: right; margin-right: 48px;"
+                       *ngIf="f.submitted && guardianzip.errors?.required">
+                      <div ng-messages="myPwdInvalid"><font color="red">Guardian Zip is required</font></div>
+             </div>
+           -->
+            <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
+              <div class="form-group col-xs-9 align-left60per  required control-label">
+                <label for="guardianaddress" class="labellow col-form-label required">Address</label>
+                <input type="input" class="form-control form-control-sm input" 
+                 [required]="userProfile.guardianBean.addressSameAsStudent==='N'"
+                 [ngClass]="{'border-red': f.submitted && guardianaddress.errors?.required}" 
+                 style="width: 556px;" id="guardianaddress" name="guardianaddress" placeholder="Guardian Address"
+                 [(ngModel)]="userProfile.guardianBean.address" #guardianaddress="ngModel" >
+              </div>
+            </div>
+            <div class="form-row error-message14">
+              <span style="padding-left: 4px; float: left; width: 246px; ">
+               <font  *ngIf="f.submitted && guardianaddress.errors?.required" color="red">Guardian Address is a required field</font>
+             </span>             
+            </div>
+
+           </div> 
+            <br/>
+            </fieldset> 
+            <br/>
+            <center>
+              <div class="" style="display: inline; padding-top: 3.5em; ">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                   <button   [routerLink]="'/welcome'" class="myButton">Cancel</button>&nbsp;&nbsp;
+                   <button type="submit" class="myButton" >Buy Now</button> 
+                    
+              </div>
+              <br/>
+              <div style="display: block; padding-top:1em;">
+                  <font color="red"><span id="errorMessage"></span></font>
+              </div>
+              <br/>
+              <div tyle="display: block;  padding-top:1em;">
+                  <font color="green"><span id="message"></span></font>
+              </div>
+              <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
+                {{errorMessage}}
+              </span>
+              <span [hidden]="hideMessage" class="help-block" style="color: rgb(196, 238, 186); margin-top: -28px;">
+                <strong>{{message}}</strong>
+              </span>
+              <br/>
+              <br/>
+              <span [hidden]="hideMessage" class="alert alert-success">
+                
+                <strong>Registration Success!&nbsp;&nbsp;</strong> <a [routerLink]="'/login'">Please click here to login!</a>
+              </span>
+            </center>
+           
+           </div>
+          </div><!-- orderTerm -->
+         </div><!--<div class="layoutrow">-->
+                  
+        </div>
+    </form> 
+</div>

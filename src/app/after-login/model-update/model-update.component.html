@@ -1,0 +1,79 @@
+
+<div class="modal-header" >
+    <h5 class="modal-title">Update Employee</h5>
+    <button type="button" class="close" data-dismiss="modal" (click)="activeModal.close('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
+   <!-- <div class="overlay" *ngIf="IsWait">  -->
+   <div class="modal-body" >
+    <div [hidden]="submitted" style="width: 100%">
+        <!-- <form #employeeForm="ngForm" (ngSubmit)="onSubmit()"> -->
+        <!-- <form [formGroup]="employeeForm"  (ngSubmit)="onSubmit()">   -->
+          <div class="form-group">
+            <label for="name">First Name</label>
+            <input type="text" class="form-control" id="firstName" #firstName="ngModel" required minlength="3" [(ngModel)]="employee.firstName" name="firstName">
+            <!-- <input type="text" class="form-control" id="firstName" formControlName="firstName" required> -->
+            <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                <div *ngIf="firstName.errors.required">First Name is required.</div>      
+                <div *ngIf="firstName.errors.minlength">First Name is minimum {{ firstName.errors.minlength.requiredLength }} character.</div>      
+                <div *ngIf="firstName.errors.maxlength">First Name is maximum 10 character.</div>      
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="name">Last Name</label>
+            <input type="text" class="form-control" id="lastName" #lastName="ngModel" required [(ngModel)]="employee.lastName" name="lastName">
+            <div class="alert alert-danger" *ngIf="lastName.touched && !lastName.valid">
+                Last Name is required.      
+            </div>
+        </div>
+      
+          <div class="form-group">
+            <label for="name">Email ID</label>
+            <input type="text" class="form-control" id="emailId" #emailId="ngModel" required [(ngModel)]="employee.emailId" name="emailId">
+            <div class="alert alert-danger" *ngIf="emailId.touched && !emailId.valid">
+                Email ID is required.      
+            </div>
+        </div>
+      
+          <!-- <button type="submit" class="btn btn-success">Submit</button> -->
+        <!-- </form> -->
+      </div>
+      <div [hidden]="hideSucceed" class="alert alert-success alert-dismissible fade show">
+        <strong>Success!</strong> employee record has been updated successfully.
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      <div [hidden]="hideError" class="alert alert-danger alert-dismissible fade show" >
+        <strong>Failed!</strong> {{errorMessage}}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="activeModal.close('Close click')">Cancel</button>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()" [disabled]="!employeeForm.form.valid">Save changes</button>
+  </div>
+  
+  <div class="center" *ngIf="IsWait">
+    <mat-progress-spinner diameter=50 
+      overlay=true
+      mode="indeterminate"
+      color="accent">
+    </mat-progress-spinner>
+  </div>
+  <!-- <mat-spinner></mat-spinner> -->
+  <!-- <div class="overlay" *ngif="IsWait" > -->
+    <!-- <div class="center" *ngIf="IsWait"> -->
+    <div class="center">  
+        <!-- <mat-progress-spinner diameter=50 
+                          overlay=true
+	                      mode="indeterminate"
+						  color="accent">
+        </mat-progress-spinner>  -->
+        <app-spinner></app-spinner>
+    </div>
+  <!-- </div> -->
+  <!-- </div> -->
+</form>

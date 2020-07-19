@@ -1,0 +1,95 @@
+<br/>
+<div class="row">
+  <div class="col-1 "></div>
+  <div class="col-2 pb-1 ml-4">
+      <span class="text-white">Page Size:</span>
+      <select (change)="onPageSizeChanged()" id="page-size">
+      <!-- <select class='test-header' [ngModel]="getPaginationPageSize()" (ngModelChange)="setPaginationPageSize($event)"  id="page-size"> -->
+        <option *ngFor="let size of pageSizeList"
+        [selected]="size == selectedPageSize"
+        [value]="size">
+            {{ size }}
+        </option>
+      </select>
+  </div> 
+
+<!-- <div class="col-3 pb-1 ml-n8">
+    Sort By:
+    <select (change)="onSortByChanged()" id="sort-by">
+     <option *ngFor="let item of sortByList"
+      [selected]="item.value == sortItem"
+      [value]="item.value">
+          {{ item.text }}
+      </option>
+    </select>
+</div>  -->
+</div>
+<div>
+    <!-- <div class="test-header">
+      Page Size:
+      <select (change)="onPageSizeChanged()" id="page-size">
+        <option value="10" selected="">10</option>
+        <option value="100">100</option>
+        <option value="500">500</option>
+        <option value="1000">1000</option>
+      </select>
+    </div> -->
+<!--   </div>  
+<div class="text-center"> -->
+   <!--  <ag-grid-angular
+    #agGrid
+    style="width: 820px; height: 656px; margin: auto"  
+    class="ag-theme-blue"
+    id="myGrid"
+    [modules]="modules"
+    [columnDefs]="columnDefs"
+    [autoGroupColumnDef]="autoGroupColumnDef"
+    [defaultColDef]="defaultColDef"
+    [suppressRowClickSelection]="true"
+    [groupSelectsChildren]="true"
+    [debug]="true"
+    [rowSelection]="rowSelection"
+    [rowGroupPanelShow]="rowGroupPanelShow"
+    [pivotPanelShow]="pivotPanelShow"
+    [enableRangeSelection]="true"
+    [pagination]="true"
+    [paginationPageSize]="paginationPageSize"
+    [paginationNumberFormatter]="paginationNumberFormatter"
+    [rowData]="rowData"
+    (gridReady)="onGridReady($event)"
+    (sortChanged)="mySortChangeEvent($event)" 
+  ></ag-grid-angular> -->
+
+  <ag-grid-angular 
+  #agGrid
+  style="width: 820px; height: 656px; margin: auto"  
+  id="myGrid"
+  (gridReady)="onGridReady($event)"
+  (sortChanged)="mySortChangeEvent($event)" 
+  class="ag-theme-blue"
+  [gridOptions]="gridOptions" 
+  [rowSelection]="rowSelection"
+  [rowHeight]="rowHeight$ | async"   
+  [columnDefs]="columnDefs"
+  [AutoHeight] = "true"
+  [pagination]="isPaginnation"
+  [modules]="modules"
+  [frameworkComponents]="frameworkComponents">
+</ag-grid-angular>  
+<!-- <ag-grid-angular
+style="width: 820px; height: 656px; margin: auto"  
+    class="ag-theme-blue"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)"
+    (sortChanged)="mySortChangeEvent($event)"
+    >
+</ag-grid-angular> -->
+</div>
+<div class="center" *ngIf="IsWait">
+  <mat-progress-spinner diameter=50 
+    overlay=true
+    mode="indeterminate"
+    color="accent">
+  </mat-progress-spinner>
+</div>

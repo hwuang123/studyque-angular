@@ -1,0 +1,16 @@
+<div mat-dialog-content  cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+    <h4>{{message}}</h4>
+   </div>
+   
+ <div class="d-flex justify-content-between">
+    <div mat-dialog-actions class="col-sm-12 text-center">
+      <button class="btn btn-secondary btn-md" (click)="onNoClick()" >No</button>
+      <button class="btn btn-primary btn-md ml-2"  [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+    </div>
+</div>
+   <!-- <div mat-dialog-actions class="btn-toolbar">
+    <button type="button" (click)="onNoClick()" class="btn btn-secondary">No</button>   
+    <button type="button" class="btn btn-primary "  [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+    
+   
+   </div> -->

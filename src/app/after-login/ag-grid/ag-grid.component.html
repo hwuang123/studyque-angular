@@ -1,0 +1,79 @@
+<div style="text-align:center">
+
+    <h1>  
+      Welcome to {{ title }}!  
+    </h1>
+  
+  </div>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6 pb-1 ml-n4">
+        Page Size:
+        <select (change)="onPageSizeChanged()" id="page-size">
+        <!-- <select class='test-header' [ngModel]="getPaginationPageSize()" (ngModelChange)="setPaginationPageSize($event)"  id="page-size"> -->
+          <option *ngFor="let size of pageSizeList"
+          [selected]="size == selectedPageSize"
+          [value]="size">
+              {{ size }}
+          </option>
+        </select>
+    </div> 
+  </div>
+  <!-- <ag-grid-angular  
+      style="width: 820px; height: 600px; margin: auto"  
+      class="ag-theme-blue"
+      [rowHeight]="rowHeight$ | async"  
+      [rowData]="rowData"  
+      [columnDefs]="columnDefs"
+      [frameworkComponents]="frameworkComponents"
+      >  
+  </ag-grid-angular> -->
+<div>
+ <!-- <div [hidden]="isPaginnation"> -->
+  <ag-grid-angular 
+  #agGrid
+  style="width: 820px; height: 656px; margin: auto"  
+  id="myGrid"
+  (gridReady)="onGridReady($event)"
+  (sortChanged)="mySortChangeEvent($event)" 
+  class="ag-theme-blue"
+  [gridOptions]="gridOptions" 
+  [rowSelection]="rowSelection"
+  [rowHeight]="rowHeight$ | async"   
+  [columnDefs]="columnDefs"
+  [AutoHeight] = "true"
+  [pagination]="isPaginnation"
+  [modules]="modules"
+  [frameworkComponents]="frameworkComponents">
+</ag-grid-angular>  
+  
+ <!-- </div> -->
+ <!-- <div [hidden]="!isPaginnation">
+    <ag-grid-angular 
+        [gridOptions]="gridOptions" 
+        style="width: 820px; height: 656px; margin: auto"  
+        (gridReady)="onGridReady($event)"
+        class="ag-theme-blue"
+        [rowHeight]="rowHeight$ | async"   
+        [columnDefs]="columnDefs"
+        [pagination]=true
+        [frameworkComponents]="frameworkComponents">
+    </ag-grid-angular>  
+   </div>
+ <div class="md-form">
+      Pagination Type:
+      <select ngModel (ngModelChange)="switchPaginationType($event)">
+        <option *ngFor="let value of selectPagingTypes" [ngValue]="value.value">{{value.text}}</option>
+      </select>
+ </div> -->
+  
+
+</div>
+
+<div class="center" *ngIf="IsWait">
+  <mat-progress-spinner diameter=50 
+    overlay=true
+    mode="indeterminate"
+    color="accent">
+  </mat-progress-spinner>
+</div>

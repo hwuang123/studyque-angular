@@ -1,0 +1,8 @@
+::ng-deep .modal-content{
+    width: 600px;
+  }
+
+app-spinner {
+    width: 6rem;
+    height: 6rem;
+}

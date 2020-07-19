@@ -1,0 +1,69 @@
+/* .form-group.required.control-label:before{
+    color: red;
+    content: "*";
+    position: absolute;
+    margin-left: -10px;
+ }
+ */
+ .form-group.required .control-label:before {
+    content:"*";
+    color:red;
+
+  }
+
+  .control-label{
+        font-size: 16px;
+        color: wheat;
+        margin-bottom: -1px;
+   }
+
+   .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -100px;
+}
+
+.my-form {
+        width: 1376px;
+        text-align: center;
+        margin-left: -132px;
+}
+
+.custom-select {
+    display: inline-block;
+    width: 100%;
+    height: calc(1em + .75rem + 2px);
+    padding: .375rem 1.75rem .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+    background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right .75rem center/8px 10px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.my-textarea {
+    margin-left: 14px;
+    max-width: 1198px;
+}
+
+.container {
+    margin-left: 110px;
+}
+
+.form-row {
+    margin-top: -18px;
+    height: 25px;
+    text-align: left;
+    margin-left: 14px;
+}
+
+.border-red {
+    border: 1.2px solid red;
+}
