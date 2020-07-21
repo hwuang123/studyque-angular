@@ -399,3 +399,11 @@ a:hover {
       visibility: hidden;
     }
   }
+
+  .my-header {
+      height: 92px;
+      vertical-align: middle;
+      background: blue url('/assets/images/toppage.png') no-repeat 100%;
+      width: 1450px;
+      margin-left: -16px;
+  }
