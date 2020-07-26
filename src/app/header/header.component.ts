@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
    // this.shareService.stopDisplayLogout();
    this.shareService.currentDisplayLogoutStatus.subscribe(showLogout => this.showLogout = showLogout);
    this.shareService.currentLoginStatus.subscribe( loginStatus => this.showNavBar = loginStatus);
-   this.shareService.currentTargetItem.subscribe( username => this.username = username);
+   this.shareService.currentUserName.subscribe( username => this.username = username);
   }
 
   displayLogout($event){
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
     this.shareService.displayLogout = false;
     this.showLogout = this.shareService.displayLogout;
     this.username = "";
-    this.shareService.currentTargetItem = this.username;
+    this.shareService.currentUserName = this.username;
     this.tokenStorage.signOut();
     this.router.navigateByUrl('welcome');
   }

@@ -10,13 +10,17 @@ export class ShareService {
   private _displayLogout: boolean = false;
   private _loginStatus: boolean = false;
   private _targetItem: any;
+  private _username: any;
   displayLogoutStatus: Subject<boolean> = new Subject();
   loginStatusValue: Subject<boolean> = new Subject();
   targetItemValue:  Subject<any> = new Subject();
+  userNameValue: Subject<any> = new Subject();
   //private displayLogoutStatus = new BehaviorSubject(this._displayLogout);
   currentDisplayLogoutStatus = this.displayLogoutStatus.asObservable();
   currentLoginStatus = this.loginStatusValue.asObservable();
   currentTargetItem = this.targetItemValue.asObservable();
+  currentUserName = this.userNameValue.asObservable();
+
 
   _stateOptions= [ 
     { "value": "", "label":"-- choose state --"},      
@@ -202,6 +206,15 @@ export class ShareService {
   set targetItem(value) {
     this._targetItem = value;
     this.targetItemValue.next(value);
+  }
+
+  get userName():any {
+    return this._username;
+  }
+
+  set userName(value) {
+    this._username = value;
+    this.userNameValue.next(value);
   }
 
   get displayLogout():boolean {

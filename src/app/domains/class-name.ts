@@ -1,4 +1,5 @@
 import { StudentBean } from './student-bean';
+import { ClassdayOfWeek } from './classday-of-week';
 export class ClassName {
     pkClsnmId: number;
 	student: StudentBean;
@@ -12,4 +13,5 @@ export class ClassName {
 	description: string;
 	errorMessage: string;
 	message: string;
+	classdayOfweek: ClassdayOfWeek[];
 }

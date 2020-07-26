@@ -155,9 +155,9 @@ export class AgGridComponent implements OnInit {
               private modalService: NgbModal,
               private shareService: ShareService    
     ) {
-      this.filterRequest = new FilterRequest();
-      this.rowSelection = 'multiple';
-      this.frameworkComponents = {
+        this.filterRequest = new FilterRequest();
+        this.rowSelection = 'multiple';
+        this.frameworkComponents = {
         buttonRenderer: ButtonRendererComponent,
         checkboxCellRenderer: CheckboxCellRendererComponent
       }               
@@ -219,8 +219,6 @@ export class AgGridComponent implements OnInit {
   onSortByChanged(){
   this.sortItem = (document.getElementById("sort-by") as HTMLTextAreaElement).value;
   
-
- 
   this.gridApi.onSortChanged();
 
   }

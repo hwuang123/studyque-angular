@@ -9,6 +9,7 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class AddClassService {
   private classNameSaveUrl = 'http://localhost:8083/RESTful/studyque/addclasses';
+  private baseUrl = 'http://localhost:8083/RESTful/studyque';
   errorMsg = "";
   headers = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -29,4 +30,41 @@ export class AddClassService {
     );
   }
 
-}
+  updateClassName(id: number, value: any): Observable<Object> {
+    this.errorMsg = " updateEmployee from Service "
+    //return this.http.put(`${this.baseUrl}/${id}`, value);
+    return this.http.put(`${this.baseUrl}/${id}`, value).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  deleteClassName(id: number): Observable<any> {
+    this.errorMsg = " deleteEmployee from Service "
+    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' }).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  getClassNameList(): Observable<any> {
+    this.errorMsg = " getEmployeeList from Service ";
+    return this.http.get(`${this.baseUrl}/classnames`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+}//End of class
