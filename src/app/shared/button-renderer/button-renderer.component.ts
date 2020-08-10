@@ -21,6 +21,10 @@ export class ButtonRendererComponent implements ICellRendererAngularComp {
     return true;
   }
 
+  /* btnClickedHandler() {
+    this.params.clicked(this.params.value);
+  }
+ */
   onClick($event) {
     if (this.params.onClick instanceof Function) {
       // put anything into params u want pass into parents component

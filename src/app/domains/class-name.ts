@@ -8,8 +8,8 @@ export class ClassName {
 	semester: string='';
 	instructor: string;
 	classroom: string;
-	semStartDate: string;
-	semEndDate: string;
+	semStartDate: Date;
+	semEndDate: Date;
 	description: string;
 	errorMessage: string;
 	message: string;

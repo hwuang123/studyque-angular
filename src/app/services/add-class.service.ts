@@ -31,21 +31,20 @@ export class AddClassService {
   }
 
   updateClassName(id: number, value: any): Observable<Object> {
-    this.errorMsg = " updateEmployee from Service "
+    this.errorMsg = " update Class Name from Service "
     //return this.http.put(`${this.baseUrl}/${id}`, value);
-    return this.http.put(`${this.baseUrl}/${id}`, value).pipe(
+    return this.http.put(`${this.baseUrl}/classnames/${id}`, value).pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);
-        //Handle the error here
         return throwError(err);    //Rethrow it back to component
       })
     );
   }
 
   deleteClassName(id: number): Observable<any> {
-    this.errorMsg = " deleteEmployee from Service "
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' }).pipe(
+    this.errorMsg = " delete Class Name from Service "
+    return this.http.delete(`${this.baseUrl}/classnames/${id}`, { responseType: 'text' }).pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);

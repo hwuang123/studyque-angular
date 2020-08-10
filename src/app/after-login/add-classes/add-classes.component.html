@@ -1,5 +1,5 @@
 <!-- Default form contact -->
-<form class="border border-light p-5 my-form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+<form class="border border-light p-5 my-form" name="form" (ngSubmit)="isFromCancel=false; f.form.valid && onSubmit()" #f="ngForm" novalidate>
 
     <p class="h4 mb-4" style="color: #d7e0a8; margin-top: -40px;">Input Class Information</p>
     <div class="container">
@@ -7,7 +7,7 @@
         <div class="row">
             <div class="form-group col-xs-3 col-md-3 text-left input-sm required">
                 <label for="classname" class="control-label label-large">Class Name</label>
-                <input type="input" [ngClass]="{'border-red': f.submitted && classname.errors?.required}" 
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && classname.errors?.required}" 
                 class="form-control form-control-sm input" id="classname" name="classname" required 
                 placeholder="Class Name" [(ngModel)]="className.classname" #classname="ngModel">
             </div>
@@ -19,19 +19,19 @@
             </div>
             <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
                 <label for="classroom" class="control-label label-large">Class Room</label>
-                <input type="input" [ngClass]="{'border-red': f.submitted && classroom.errors?.required}" 
+                <input type="input" [ngClass]="{'border-red':!isFromCancel &&  f.submitted && classroom.errors?.required}" 
                  class="form-control form-control-sm input" id="classroom" name="classroom" required 
                  placeholder="Class Room" [(ngModel)]="className.classroom" #classroom="ngModel">
                 <!-- <input type="input" value='' class="form-control form-control-sm input" id="classroom" placeholder="Class Room"> -->
             </div>
             <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
                 <label for="instructor" class="control-label label-large">Instructor</label>
-                <input type="input" [ngClass]="{'border-red': f.submitted && instructor.errors?.required}" 
+                <input type="input" [ngClass]="{'border-red':!isFromCancel &&  f.submitted && instructor.errors?.required}" 
                  class="form-control form-control-sm input" id="instructor" name="instructor" required 
                  placeholder="Instructor" [(ngModel)]="className.instructor" #instructor="ngModel">
                 <!-- <input type="input" value='' class="form-control form-control-sm input" id="instructor" placeholder="Instructor"> -->
             </div>
-            <div class="form-row error-message14">
+            <div class="form-row error-message14" [hidden]="isFromCancel">
                 <span style="width: 612px;">
                    <font *ngIf="f.submitted && classname.errors?.required" color="red">Class Name is required</font></span>
                 <span style="width: 308px;">
@@ -45,7 +45,7 @@
             <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
                 <label for="semester" class="control-label label-large">Academic Term</label>
                 <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
-                 [ngClass]="{'border-red': f.submitted && semester.errors?.required}" 
+                 [ngClass]="{'border-red':!isFromCancel &&  f.submitted && semester.errors?.required}" 
                   id="semester" name="semester" required 
                   [(ngModel)]="className.semester" #semester="ngModel">
                   <option *ngFor="let term of academicTerms" [ngValue]="term.value"
@@ -54,17 +54,27 @@
             </div>
             <div class="form-group col-xs-3 col-md-3 text-left input-sm required">
                 <label for="classname" class="control-label label-large">Semester Start Date</label>
-                <input type="Date" [ngClass]="{'border-red': f.submitted && classname.errors?.required}" 
+                <input type="Date" [ngClass]="{'border-red':!isFromCancel &&  f.submitted && classname.errors?.required}" 
                 class="form-control form-control-sm input" id="semStartDate" name="semStartDate" required 
-                placeholder="Semester Start Date" [(ngModel)]="className.semStartDate" #semStartDate="ngModel">
+                placeholder="Semester Start Date" [(ngModel)]="className.semStartDate" 
+                #semStartDate="ngModel" useValueAsDate>
             </div>
+           <!--  <div class="form-group col-xs-3 col-md-3 text-left input-sm required">
+              <label for="classname" class="control-label label-large">Semester Start Date</label>
+              <input type="Date" [ngClass]="{'border-red': f.submitted && classname.errors?.required}" 
+              class="form-control form-control-sm input" id="semStartDate" name="semStartDate" required 
+              placeholder="Semester Start Date" [(ngModel)]="className.semStartDate" 
+              (ngModelChange)="className.semStartDate = $event"  #semStartDate="ngModel" useValueAsDate> 
+          </div>-->
             <div class="form-group col-xs-3 col-md-3 text-left input-sm required">
                 <label for="classname" class="control-label label-large">Semester End Date</label>
-                <input type="Date" [ngClass]="{'border-red': f.submitted && classname.errors?.required}" 
+                <input type="Date" [ngClass]="{'border-red':!isFromCancel &&  f.submitted && classname.errors?.required}" 
                 class="form-control form-control-sm input" id="semEndDate" name="semEndDate" required 
-                placeholder="Semester End Date" [(ngModel)]="className.semEndDate" #semEndDate="ngModel">
+                placeholder="Semester End Date" [(ngModel)]="className.semEndDate" 
+                (ngModelChange)="className.semEndDate = $event"  #semEndDate="ngModel" useValueAsDate>
+           
             </div>
-            <div class="form-row error-message14">
+            <div class="form-row error-message14"  [hidden]="isFromCancel">
                 <span style="width: 306px;">
                    <font *ngIf="f.submitted && semester.errors?.required" color="red">Academic Term is required</font></span>
                 <span style="width: 308px;">
@@ -82,39 +92,55 @@
           </div>
         </div>
 
-        <center>
-          <div tyle="display: block;  padding-top:0em;">
-            <font color="green"><span id="message"></span></font>
-          </div>
-          <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
-             <h3>{{errorMessage}}</h3>
-          </span>
-          <span [hidden]="hideMessage" class="help-block" style="color: rgb(196, 238, 186); margin-top: -28px;">
-            <strong>{{message}}</strong>
-          </span>
-          <div tyle="display: block;  padding-top:1em;">
-            <font color="green"><span id="message"></span></font>
-          </div>
-        </center>
+     
     </div>
     
     
 
     <!-- Send button -->
     <center>
-        <div class="" style="display: inline; padding-top: 3.5em; ">
+     <!--  {{ dateValue }} -->
+    <!--   {{isFromCancel}} -->
+      <ng-template [ngIf]="isUpdate" [ngIfElse]="addButton">
+        <div class="" style="display: inline; padding-top: 3.5em; " >
                   &nbsp;&nbsp;&nbsp;&nbsp;
-             <!-- <button   [routerLink]="'/welcome'" class="myButton">Add Class</button>&nbsp;&nbsp; -->
-             <button type="submit" class="myButton">Add Class</button>&nbsp;&nbsp;
-            
+                   <button type="submit" class="myButton">Update Class</button>&nbsp;&nbsp;
         </div>
-    </center>    
-   
+      </ng-template>   
+      <ng-template #addButton >
+        <div class="" style="display: inline; padding-top: 3.5em; " >
+          &nbsp;&nbsp;&nbsp;&nbsp;
+              <button type="submit" class="myButton">Add Class</button>&nbsp;&nbsp;
+        </div>
+      </ng-template>
+      
+        <div class="" style="display: inline; padding-top: 3.5em; ">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+     <!-- <button   [routerLink]="'/welcome'" class="myButton">Add Class</button>&nbsp;&nbsp; -->
+        <button (click)="isFromCancel=true; cancel(); $event.preventDefault()" class="myButton">Cancel</button>&nbsp;&nbsp;
+       
+        </div>
+    </center>  
+    <br/>  
+    <center>
+      <div tyle="display: block;  padding-top:0em;">
+        <font color="green"><span id="message"></span></font>
+      </div>
+      <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
+         <h3>{{errorMessage}}</h3>
+      </span>
+      <div tyle="display: block;  padding-top:1em;">
+        <font color="green"><span id="message"></span></font>
+      </div>
+      <span [hidden]="hideMessage" class="help-block" style="color: rgb(6, 128, 46); margin-top: -28px;">
+        <strong>{{message}}</strong>
+      </span> 
+    </center>
 </form>
 <!-- Default form contact -->
 <br/>
 <center> 
-<div style="width: 1200px; height: 400px; margin-left: -46px;">
+<div style="width: 1378px; height: 400px; margin-left: -132px;">
   <ag-grid-angular 
     #agGrid
     id="myGrid"
@@ -123,6 +149,7 @@
     [rowData]="rowData" 
     [columnDefs]="columnDefs"
     (gridReady)="onGridReady($event)"
+    (rowClicked)='onRowClicked($event)'
     [modules]="modules"
     [frameworkComponents]="frameworkComponents"
     >

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { FormsModule } from '@angular/forms'; 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import {MatInputModule} from '@angular/material/input';
@@ -41,6 +42,7 @@ import { AddClassesComponent } from './after-login/add-classes/add-classes.compo
 @NgModule({
   declarations: [
     AppComponent,
+    ButtonRendererComponent,
     LoginComponent,
     WelcomePageComponent,
     HomeComponent,
@@ -54,7 +56,6 @@ import { AddClassesComponent } from './after-login/add-classes/add-classes.compo
     ModelUpdateComponent,
     ConfirmationDialogComponent,
     AgGridComponent,
-    ButtonRendererComponent,
     CheckboxCellRendererComponent,
     GridHeaderSelectComponent,
     PlaceOrderComponent,
@@ -63,6 +64,7 @@ import { AddClassesComponent } from './after-login/add-classes/add-classes.compo
   ],
   imports: [
     NgbModule,
+    DateValueAccessorModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,

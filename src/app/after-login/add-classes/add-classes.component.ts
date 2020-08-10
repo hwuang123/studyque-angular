@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, LOCALE_ID, Inject } from '@angular/core';
+import { formatDate } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 //import { Module } from '@ag-grid-enterprise/all-modules';
@@ -10,6 +11,7 @@ import '@ag-grid-community/core/dist/styles/ag-grid.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject, ReplaySubject, combineLatest, merge, of } from "rxjs";
+import * as moment from 'moment';
 /*import { MasterDetailModule } from '@ag-grid-enterprise/master-detail';
 import { MenuModule } from '@ag-grid-enterprise/menu';
 import { ColumnsToolPanelModule } from '@ag-grid-enterprise/column-tool-panel';
@@ -36,8 +38,11 @@ import { CheckboxCellRendererComponent } from 'src/app/shared/checkbox-cell-rend
   styleUrls: ['./add-classes.component.css']
 })
 export class AddClassesComponent implements OnInit {
+  dateValue: string;
   private gridApi;
   private gridColumnApi;
+  isFromCancel:boolean = false;
+  isUpdate = false;
   frameworkComponents: any;
   public modules: any[] = [
     ClientSideRowModelModule
@@ -47,47 +52,10 @@ export class AddClassesComponent implements OnInit {
     ClipboardModule,
     ExcelExportModule,*/
   ]; 
-  columnDefs = [
-    {
-      headerName: 'Class Name',
-      field: 'classname',
-      cellRenderer: 'agGroupCellRenderer',
-    },
-    { headerName: 'Class Type',
-      field: 'classtype' },
-    { headerName: 'Instructor',
-      field: 'instructor' },
-    { headerName: 'Class Room',
-      field: 'classroom' },
-    { headerName: 'Academic Term',
-      field: 'semester' },
-    { headerName: 'Academic Start Date',
-      field: 'semStartDate' },
-    { headerName: 'Academic End Date',
-      field: 'semEndDate' },  
-    {
-        headerName: 'Update',
-        cellRenderer: 'buttonRenderer',
-        cellRendererParams: {
-          onClick: this.onBtnClickUpdate.bind(this),
-          label: 'update'
-        },
-        width: 90,
-        minWidth:80,
-        maxWidth: 100
-    },  
-    {
-        headerName: 'Delete',
-        cellRenderer: 'buttonRenderer',
-        cellRendererParams: {
-          onClick: this.onBtnClickDelete.bind(this),
-          label: 'delete'
-        },
-        width: 90,
-        minWidth:80,
-        maxWidth: 100
-    }     
-  ];
+
+  columnDefs = []; 
+ 
+
   defaultColDef = {
     flex: 1,
     sortable: true,
@@ -172,11 +140,92 @@ export class AddClassesComponent implements OnInit {
     private shareService: ShareService,
     public dialog: MatDialog,
     private modalService: NgbModal,
-    private addClassService: AddClassService) { 
+    private addClassService: AddClassService,
+    @Inject(LOCALE_ID) private locale: string) { 
 
-    
-     
-
+      this.columnDefs = [
+        {
+          headerName: '',
+          field: 'pkClsnmId',
+          hide: true
+        },
+        {
+          headerName: 'Class Name',
+          field: 'classname',
+          cellRenderer: 'agGroupCellRenderer',
+          resizable: true 
+        },
+        { headerName: 'Class Type',
+          field: 'classtype',
+          resizable: true  },
+        { headerName: 'Instructor',
+          field: 'instructor',
+          resizable: true  },
+        { headerName: 'Class Room',
+          field: 'classroom',
+          resizable: true  },
+        { headerName: 'Academic Term',
+          field: 'semester',
+          resizable: true  },
+        { headerName: 'Academic Start Date',
+          field: 'semStartDate',
+          valueFormatter: function (params) {
+            return moment(params.value).format('MM/DD/yyyy');
+        },
+         /*  cellRenderer: (data) => { return formatDate(data.value, 'MM/dd/yyyy', this.locale); }, */
+          resizable: true  },
+        { headerName: 'Academic End Date',
+          field: 'semEndDate',
+          valueFormatter: function (params) {
+            return moment(params.value).format('MM/DD/yyyy');
+        },
+          resizable: true  }, 
+          {
+            headerName: '',
+            field: 'description',
+            hide: true
+          }, 
+        {
+            headerName: 'Update',
+            template: `<button data-action-type="edit" class="mybtn" type="button" >edit</button>`,
+            /* template: `<button data-action-type="edit" class="btn btn-info btn-sm btn-primary py-0" type="button" >Edit</button>`, */
+            /* cellRenderer: 'buttonRenderer',
+            cellRendererParams: {
+              onClick: this.onBtnClickUpdate.bind(this),
+              label: 'update'
+            }, */
+            width: 90,
+            minWidth:80,
+            maxWidth: 100,
+            resizable: true 
+        },  
+        {
+            headerName: 'Delete',
+            template: `<button data-action-type="delete" class="mybtn" type="button" >delete</button>`,
+           /*  cellRenderer: 'buttonRenderer',
+            cellRendererParams: {
+              onClick: this.onBtnClickDelete.bind(this),
+              label: 'delete'
+            }, */
+            width: 90,
+            minWidth:80,
+            maxWidth: 100,
+            resizable: true 
+        } ,
+        {
+          headerName: 'Create Shedule',
+          template: `<button data-action-type="schedule" class="mybtn" type="button" >schedule</button>`,
+          /* cellRenderer: 'buttonRenderer',
+          cellRendererParams: {
+            onClick: this.onBtnClickCreateSchedule.bind(this),
+            label: 'schedule'
+          }, */
+          width: 150,
+          minWidth:150,
+          maxWidth: 160,
+          resizable: true 
+      }      
+      ];
       this.detailCellRendererParams = {
         detailGridOptions: {
           columnDefs: [
@@ -225,6 +274,8 @@ export class AddClassesComponent implements OnInit {
   }
 
   saveClassName(){
+    this.className.semStartDate= this.addDays(this.className.semStartDate,1); 
+    this.className.semEndDate= this.addDays(this.className.semEndDate,1); 
     this.addClassService.saveClassName(this.className)
     .subscribe((data: ClassName) => {
       console.log(data);
@@ -239,6 +290,7 @@ export class AddClassesComponent implements OnInit {
          this.className.message = data.message;
          this.message = data.message;
          this.hideMessage = false;
+         this.reloadData();
       }
       
     },
@@ -252,12 +304,141 @@ export class AddClassesComponent implements OnInit {
      ); 
   }
 
+addDays(date: Date, days: number): Date {
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+  updateClassName(){
+    this.className.semStartDate = this.addDays(this.className.semStartDate,1);
+    this.className.semEndDate = this.addDays(this.className.semEndDate,1);
+    this.dateValue = formatDate(this.className.semStartDate, 'MM/dd/yyyy', this.locale);
+    this.addClassService.updateClassName(this.className.pkClsnmId,this.className)
+    .subscribe((data: ClassName) => {
+      console.log(data);
+      if(data.errorMessage){
+         this.hideErrorMessage = false;
+         this.hideMessage = true;
+         this.className.errorMessage = data.errorMessage;
+         this.errorMessage = data.errorMessage;
+      }
+      else{
+         this.hideErrorMessage = true;      
+         this.className.message = data.message;
+         this.message = data.message;
+         this.hideMessage = false;
+         this.reloadData();
+      }
+      
+    },
+     err =>{ 
+       console.log(err);
+       this.hideErrorMessage = false;
+       this.hideMessage = false;
+       this.errorMessage = err.error.errorMessage;        
+    }
+     
+     ); 
+     this.isUpdate = false;
+  }
+
   onSubmit(): void{
-  
-    this.saveClassName();
+
+    if(this.isUpdate){
+       this.updateClassName();
+    }
+    else{
+      this.saveClassName();
+    }
+
  }
 
+ onBtnClickCreateSchedule(e){
+  const modalRef = this.modalService.open(ModelUpdateComponent, {
+    // scrollable: true,
+    //windowClass: 'md-Class',
+    // keyboard: false,
+    // backdrop: 'static'
+     // size: 'xl',
+     // windowClass: 'modal-xxl', 
+     // size: 'lg'
+   });
+  modalRef.componentInstance.fromParent = e.data.pkClsnmId;
+  modalRef.result.then(
+      result => {
+          this.reloadData();
+          console.log(result);
+      },
+      reason => {}
+  );
+ }
+
+/*  onMyDateChange(event: any) {
+  this.className.semEndDate= new Date(event.target.value);
+} */
+
+onRowClicked(e: any) {
+  if (e.event.target !== undefined) {
+  let actionType = e.event.target.getAttribute("data-action-type");
+    switch (actionType) {
+      case "edit":
+          {
+            this.isUpdate = true; 
+            this.className.pkClsnmId =  e.data.pkClsnmId;
+            this.className.classname = e.data.classname;
+            this.className.classtype= e.data.classtype;
+            this.className.semester= e.data.semester;
+            this.className.instructor= e.data.instructor;
+            this.className.classroom= e.data.classroom;
+            this.className.semStartDate= new Date(e.data.semStartDate);
+            this.className.semStartDate= this.addDays(this.className.semStartDate,-1); 
+            this.className.semEndDate= new Date(e.data.semEndDate);
+            this.className.semEndDate= this.addDays(this.className.semEndDate,-1); 
+            this.className.description= e.data.description;
+            this.className.errorMessage= "";
+            this.className.message="";
+            this.hideErrorMessage = true;
+            this.hideMessage = true;
+            break;
+          }
+      case "delete":
+          { 
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+              width: '490px',
+              height: "160px",
+              panelClass: 'mat-dialog-container',
+              data: "Do you confirm the deletion of the class name with name " + e.data.classname +" ?"
+            });
+            dialogRef.afterClosed().subscribe(result => {
+              if(result) {
+                console.log('Yes clicked');
+                // DO SOMETHING
+                this.deleteClassNameByService(e.data.pkClsnmId);
+              }
+            });
+            break;
+          }
+       case "schedule":
+         {
+           this.onBtnClickCreateSchedule(e);
+           break;
+         }   
+    }
+  }
+}
+
  onBtnClickUpdate(e) {
+  this.isUpdate = true; 
+  this.className.pkClsnmId =  e.rowData.pkClsnmId;
+	this.className.classname = e.rowData.classname;
+	this.className.classtype= e.rowData.classtype;
+	this.className.semester= e.rowData.semester;
+	this.className.instructor= e.rowData.instructor;
+  this.className.classroom= e.rowData.classroom;
+  this.className.semStartDate= new Date(e.rowData.semStartDate);
+	this.className.semEndDate= new Date(e.rowData.semEndDate); 
+	this.className.description= e.rowData.description;
+/* 
   const modalRef = this.modalService.open(ModelUpdateComponent, {
     // scrollable: true,
     //windowClass: 'md-Class',
@@ -274,7 +455,7 @@ export class AddClassesComponent implements OnInit {
           console.log(result);
       },
       reason => {}
-  );
+  ); */
 }
 
 deleteClassNameByService(id: number){
@@ -304,15 +485,26 @@ onBtnClickDelete(e) {
     width: '490px',
     height: "160px",
     panelClass: 'mat-dialog-container',
-    data: "Do you confirm the deletion of the employee with ID " + e.rowData.id +" ?"
+    data: "Do you confirm the deletion of the class name with name " + e.rowData.classname +" ?"
   });
   dialogRef.afterClosed().subscribe(result => {
     if(result) {
       console.log('Yes clicked');
       // DO SOMETHING
-      this.deleteClassNameByService(e.rowData.id);
+      this.deleteClassNameByService(e.rowData.pkClsnmId);
     }
   });
+ }
+
+ cancel(){
+/*   this.isFromCancel = true;  */
+  this.className = new ClassName();
+  this.className.classdayOfweek = new Array<ClassdayOfWeek>();
+  this.className.classdayOfweek = null;
+  this.className.student = new StudentBean();
+  this.isUpdate = false;
+  this.hideErrorMessage = true;
+  this.hideMessage = true;
  }
 
  onGridReady(params: any) {
@@ -325,6 +517,10 @@ onBtnClickDelete(e) {
 
  this.reloadData();
 }
+
+
+
+
 
 reloadData() {
   // this.employees = this.employeeService.getEmployeesList();

@@ -1,10 +1,29 @@
-/* .form-group.required.control-label:before{
-    color: red;
-    content: "*";
-    position: absolute;
-    margin-left: -10px;
- }
- */
+.mybtn {
+    box-shadow: 2px 1px 1px 0px #286090;
+    background: linear-gradient(to bottom, #286090 5%, #46b8da 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#286090', endColorstr='##46b8da',GradientType=0);
+    color: #fff;
+    background-color: #46b8da;
+    border-color: #46b8da;
+    border-radius: 6px;
+    border: 1px solid #286092;
+    display: inline-block;
+    cursor: pointer;
+    padding: 0px 12px 0px 10px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #122b40;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.mybtn:hover{
+    color: rgb(248, 241, 241);
+    background-color: #798ab9;
+    padding: 0px 12px 0px 10px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #810e05;
+}
+
  .form-group.required .control-label:before {
     content:"*";
     color:red;
@@ -67,3 +86,44 @@
 .border-red {
     border: 1.2px solid red;
 }
+
+/* .btn-primary:hover {
+    color: #fff;
+    background-color: #286090; 
+    border-color: #204d74;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+    color: #fff;
+    background-color: #286090; 
+    border-color: #122b40;
+} */
+
+
+#gridButton {
+    box-shadow: 2px 1px 1px 0px #8a2a21;
+    background: linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+    background-color: rgba(0, 0, 0, 0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24437',GradientType=0);
+    background-color: #c62d1f;
+    border-radius: 6px;
+    border: 1px solid #d02718;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Times New Roman;
+    font-size: 17px;
+    padding: 0px 12px 0px 10px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #810e05;
+}
+.button { margin: 10px; }
+.button:hover:after { 
+        font-family: Arial;
+        position: absolute;
+        top: 0;
+        width: 20px;
+        height: 1.25rem;   
+        background-color: gray;
+        color: white;
+    }
