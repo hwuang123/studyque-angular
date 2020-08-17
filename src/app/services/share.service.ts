@@ -171,6 +171,44 @@ export class ShareService {
        }
        ]; 
 
+       _week_days= [
+        {
+          "value":"",
+          "label":"-- Choose Day of Week --"        
+         }, 
+         {
+          "value":"Sunday",
+          "label":"Sunday"        
+         },
+         {
+          "value":"Monday",
+          "label":"Monday"        
+         },
+         {
+          "value":"Tuesday",
+          "label":"Tuesday"       
+         },
+         {
+          "value":"Wednesday",
+          "label":"Wednesday"
+         },
+         {
+          "value":"Thursday",
+          "label":"Thursday"
+         },
+         {
+          "value":"Friday",
+          "label":"Friday"
+         },
+         {
+           "value":"Saturday",
+           "label":"Saturday"
+         }
+       ]; 
+
+  get weekDays(): any[] {
+    return this._week_days;
+  }     
   get schoolTypeOptions(): any[] {
     return this._schoolTypeOptions;
   }

@@ -1,0 +1,86 @@
+<div class="modal-header" >
+    <h5 class="modal-title">Input Class Schedule</h5>
+    <button type="button" class="close" data-dismiss="modal" (click)="activeModal.close('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<form #scheduleForm="ngForm" (ngSubmit)="scheduleForm.form.valid && onSubmit()">
+  
+   <div class="modal-body" >
+    <div [hidden]="submitted" style="width: 100%">
+      
+          <div class="form-group">
+            <label for="weekDay">Week Day</label>
+                <select class="form-control ng-prinstine ng-valid ng-touched input" 
+                 [ngClass]="{'border-red': scheduleForm.submitted && weekDay.errors?.required}" 
+                  id="weekDay" name="weekDay" required 
+                  [(ngModel)]="classdayOfWeek.weekday" #weekDay="ngModel">
+                  <option [ngValue]="weekDay.value" [selected]="weekDay.value == classdayOfWeek.weekday" 
+                   *ngFor="let weekDay of weekDayOptions" >{{weekDay.label}}</option>
+                </select>
+          
+            <div class="alert alert-danger" *ngIf="scheduleForm.submitted && weekDay.errors?.required">
+                <div *ngIf="weekDay.errors.required">Week Day is required.</div>   
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="name">Class Start Time</label>
+            <input type="time" class="form-control input"
+             [ngClass]="{'border-red': (starttime.errors?.incorrect) || (scheduleForm.submitted && starttime.errors?.required)}"
+              id="starttime" #starttime="ngModel" required [(ngModel)]="classdayOfWeek.starttime"
+              name="starttime">
+            <div class="alert alert-danger" *ngIf="scheduleForm.submitted && starttime.errors?.required">
+                Class Start Time is required.      
+            </div>
+        </div>
+      
+        <div class="form-group">
+            <label for="name">Class End Time</label>
+            <input type="time" class="form-control input" 
+             [ngClass]="{'border-red': ((endtime.errors?.incorrect) || (scheduleForm.submitted && endtime.errors?.required))}"
+              id="endtime" #endtime="ngModel" required [(ngModel)]="classdayOfWeek.endtime" 
+              (blur)="validateTimes()" name="endtime">
+            <div class="alert alert-danger" *ngIf="scheduleForm.submitted && endtime.errors?.required">
+                Class Start Time is required.      
+            </div>
+        </div>
+      
+      </div>
+      <div [hidden]="hideSucceed" class="alert alert-success alert-dismissible fade show">
+        <strong> {{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      <div [hidden]="hideError" class="alert alert-danger alert-dismissible fade show" >
+        <strong>Failed!</strong> {{errorMessage}}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="activeModal.close('Close click')">Cancel</button>
+    <button type="submit" class="btn btn-primary" >Save Schedule</button>
+    <!-- <button type="submit" class="btn btn-primary" (click)="onSubmit()" [disabled]="!scheduleForm.form.valid">Save Schedule</button> -->
+  </div>
+  
+  <div class="center" *ngIf="IsWait">
+    <mat-progress-spinner diameter=50 
+      overlay=true
+      mode="indeterminate"
+      color="accent">
+    </mat-progress-spinner>
+  </div>
+  <!-- <mat-spinner></mat-spinner> -->
+  <!-- <div class="overlay" *ngif="IsWait" > -->
+    <!-- <div class="center" *ngIf="IsWait"> -->
+    <div class="center">  
+        <!-- <mat-progress-spinner diameter=50 
+                          overlay=true
+	                      mode="indeterminate"
+						  color="accent">
+        </mat-progress-spinner>  -->
+        <app-spinner></app-spinner>
+    </div>
+  <!-- </div> -->
+  <!-- </div> -->
+</form>

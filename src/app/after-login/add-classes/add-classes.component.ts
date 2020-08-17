@@ -1,6 +1,6 @@
-import { Component, OnInit, EventEmitter, Output, LOCALE_ID, Inject } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, LOCALE_ID, Inject, ViewChild } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 //import { Module } from '@ag-grid-enterprise/all-modules';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +17,7 @@ import { MenuModule } from '@ag-grid-enterprise/menu';
 import { ColumnsToolPanelModule } from '@ag-grid-enterprise/column-tool-panel';
 import { ClipboardModule } from '@ag-grid-enterprise/clipboard';
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export'; */
-import { ModelUpdateComponent } from '../model-update/model-update.component';
+import { AddClassScheduleComponent } from './../../model/add-class-schedule/add-class-schedule.component';
 import { Assignment } from './../../domains/assignment';
 import { AssignmentType } from './../../domains/assignment-type';
 import { ClassName } from './../../domains/class-name';
@@ -28,9 +28,7 @@ import { AddClassService } from './../../services/add-class.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { ButtonRendererComponent } from 'src/app/shared/button-renderer/button-renderer.component';
 import { CheckboxCellRendererComponent } from 'src/app/shared/checkbox-cell-renderer/checkbox-cell-renderer.component';
-
-
-
+import { CommonFunctionService } from './../../shared/common-function.service';
 
 @Component({
   selector: 'app-add-classes',
@@ -39,6 +37,7 @@ import { CheckboxCellRendererComponent } from 'src/app/shared/checkbox-cell-rend
 })
 export class AddClassesComponent implements OnInit {
   dateValue: string;
+  @ViewChild('f') classForm: NgForm;
   private gridApi;
   private gridColumnApi;
   isFromCancel:boolean = false;
@@ -141,6 +140,7 @@ export class AddClassesComponent implements OnInit {
     public dialog: MatDialog,
     private modalService: NgbModal,
     private addClassService: AddClassService,
+    private commonFunctionService: CommonFunctionService,
     @Inject(LOCALE_ID) private locale: string) { 
 
       this.columnDefs = [
@@ -273,6 +273,21 @@ export class AddClassesComponent implements OnInit {
 
   }
 
+  validateDates(){
+    let validateInfo = this.commonFunctionService.validateDateRange( this.className.semStartDate, this.className.semEndDate);
+    this.errorMessage = validateInfo.errorMessage;
+    this.hideMessage = validateInfo.error;
+    this.hideErrorMessage = !validateInfo.error;
+    if(validateInfo.error == true){
+      this.classForm.controls['semStartDate'].setErrors({ 'incorrect': true});
+      this.classForm.controls['semEndDate'].setErrors({ 'incorrect': true});
+    }
+    else{
+      this.classForm.controls['semStartDate'].setErrors(null);
+      this.classForm.controls['semEndDate'].setErrors(null);
+    }
+  }
+
   saveClassName(){
     this.className.semStartDate= this.addDays(this.className.semStartDate,1); 
     this.className.semEndDate= this.addDays(this.className.semEndDate,1); 
@@ -354,7 +369,7 @@ addDays(date: Date, days: number): Date {
  }
 
  onBtnClickCreateSchedule(e){
-  const modalRef = this.modalService.open(ModelUpdateComponent, {
+  const modalRef = this.modalService.open(AddClassScheduleComponent, {
     // scrollable: true,
     //windowClass: 'md-Class',
     // keyboard: false,
