@@ -32,7 +32,7 @@
 
   .control-label{
         font-size: 16px;
-        color: wheat;
+        color: rgb(8, 8, 8);
         margin-bottom: -1px;
    }
 
@@ -127,3 +127,8 @@
         background-color: gray;
         color: white;
     }
+
+.modal-xxl .modal-xl {
+        max-width: 100%;
+    }
+    

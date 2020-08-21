@@ -174,7 +174,7 @@ export class ShareService {
        _week_days= [
         {
           "value":"",
-          "label":"-- Choose Day of Week --"        
+          "label":"--Choose Day of Week--"        
          }, 
          {
           "value":"Sunday",

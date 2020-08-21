@@ -56,9 +56,9 @@ export class ClassScheduleService {
     );
   }
 
-  getClassdayOfWeekList(): Observable<any> {
+  getClassdayOfWeekList(id: number): Observable<any> {
     this.errorMsg = " getClassScheduleList from Service ";
-    return this.http.get(`${this.baseUrl}/classschedule`).pipe(
+    return this.http.get(`${this.baseUrl}/classschedules/${id}`).pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);
@@ -67,4 +67,6 @@ export class ClassScheduleService {
       })
     );
   }
+
+  
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -45,4 +46,7 @@ export class CommonFunctionService {
     return { error: false, errorMessage: ""};
   }
 
+  getTwentyFourHourTime(amPmString: any) { 
+      return moment(amPmString, ["h:mm A"]).format("HH:mm");
+  }
 }

@@ -38,7 +38,7 @@ import { CheckboxCellRendererComponent } from './shared/checkbox-cell-renderer/c
 import { GridHeaderSelectComponent } from './shared/grid-header-select/grid-header-select.component';
 import { PlaceOrderComponent } from './before-login/place-order/place-order.component';
 import { AddClassesComponent } from './after-login/add-classes/add-classes.component';
-import { AddClassScheduleComponent } from './model/add-class-schedule/add-class-schedule.component';
+import { AddClassScheduleComponent } from './modal/add-class-schedule/add-class-schedule.component';
 
 @NgModule({
   declarations: [

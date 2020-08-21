@@ -31,9 +31,20 @@ export class AddClassService {
   }
 
   updateClassName(id: number, value: any): Observable<Object> {
-    this.errorMsg = " update Class Name from Service "
+    this.errorMsg = " update Class Name from Service ";
     //return this.http.put(`${this.baseUrl}/${id}`, value);
     return this.http.put(`${this.baseUrl}/classnames/${id}`, value).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  getClassNameBeanById(id: number): Observable<Object> {
+    this.errorMsg = " get Class Name from Service ";
+    return this.http.get(`${this.baseUrl}/classnames/${id}`).pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);

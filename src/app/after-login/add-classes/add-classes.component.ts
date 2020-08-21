@@ -17,7 +17,7 @@ import { MenuModule } from '@ag-grid-enterprise/menu';
 import { ColumnsToolPanelModule } from '@ag-grid-enterprise/column-tool-panel';
 import { ClipboardModule } from '@ag-grid-enterprise/clipboard';
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export'; */
-import { AddClassScheduleComponent } from './../../model/add-class-schedule/add-class-schedule.component';
+import { AddClassScheduleComponent } from './../../modal/add-class-schedule/add-class-schedule.component';
 import { Assignment } from './../../domains/assignment';
 import { AssignmentType } from './../../domains/assignment-type';
 import { ClassName } from './../../domains/class-name';
@@ -370,13 +370,13 @@ addDays(date: Date, days: number): Date {
 
  onBtnClickCreateSchedule(e){
   const modalRef = this.modalService.open(AddClassScheduleComponent, {
-    // scrollable: true,
+     scrollable: true,
     //windowClass: 'md-Class',
     // keyboard: false,
     // backdrop: 'static'
      // size: 'xl',
-     // windowClass: 'modal-xxl', 
-     // size: 'lg'
+      windowClass: 'modal-xxl', 
+      size: 'lg'
    });
   modalRef.componentInstance.fromParent = e.data.pkClsnmId;
   modalRef.result.then(
