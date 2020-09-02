@@ -7,8 +7,7 @@ import { catchError, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AddClassService {
-  private classNameSaveUrl = 'http://localhost:8083/RESTful/studyque/addclasses';
+export class AssignmentTypeService {
   private baseUrl = 'http://localhost:8083/RESTful/studyque';
   errorMsg = "";
   headers = new HttpHeaders({
@@ -18,9 +17,10 @@ export class AddClassService {
     headers: this.headers
  }
   constructor(private http: HttpClient) { }
-  saveClassName(classNameObj: Object): Observable<Object> {
-    this.errorMsg = " saveClassName from Service "
-    return this.http.post(`${this.classNameSaveUrl}`, classNameObj).pipe(
+
+  saveAssignmentType(assignmentTypeObj: Object): Observable<Object> {
+    this.errorMsg = " save Assignment Type from Service "
+    return this.http.post(`${this.baseUrl}/addAssignmentType`, assignmentTypeObj).pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);
@@ -30,10 +30,10 @@ export class AddClassService {
     );
   }
 
-  updateClassName(id: number, value: any): Observable<Object> {
-    this.errorMsg = " update Class Name from Service ";
+  updateAssignmentType(id: number, value: any): Observable<Object> {
+    this.errorMsg = " update Assignment Type from Service ";
     //return this.http.put(`${this.baseUrl}/${id}`, value);
-    return this.http.put(`${this.baseUrl}/classnames/${id}`, value).pipe(
+    return this.http.put(`${this.baseUrl}/assignmentType/${id}`, value).pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);
@@ -42,20 +42,9 @@ export class AddClassService {
     );
   }
 
-  getClassNameBeanById(id: number): Observable<Object> {
-    this.errorMsg = " get Class Name from Service ";
-    return this.http.get(`${this.baseUrl}/classnames/${id}`).pipe(
-      catchError((err) => {
-        console.log('error caught in service')
-        console.error(err);
-        return throwError(err);    //Rethrow it back to component
-      })
-    );
-  }
-
-  deleteClassName(id: number): Observable<any> {
-    this.errorMsg = " delete Class Name from Service "
-    return this.http.delete(`${this.baseUrl}/classnames/${id}`, { responseType: 'text' }).pipe(
+  deleteAssignmentType(id: number): Observable<any> {
+    this.errorMsg = " delete Assignment Type from Service "
+    return this.http.delete(`${this.baseUrl}/assignmentType/${id}`, { responseType: 'text' }).pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);
@@ -65,9 +54,9 @@ export class AddClassService {
     );
   }
 
-  getClassNameList(): Observable<any> {
-    this.errorMsg = " get Class Name List from Service ";
-    return this.http.get(`${this.baseUrl}/classnames`).pipe(
+  getAssignmentTypeList(): Observable<any> {
+    this.errorMsg = " get Assignment Type List from Service ";
+    return this.http.get(`${this.baseUrl}/getAssignmentTypes`).pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);
@@ -77,4 +66,4 @@ export class AddClassService {
     );
   }
 
-}//End of class
+}

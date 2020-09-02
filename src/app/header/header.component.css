@@ -16,22 +16,22 @@
 .my-nav-border{
   border-block-style: outset;
   margin-left: 2px;
-  border: 1px solid #9d9595;
+  border: 1px solid #047496;
   border-radius: 5px;
   margin-right: 2px;
 }
 
 .my-bg-primary {
-  background-color: #b7b9bd !important;
+  background-color: #3fb7e6 !important;
 }
 
 li.active{
   color: rgba(0,0,0,.9);
   font-size: large;
   font-weight: normal;
-  background-color: #b5acac;
+  background-color: #4ee5f0;
   border-radius: 5px;
-  border: 0.1px solid #c9c3c3;
+  border: 0.1px solid #4ec3e6;
 }
 
 .navbar {
@@ -50,7 +50,7 @@ li.active{
 
 .navbar-nav li:hover > ul.dropdown-menu {
   display: block;
-  background-color: #b7b9bd;
+  background-color: #6de6db;
 }
 
 .dropdown-submenu {
@@ -75,26 +75,26 @@ li.nav-item:hover,
 .dropdown-item.active{
   color: rgba(0,0,0,.9);
   font-size: large;
-  font-weight: normal;
-  background-color: #b5acac !important;
+  font-weight: bold;
+  background-color: #46a9eb !important;
   border-radius: 5px;
-  border: 0.01px solid #c9c3c3;
+  border: 0.01px solid #cee5e6;
 }
 
 .my-active{
   color: rgba(0,0,0,.9);
   font-size: large;
   font-weight: normal;
-  background-color: #b5acac !important;
+  background-color: #4ec3e6 !important;
   border-radius: 5px;
-  border: 0.01px solid #d4d0d0;  
+  border: 0.01px solid #5cb9f7;  
 }
 
 /* rotate caret on hover */
 .dropdown-menu > li > a:hover:after {
   text-decoration: underline;
   transform: rotate(-90deg);
-  background-color: #b5acac !important;
+  background-color: #4ed4e6 !important;
 } 
 
 

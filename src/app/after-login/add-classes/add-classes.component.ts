@@ -262,7 +262,7 @@ export class AddClassesComponent implements OnInit {
   ngOnInit(): void {
     this.assignment = new Assignment();
     this.assignmentType = new AssignmentType();
-    this.assignmentType.studernt = new StudentBean();
+    this.assignmentType.student = new StudentBean();
     this.className = new ClassName();
     this.className.classdayOfweek = new Array<ClassdayOfWeek>();
     this.className.classdayOfweek = null;
@@ -324,7 +324,7 @@ addDays(date: Date, days: number): Date {
     return date;
 }
 
-  updateClassName(){
+updateClassName(){
     this.className.semStartDate = this.addDays(this.className.semStartDate,1);
     this.className.semEndDate = this.addDays(this.className.semEndDate,1);
     this.dateValue = formatDate(this.className.semStartDate, 'MM/dd/yyyy', this.locale);
@@ -532,10 +532,6 @@ onBtnClickDelete(e) {
 
  this.reloadData();
 }
-
-
-
-
 
 reloadData() {
   // this.employees = this.employeeService.getEmployeesList();

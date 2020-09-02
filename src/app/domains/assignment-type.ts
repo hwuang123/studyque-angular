@@ -2,6 +2,9 @@ import { StudentBean } from './student-bean';
 
 export class AssignmentType {
     pkId: number;
-	studernt: StudentBean;
-	assignment: String;
+	student: StudentBean;
+	assignment: string;
+	description: string;
+	errorMessage: string;
+	message: string;
 }

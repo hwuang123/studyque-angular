@@ -39,6 +39,7 @@ import { GridHeaderSelectComponent } from './shared/grid-header-select/grid-head
 import { PlaceOrderComponent } from './before-login/place-order/place-order.component';
 import { AddClassesComponent } from './after-login/add-classes/add-classes.component';
 import { AddClassScheduleComponent } from './modal/add-class-schedule/add-class-schedule.component';
+import { AssignmentTypeComponent } from './after-login/assignment-type/assignment-type.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { AddClassScheduleComponent } from './modal/add-class-schedule/add-class-
     GridHeaderSelectComponent,
     PlaceOrderComponent,
     AddClassesComponent,
-    AddClassScheduleComponent
+    AddClassScheduleComponent,
+    AssignmentTypeComponent
 
   ],
   imports: [

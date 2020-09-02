@@ -11,6 +11,7 @@ import { EmployeeDetailsComponent } from './after-login/employee-details/employe
 import { AgGridComponent } from './after-login/ag-grid/ag-grid.component';
 import { PlaceOrderComponent } from './before-login/place-order/place-order.component';
 import { AddClassesComponent } from './after-login/add-classes/add-classes.component';
+import { AssignmentTypeComponent } from './after-login/assignment-type/assignment-type.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'grid', component: AgGridComponent},
   { path: 'userprofile', component: PlaceOrderComponent},
   { path: 'addclasses', component: AddClassesComponent},
+  { path: 'assignmenttype', component: AssignmentTypeComponent},
   {path: '',  redirectTo: '/welcome', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
