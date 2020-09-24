@@ -3,17 +3,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor  } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { ShareService } from './../services/share.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
-  private baseUrl = 'http://localhost:8083/RESTful/api/v1/employees';
+  /* private baseUrl = 'http://localhost:8083/RESTful/api/v1/employees';
   private pagingUrl = 'http://localhost:8083/RESTful/api/v1/paging/employees';
   private employeeCountUrl = 'http://localhost:8083/RESTful/api/v1/count/employees';
   private employeeFilterUrl = 'http://localhost:8083/RESTful/api/v1/filter/employees';
-  private employeeFilterCountUrl = 'http://localhost:8083/RESTful/api/v1/filter/count/employees';
+  private employeeFilterCountUrl = 'http://localhost:8083/RESTful/api/v1/filter/count/employees'; */
+  private baseUrl:any;
+  private pagingUrl:any;
+  private employeeCountUrl:any;
+  private employeeFilterUrl:any;
+  private employeeFilterCountUrl:any;
   errorMsg = "";
   headers = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -21,7 +27,14 @@ export class EmployeeService {
  options = {
     headers: this.headers
  }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private shareService: ShareService) { 
+   this.baseUrl = this.shareService.url + 'api/v1/employees';
+   this.pagingUrl = this.shareService.url + 'api/v1/paging/employees';
+   this.employeeCountUrl = this.shareService.url + 'api/v1/count/employees';
+   this.employeeFilterUrl = this.shareService.url + 'api/v1/filter/employees';
+   this.employeeFilterCountUrl = this.shareService.url + 'api/v1/filter/count/employees';
+
+  }
 
   getEmployee(id: number): Observable<any> {
     this.errorMsg = " getEmployee from Service "

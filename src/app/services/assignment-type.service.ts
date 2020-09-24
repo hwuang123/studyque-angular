@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor  } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { ShareService } from './share.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssignmentTypeService {
-  private baseUrl = 'http://localhost:8083/RESTful/studyque';
+  // private baseUrl = 'http://localhost:8083/RESTful/studyque';
+  private baseUrl:any;
   errorMsg = "";
   headers = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -16,7 +18,9 @@ export class AssignmentTypeService {
  options = {
     headers: this.headers
  }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private shareService: ShareService) { 
+    this.baseUrl = this.shareService.url + 'studyque';
+  }
 
   saveAssignmentType(assignmentTypeObj: Object): Observable<Object> {
     this.errorMsg = " save Assignment Type from Service "

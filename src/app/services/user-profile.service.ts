@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor  } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-
+import { ShareService } from './share.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserProfileService {
-  private userProfileSaveUrl = 'http://localhost:8083/RESTful/register/userprofile';
+  // private userProfileSaveUrl = 'http://localhost:8083/RESTful/register/userprofile';
+  private userProfileSaveUrl:any;
   errorMsg = "";
   headers = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -17,7 +18,10 @@ export class UserProfileService {
  options = {
     headers: this.headers
  }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private shareService: ShareService) {
+  //  this.userProfileSaveUrl = this.shareService.url + 'register/userprofile';
+    this.userProfileSaveUrl = 'http://Studyque-env-2.eba-nxupp7m2.us-east-2.elasticbeanstalk.com/register/userprofile';
+   }
 
  saveUserProfile(userProfile: Object): Observable<Object> {
     this.errorMsg = " saveUserProfile from Service "

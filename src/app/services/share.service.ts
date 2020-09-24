@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common'; 
 import { Subject, BehaviorSubject  } from "rxjs";
 
 @Injectable({
@@ -6,11 +7,12 @@ import { Subject, BehaviorSubject  } from "rxjs";
 })
 export class ShareService {
 
-  constructor() { }
+  constructor(private location: Location) { }
   private _displayLogout: boolean = false;
   private _loginStatus: boolean = false;
   private _targetItem: any;
   private _username: any;
+  private _url: any = 'http://Studyque-env-2.eba-nxupp7m2.us-east-2.elasticbeanstalk.com/';
   displayLogoutStatus: Subject<boolean> = new Subject();
   loginStatusValue: Subject<boolean> = new Subject();
   targetItemValue:  Subject<any> = new Subject();
@@ -20,7 +22,6 @@ export class ShareService {
   currentLoginStatus = this.loginStatusValue.asObservable();
   currentTargetItem = this.targetItemValue.asObservable();
   currentUserName = this.userNameValue.asObservable();
-
 
   _stateOptions= [ 
     { "value": "", "label":"-- choose state --"},      
@@ -206,6 +207,14 @@ export class ShareService {
          }
        ]; 
 
+  get url(): any {
+    var hostname: any = this.location['_platformLocation'].hostname;
+    if (hostname == 'localhost'){
+      this._url = 'http://localhost:5000/RESTful/';
+    }
+    return this._url;
+  }   
+      
   get weekDays(): any[] {
     return this._week_days;
   }     
