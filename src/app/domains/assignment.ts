@@ -3,9 +3,11 @@ import { ClassName } from './class-name';
 
 export class Assignment {
      pkAssignmentId: number;
-	 classname: ClassName;
-     assignmenttype: AssignmentType;
+	classname: String;
+     assignmenttype: String;
      dueDate: Date;
-	 description: String;
-	 dueDayofweek: String ;
+	description: String;
+     dueDayofweek: String ;
+     errorMessage: string;
+	message: string;
 }

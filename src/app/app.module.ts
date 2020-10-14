@@ -40,6 +40,7 @@ import { PlaceOrderComponent } from './before-login/place-order/place-order.comp
 import { AddClassesComponent } from './after-login/add-classes/add-classes.component';
 import { AddClassScheduleComponent } from './modal/add-class-schedule/add-class-schedule.component';
 import { AssignmentTypeComponent } from './after-login/assignment-type/assignment-type.component';
+import { AssignmentComponent } from './after-login/assignment/assignment.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AssignmentTypeComponent } from './after-login/assignment-type/assignmen
     PlaceOrderComponent,
     AddClassesComponent,
     AddClassScheduleComponent,
-    AssignmentTypeComponent
+    AssignmentTypeComponent,
+    AssignmentComponent
 
   ],
   imports: [

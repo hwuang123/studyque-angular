@@ -11,7 +11,7 @@ import '@ag-grid-community/core/dist/styles/ag-grid.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject, ReplaySubject, combineLatest, merge, of } from "rxjs";
-
+import * as moment from 'moment';
 import { AssignmentType } from './../../domains/assignment-type';
 import { Assignment } from './../../domains/assignment';
 import { StudentBean } from './../../domains/student-bean';
@@ -61,8 +61,8 @@ export class AssignmentTypeComponent implements OnInit {
   assignment: Assignment;
   assignmentType: AssignmentType;
   academicTerms = [];
-  hideSucceed = true;
-  hideError = true;
+  /* hideSucceed = true;
+  hideError = true; */
   errorMessage = '';
   message= '';
   hideMessage = true;
@@ -103,7 +103,7 @@ export class AssignmentTypeComponent implements OnInit {
           template: `<button data-action-type="edit" class="mybtn" type="button" >edit</button>`,
           width: 90,
           minWidth:80,
-          maxWidth: 100,
+          maxWidth: 100,         
           resizable: true 
       },  
       {
@@ -202,18 +202,33 @@ export class AssignmentTypeComponent implements OnInit {
   this.IsWait=true;
   this.assignmentTypeService.deleteAssignmentType(id)
     .subscribe(
-      data => {
-        console.log(data);
-        this.message = "Succefully deleted Assignment Type with ID " + id;
-        this.hideError = true;
-        this.hideSucceed = false;
+        data => {
+        let obj: AssignmentType = JSON.parse(data);
+        console.log(obj.errorMessage);
+       /*  this.message = "Succefully deleted Assignment Type with ID " + id;
+        this.hideErrorMessage = true;
+        this.hideMessage = false;
         this.IsWait=false;
+        this.reloadData(); */
+        if(obj.errorMessage){
+          this.hideErrorMessage = false;
+          this.hideMessage = true;
+          this.assignmentType.errorMessage = obj.errorMessage;
+          this.errorMessage = obj.errorMessage;       
+       }
+       else{
+        this.hideErrorMessage = true;      
+        this.assignmentType.message = obj.message;
+        this.message = obj.message;
+        this.hideMessage = false;
         this.reloadData();
+       
+       }
       },
       error => { 
         console.log(error)
-        this.hideError = false;
-        this.hideSucceed = true;
+        this.hideErrorMessage = false;
+        this.hideMessage = true;
         this.errorMessage = error.message;
       }
     );
@@ -241,7 +256,7 @@ export class AssignmentTypeComponent implements OnInit {
               width: '490px',
               height: "160px",
               panelClass: 'mat-dialog-container',
-              data: "Do you confirm the deletion of the Assign Type with name " + e.data.assignment +" ?"
+              data: "Do you confirm the deletion of the Assignment Type with name " + e.data.assignment +" ?"
             });
             dialogRef.afterClosed().subscribe(result => {
               if(result) {

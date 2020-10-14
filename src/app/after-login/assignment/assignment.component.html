@@ -1,0 +1,114 @@
+<form class="border border-light p-5 my-form" name="form" (ngSubmit)="isFromCancel=false; f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+    <p class="h4 mb-4" style="color: #d7e0a8; margin-top: -40px;">Input Assignment</p>
+    <div class="container">
+
+        <div class="row">
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="classname" class="control-label label-large">Class Name</label>
+                <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+                 [ngClass]="{'border-red':!isFromCancel &&  f.submitted && classname.errors?.required}" 
+                  id="classname" name="classname" required 
+                  [(ngModel)]="assignment.classname" #classname="ngModel">
+                  <option *ngFor="let className of classnameList" [ngValue]="className.classname"
+                    [selected]="assignment.classname == className.classname">{{className.classname}}</option>
+                </select>               
+            </div>
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="assignmenttype" class="control-label label-large">Assignment Type</label>
+                <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+                 [ngClass]="{'border-red':!isFromCancel &&  f.submitted && assignmenttype.errors?.required}" 
+                  id="assignmenttype" name="assignmenttype" required 
+                  [(ngModel)]="assignment.assignmenttype" #assignmenttype="ngModel">
+                  <option *ngFor="let assignmentType of assignmentTypeList" [ngValue]="assignmentType.assignment"
+                    [selected]="assignmentType.assignment == assignment.assignmenttype">{{assignmentType.assignment}}</option>
+                </select>               
+            </div>
+            <div class="form-group col-xs-3 col-md-3 text-left input-sm required">
+                <label for="duedate" class="control-label label-large">Due Date</label>
+                <input type="Date" 
+                 [ngClass]="{'border-red': (duedate.errors?.incorrect) || (!isFromCancel &&  f.submitted && duedate.errors?.required)}" 
+                 class="form-control form-control-sm input" id="duedate" name="duedate" required 
+                 placeholder="Due Date" [(ngModel)]="assignment.dueDate" 
+                 #duedate="ngModel" useValueAsDate>
+            </div>
+            <div class="form-row error-message14" [hidden]="isFromCancel">
+                <span style="width: 306px;">
+                   <font *ngIf="f.submitted && classname.errors?.required" color="red">Class Name is required</font></span>
+                <span style="width: 308px;">
+                   <font *ngIf="f.submitted && assignmenttype.errors?.required" color="red">Assignment Type is required</font></span>
+                <span style="width: 150px;">
+                   <font *ngIf="f.submitted && duedate.errors?.required" color="red">Due Date is required</font></span>   
+            </div>
+            
+        </div>
+        <div class="row">
+          <div class="form-group flex-fill mr-2 text-left">
+            <label for="description" class="control-label label-large" style="padding-left: 12px;">Description</label>
+            <textarea class="form-control rounded-0 my-textarea input" name="description" id="description" rows="3" [(ngModel)]="assignment.description" placeholder="Description"></textarea>
+          </div>
+        </div>
+    </div>
+    
+    
+
+    <!-- Send button -->
+    <center>
+     <!--  {{ dateValue }} -->
+    <!--   {{isFromCancel}} -->
+      <ng-template [ngIf]="isUpdate" [ngIfElse]="addButton">
+        <div class="" style="display: inline; padding-top: 3.5em; " >
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                   <button type="submit" class="myButton">Update Assignment</button>&nbsp;&nbsp;
+        </div>
+      </ng-template>   
+      <ng-template #addButton >
+        <div class="" style="display: inline; padding-top: 3.5em; " >
+          &nbsp;&nbsp;&nbsp;&nbsp;
+              <button type="submit" class="myButton">Add Assignment</button>&nbsp;&nbsp;
+        </div>
+      </ng-template>
+      
+        <div class="" style="display: inline; padding-top: 3.5em; ">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+     <!-- <button   [routerLink]="'/welcome'" class="myButton">Add Class</button>&nbsp;&nbsp; -->
+        <button (click)="isFromCancel=true; cancel(); $event.preventDefault()" class="myButton">Cancel</button>&nbsp;&nbsp;
+       
+        </div>
+    </center>  
+    <br/>  
+    <center>
+      <div tyle="display: block;  padding-top:0em;">
+        <font color="green"><span id="message"></span></font>
+      </div>
+      <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
+         <h3>{{errorMessage}}</h3>
+      </span>
+      <div tyle="display: block;  padding-top:1em;">
+        <font color="green"><span id="message"></span></font>
+      </div>
+      <span [hidden]="hideMessage" class="help-block" style="color: rgb(6, 128, 46); margin-top: -28px;">
+        <strong>{{message}}</strong>
+      </span> 
+    </center>
+</form>
+<!-- Default form contact -->
+<br/>
+<center> 
+<div style="width: 1378px; height: 400px; margin-left: -132px;">
+  <ag-grid-angular 
+    #agGrid
+    id="myGrid"
+    style="width: 100%; height: 100%;" 
+    class="ag-theme-blue"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)"
+    (rowClicked)='onRowClicked($event)'
+    [modules]="modules"
+    [frameworkComponents]="frameworkComponents"
+    >
+</ag-grid-angular>
+
+</div>
+</center>

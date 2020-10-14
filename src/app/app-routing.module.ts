@@ -12,6 +12,8 @@ import { AgGridComponent } from './after-login/ag-grid/ag-grid.component';
 import { PlaceOrderComponent } from './before-login/place-order/place-order.component';
 import { AddClassesComponent } from './after-login/add-classes/add-classes.component';
 import { AssignmentTypeComponent } from './after-login/assignment-type/assignment-type.component';
+import { AssignmentComponent } from './after-login/assignment/assignment.component';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -25,6 +27,7 @@ const routes: Routes = [
   { path: 'userprofile', component: PlaceOrderComponent},
   { path: 'addclasses', component: AddClassesComponent},
   { path: 'assignmenttype', component: AssignmentTypeComponent},
+  { path: 'assignment', component: AssignmentComponent},
   {path: '',  redirectTo: '/welcome', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
