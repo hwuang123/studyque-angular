@@ -1,0 +1,220 @@
+<form class="border border-light p-5 my-form" name="form" (ngSubmit)="isFromCancel=false; f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <!-- <form class="border border-light p-5 my-form" name="form" (ngSubmit)="isFromCancel=false; f.form.valid && onSubmit()" #f="ngForm" novalidate> -->
+
+    <p class="h4 mb-4" style="color: #d7e0a8; margin-top: -40px;">Input Guardian</p>
+    <div class="container">
+
+        <div class="row">
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="firstname" class="control-label label-large">Guardian First Name</label>
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && firstname.errors?.required}" 
+                class="form-control form-control-sm input" id="firstname" name="firstname" required 
+                placeholder="First Name" [(ngModel)]="guardian.firstName" #firstname="ngModel">
+            </div>
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left">
+                <label for="middlename" class="control-label label-large">Guardian Middle Name</label>
+                <input type="input"  
+                class="form-control form-control-sm input" id="middlename" name="middlename"
+                placeholder="Middle Name" [(ngModel)]="guardian.middleName" #middlename="ngModel">
+            </div>
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="lastname" class="control-label label-large">Guardian Last Name</label>
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && lastname.errors?.required}" 
+                class="form-control form-control-sm input" id="lastname" name="lastname" required 
+                placeholder="Last Name" [(ngModel)]="guardian.lastName" #lastname="ngModel">
+            </div>
+          
+            <div class="form-row error-message14" [hidden]="isFromCancel">
+                <span style="width: 306px; float: left;">
+                   <font *ngIf="f.submitted && firstname.errors?.required" color="red">First Name is required</font></span>
+                <span style="width: 306px; float: left;"></span>
+                <span style="width: 306px; float: left;">
+                   <font *ngIf="f.submitted && lastname.errors?.required" color="red">Last Name is required</font></span>   
+            </div>
+            
+        </div>
+
+        <div class="row ">
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required" style="padding-top: 25px;" >
+                <label for="gender" class="control-label label-large" >Gender : &nbsp;&nbsp;</label>
+                <div *ngFor="let gender of genderOptions" style="display: inline;"> 
+                  <label class="radio inline radio-label label-large">
+                    <input type="radio" 
+                    [checked]="gender.value == guardian.gender? true: false"
+                    (change)="clickGuardianGender(gender.value)"
+                     name="gender" [value]="gender.value" 
+                     [(ngModel)]="guardian.gender" #gender="ngModel" required/>{{ gender.label }}&nbsp;&nbsp;
+                  </label>
+                </div>
+            </div>
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="age" class="control-label label-large">Guardian Age</label>
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && age.errors?.required}" 
+                class="form-control form-control-sm input" id="age" name="age" required 
+                placeholder="Age" [(ngModel)]="guardian.age" #age="ngModel">
+            </div>
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="relationship" class="control-label label-large">Relationship With Student</label>
+                <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+                 [ngClass]="{'border-red':!isFromCancel &&  f.submitted && relationship.errors?.required}" 
+                  id="relationship" name="relationship" required 
+                  [(ngModel)]="guardian.relationship" #relationship="ngModel">
+                  <option *ngFor="let opt of relationOptions" [ngValue]="opt.value"
+                    [selected]="opt.value == guardian.relationship">{{opt.label}}</option>
+                </select>               
+            </div>
+            <div class="form-row error-message14" [hidden]="isFromCancel">
+                <span style="margin-left: 5px; float: left; width: 300px;">
+                   <font *ngIf="f.submitted && guardian.gender == ''" color="red">Guardian gender is required</font></span>
+                <span style="margin-left: 4px; float: left; width: 300px;">
+                   <font *ngIf="f.submitted && age.errors?.required" color="red">Guardian Age is required</font></span>  
+                <span style="margin-left: 4px; float: left; width: 306px;">
+                   <font *ngIf="f.submitted && relationship.errors?.required" color="red">Relationship is required</font></span>  
+            </div>     
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-9 col-md-9 input-sm text-left" style="width: 580px; padding-top: 25px;" >
+                <label for="gender" class="control-label label-large" >Is the address of guardian same as the address of student ? &nbsp;&nbsp;</label>
+                <div *ngFor="let yesorno of yesOrNoOptions" style="display: inline;"> 
+                  <label class="radio inline radio-label label-large">
+                    <input type="radio" 
+                    [checked]="yesorno.value == guardian.addressSameAsStudent? true: false"
+                    (change)="clickSameAddress(yesorno.value)"
+                     name="yesorno" [value]="yesorno.value" 
+                     [(ngModel)]="guardian.addressSameAsStudent" #yesorno="ngModel" required/>{{ yesorno.label }}&nbsp;&nbsp;
+                  </label>
+                </div>
+            </div>
+<!--             <div class="form-group col-xs-9" style="color: white; width: 580px; float: left; margin-top: 0px;">
+                <label class="control-label" style="margin-bottom: 0px !important;">Is the address of guardian same as the address of student ?&nbsp;&nbsp;</label>
+
+                <div *ngFor="let yesorno of yesOrNoOptions" style="display: inline;"> 
+                 <label class="radio inline" >
+                    <input type="radio" name="yesorno" [value]="yesorno.value" (change)="clickSameAddress(yesorno.value)"
+                     [checked]="yesorno.value == guardian.addressSameAsStudent? true: false"
+                     [(ngModel)]="guardian.addressSameAsStudent" #yesorno="ngModel" />{{ yesorno.label }}&nbsp;&nbsp;
+                 </label>
+                </div>
+
+            </div> -->
+        </div>
+
+      <div  [hidden]="guardian.addressSameAsStudent == 'Y'" >
+        <div class="row">
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="city" class="control-label label-large">City</label>
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && city.errors?.required}" 
+                class="form-control form-control-sm input" id="city" name="city"
+                [required]="guardian.addressSameAsStudent==='N'" 
+                placeholder="City" [(ngModel)]="guardian.city" #city="ngModel">
+            </div>
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="state" class="control-label label-large">State</label>
+                <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+                 [ngClass]="{'border-red':!isFromCancel &&  f.submitted && state.errors?.required}" 
+                  id="state" name="state" 
+                  [required]="guardian.addressSameAsStudent==='N'" 
+                  [(ngModel)]="guardian.state" #state="ngModel">
+                  <option *ngFor="let opt of stateOptions" [ngValue]="opt.value"
+                    [selected]="opt.value == guardian.state">{{opt.label}}</option>
+                </select>               
+            </div>
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="zip" class="control-label label-large">Zip</label>
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && zip.errors?.required}" 
+                class="form-control form-control-sm input" id="zip" name="zip"
+                [required]="guardian.addressSameAsStudent==='N'" 
+                placeholder="Zip" [(ngModel)]="guardian.zip" #zip="ngModel">
+            </div>
+            <div class="form-row error-message14" [hidden]="isFromCancel">
+                <span style="padding-left: 4px; float: left; width: 306px; ">
+                 <font  *ngIf="f.submitted && city.errors?.required" color="red">City is a required field</font>
+               </span>
+               <span style="width: 306px; float: left;">
+                 <font *ngIf="f.submitted && state.errors?.required" color="red">State is required</font>
+               </span>  
+               <span style="float: right;">
+                 <font *ngIf="f.submitted && zip.errors?.required" color="red">Zip is required</font>
+               </span>  
+            </div>
+        </div><!-- class="row" -->
+        <div class="row">
+            <div class="form-group col-xs-6 col-md-6 input-sm text-left required">
+                <label for="address" class="control-label label-large">Address</label>
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && address.errors?.required}" 
+                class="form-control form-control-sm input" id="address" name="address" 
+                [required]="guardian.addressSameAsStudent==='N'" 
+                placeholder="Address" [(ngModel)]="guardian.address" #address="ngModel">
+            </div>       
+        </div>
+        <div class="form-row error-message14" [hidden]="isFromCancel">
+            <span style="float: left; width: 246px; margin-left: -100px;">
+             <font  *ngIf="f.submitted && address.errors?.required" color="red">Guardian Address is a required field</font>
+           </span>             
+        </div>
+      </div><!-- guardian.addressSameAsStudent == 'Y' -->
+
+    </div>
+    
+    
+
+    <!-- Send button -->
+    <center>
+     <!--  {{ dateValue }} -->
+    <!--   {{isFromCancel}} -->
+      <ng-template [ngIf]="isUpdate" [ngIfElse]="addButton">
+        <div class="" style="display: inline; padding-top: 3.5em; " >
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                   <button type="submit" class="myButton">Update Guardian</button>&nbsp;&nbsp;
+        </div>
+      </ng-template>   
+      <ng-template #addButton >
+        <div class="" style="display: inline; padding-top: 3.5em; " >
+          &nbsp;&nbsp;&nbsp;&nbsp;
+              <button type="submit" class="myButton">Add Guardian</button>&nbsp;&nbsp;
+        </div>
+      </ng-template>
+      
+        <div class="" style="display: inline; padding-top: 3.5em; ">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+     <!-- <button   [routerLink]="'/welcome'" class="myButton">Add Class</button>&nbsp;&nbsp; -->
+        <button (click)="isFromCancel=true; cancel(); $event.preventDefault()" class="myButton">Cancel</button>&nbsp;&nbsp;
+       
+        </div>
+    </center>  
+    <br/>  
+    <center>
+      <div tyle="display: block;  padding-top:0em;">
+        <font color="green"><span id="message"></span></font>
+      </div>
+      <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
+         <h3>{{errorMessage}}</h3>
+      </span>
+      <div tyle="display: block;  padding-top:1em;">
+        <font color="green"><span id="message"></span></font>
+      </div>
+      <span [hidden]="hideMessage" class="help-block" style="color: rgb(6, 128, 46); margin-top: -28px;">
+        <strong>{{message}}</strong>
+      </span> 
+    </center>
+</form>
+<!-- Default form contact -->
+<br/>
+<center> 
+<div style="width: 1378px; height: 400px; margin-left: -132px;">
+  <ag-grid-angular 
+    #agGrid
+    id="myGrid"
+    style="width: 100%; height: 100%;" 
+    class="ag-theme-blue"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)"
+    (rowClicked)='onRowClicked($event)'
+    [modules]="modules"
+    [frameworkComponents]="frameworkComponents"
+    >
+</ag-grid-angular>
+
+</div>
+</center>

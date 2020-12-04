@@ -46,15 +46,21 @@
 			<a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Manage Assignment</a>
 		    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 				<li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="assignmenttype" [routerLinkActive]="['active']">Manage Assignment Type</a></li>
-        <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="assignment" [routerLinkActive]="['active']">Add Assignment</a></li>
-        <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="grid" [routerLinkActive]="['active']">AG Grid</a></li>
+                <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="assignment" [routerLinkActive]="['active']">Add Assignment</a></li>
+                <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="displayassignment" [routerLinkActive]="['active']">Display Assignments</a></li>
 			</ul>
-		</li>  
+		</li> 
+		<li class="nav-item dropdown"  [routerLinkActive]="['active']">
+			<a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Manage Notifications</a>
+		    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="guardian" [routerLinkActive]="['active']">Manage Guardians</a></li>
+               <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="alert" [routerLinkActive]="['active']">Setup Notifications</a></li>
+			</ul>
+		</li>   
 		<li class="nav-item" [routerLinkActive]="['active']">
 		  <a class="nav-link" routerLink="home" >Home <span class="sr-only">(current)</span></a>
 		</li>
-	
-		<!-- <li class="nav-item dropdown"  [routerLinkActive]="['active']">
+			<!-- <li class="nav-item dropdown"  [routerLinkActive]="['active']">
 			<a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" (click)="toggleShowLeaves('leaves')" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Leaves Dropdown</a>
 		    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 				<li [routerLinkActive]="['active']"><a class="dropdown-item" (click)="toggleShowLeaves('apply')" routerLink="leaves/apply" [routerLinkActive]="['active']">Apply</a></li>

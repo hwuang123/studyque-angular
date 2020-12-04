@@ -11,5 +11,7 @@ export class GuardianBean {
              state: string='';
         	 zip: string;
         	 address: string;
-        	 addressSameAsStudent: string ="Y";
+			 addressSameAsStudent: string ="Y";
+			 message: string='';
+             errorMessage: string='';
 }

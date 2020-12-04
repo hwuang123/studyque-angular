@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './auth/home/home.component';
@@ -13,7 +13,8 @@ import { PlaceOrderComponent } from './before-login/place-order/place-order.comp
 import { AddClassesComponent } from './after-login/add-classes/add-classes.component';
 import { AssignmentTypeComponent } from './after-login/assignment-type/assignment-type.component';
 import { AssignmentComponent } from './after-login/assignment/assignment.component';
-
+import { DisplayAssignmentsComponent } from './after-login/display-assignments/display-assignments.component';
+import { GuardianComponent } from './after-login/guardian/guardian.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -28,6 +29,8 @@ const routes: Routes = [
   { path: 'addclasses', component: AddClassesComponent},
   { path: 'assignmenttype', component: AssignmentTypeComponent},
   { path: 'assignment', component: AssignmentComponent},
+  { path: 'displayassignment', component: DisplayAssignmentsComponent},
+  { path: 'guardian', component: GuardianComponent},
   {path: '',  redirectTo: '/welcome', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];

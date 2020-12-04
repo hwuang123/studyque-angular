@@ -41,6 +41,8 @@ import { AddClassesComponent } from './after-login/add-classes/add-classes.compo
 import { AddClassScheduleComponent } from './modal/add-class-schedule/add-class-schedule.component';
 import { AssignmentTypeComponent } from './after-login/assignment-type/assignment-type.component';
 import { AssignmentComponent } from './after-login/assignment/assignment.component';
+import { DisplayAssignmentsComponent } from './after-login/display-assignments/display-assignments.component';
+import { GuardianComponent } from './after-login/guardian/guardian.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { AssignmentComponent } from './after-login/assignment/assignment.compone
     AddClassesComponent,
     AddClassScheduleComponent,
     AssignmentTypeComponent,
-    AssignmentComponent
+    AssignmentComponent,
+    DisplayAssignmentsComponent,
+    GuardianComponent
 
   ],
   imports: [
