@@ -6,10 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
   title = 'angular-studyque';
   isShow: boolean = true;
-  
+
   hideThis(){
     this.isShow = false;
   }
 }
+

@@ -1,7 +1,7 @@
 import { StudentBean } from './student-bean';
 import { ClassdayOfWeek } from './classday-of-week';
 export class ClassName {
-    pkClsnmId: number;
+    pkClsnmId : number;
 	student: StudentBean;
 	classname: string;
 	classtype: string;

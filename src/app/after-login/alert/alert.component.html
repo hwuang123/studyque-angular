@@ -1,0 +1,329 @@
+<form class="border border-light p-5 my-form" name="form" (ngSubmit)="isFromCancel=false; f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <!-- <form class="border border-light p-5 my-form" name="form" (ngSubmit)="isFromCancel=false; f.form.valid && onSubmit()" #f="ngForm" novalidate> -->
+      <ng-template [ngIf]="isUpdate" [ngIfElse]="inputp">
+        <p class="h4 mb-4" style="color: #d7e0a8; margin-top: -40px;">Edit Notification</p>       
+      </ng-template>   
+      <ng-template #inputp >
+        <p class="h4 mb-4" style="color: #d7e0a8; margin-top: -40px;">Input Notification</p>
+      </ng-template>
+      <div class="container">  
+
+        <div class="row">
+          <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+            <label for="classname" class="control-label label-large">Class Name :</label>
+            <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+             [ngClass]="{'border-red':!isFromCancel &&  f.submitted &&  classname.errors?.selectZeroInvalid }" 
+              id="classname" name="classname" required  (change)="selectClassHandler($event)"
+              [(ngModel)]="alert.pkClsnmId" #classname="ngModel" selectNonZero>
+              <option *ngFor="let class of classnameList" [value]="class.pkClsnmId"
+                [selected]="class.pkClsnmId === alert.pkClsnmId">{{class.classname}}</option>
+            </select>               
+          </div>
+          <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+            <label for="assignment" class="control-label label-large">Assignment :</label>
+            <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+             [ngClass]="{'border-red':!isFromCancel &&  f.submitted && assignment.errors?.selectZeroInvalid }" 
+              id="assignment" name="assignment" selectNonZero (change)="selectAssignmentHandler($event)"
+              [(ngModel)]="alert.pkAssignmentId" #assignment="ngModel">
+              <option value=0>--Please Select an Assignment--</option>
+              <option *ngFor="let assignment of assignmentList" [value]="assignment.pkAssignmentId"
+                [selected]="assignment.pkAssignmentId === alert.pkAssignmentId">{{assignment.classname}}-{{assignment.assignmenttype}}</option>
+            </select>               
+          </div>
+          <div class="form-group col-xs-6 col-md-6 input-sm text-left">
+                <br/>
+                <label class="control-label label-large">Assignment Due Date : </label>
+                <label class="control-label text-danger display-3">{{showDueDate | date : 'MM/dd/yyyy h:mm:ss a'}}</label>
+          </div>
+
+          <div class="form-row error-message14" [hidden]="isFromCancel">
+                <span style="width: 306px; float: left;">
+                   <font *ngIf="f.submitted &&  classname.errors?.selectZeroInvalid" color="red">Class Name is required</font></span>
+                <!-- <span style="width: 306px; float: left;"></span> -->
+                <span style="width: 306px; float: left;">
+                   <font *ngIf="f.submitted &&  assignment.errors?.selectZeroInvalid" color="red">Assignment is required</font></span>   
+          </div>
+            
+        </div>
+
+        <div class="row ">
+          <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+            <label for="guardian" class="control-label label-large">Guardian :</label>
+            <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+             [ngClass]="{'border-red':!isFromCancel &&  f.submitted && guardian.errors?.selectZeroInvalid}" 
+              id="guardian" name="guardian" selectNonZero 
+              [(ngModel)]="alert.pkGuardianId" #guardian="ngModel">
+              <option *ngFor="let guardian of guardianList" [value]="guardian.guardianId"
+                [selected]="guardian.guardianId == alert.pkGuardianId">{{guardian.firstName}} {{guardian.lastName}}</option>
+            </select>               
+          </div>
+          <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+            <label for="method" class="control-label label-large">Contact Method :</label>
+            <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+             [ngClass]="{'border-red':!isFromCancel &&  f.submitted && method.errors?.selectZeroInvalid}" 
+              id="method" name="method" selectNonZero 
+              [(ngModel)]="alert.pkMethodId" #method="ngModel">
+              <option *ngFor="let method of methodList" [value]="method.pkMethodId"
+                [selected]="method.pkMethodId == alert.pkMethodId">{{method.contactMethod}}</option>
+            </select>               
+          </div>
+          <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="media" class="control-label label-large">Notify with</label>
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && media.errors?.required}" 
+                class="form-control form-control-sm input" id="media" name="media" required 
+                placeholder="email or phone #" [(ngModel)]="alert.mediaVal" #media="ngModel">
+          </div>
+          <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+            <label for="repeat" class="control-label label-large">Notification Repeat Days</label>
+            <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+            [ngClass]="{'border-red':!isFromCancel &&  f.submitted && repeat.errors?.selectZeroInvalid}" 
+             id="repeat" name="repeat" selectNonZero 
+             [(ngModel)]="alert.repeatDays" #repeat="ngModel">
+             <option *ngFor="let repeat of repeatDaysList" [value]="repeat.value"
+               [selected]="repeat.value == alert.repeatDays">{{repeat.label}}</option>
+           </select>               
+
+ <!--            <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && repeat.errors?.required}" 
+            class="form-control form-control-sm input" id="repeat" name="repeat" required 
+            placeholder="Notification Repeat Days" [(ngModel)]="alert.repeatDays" #repeat="ngModel"> -->
+          </div>
+          
+          <div class="form-row error-message14" [hidden]="isFromCancel">
+                <span style="margin-left: 5px; float: left; width: 300px;">
+                   <font *ngIf="f.submitted &&  guardian.errors?.selectZeroInvalid" color="red">Guardian is required</font></span>
+                <span style="margin-left: 4px; float: left; width: 300px;">
+                   <font *ngIf="f.submitted && method.errors?.selectZeroInvalid" color="red">Contact Method is required</font></span>  
+                <span style="margin-left: 4px; float: left; width: 306px;">
+                   <font *ngIf="f.submitted && media.errors?.required" color="red">Notify with is required</font></span> 
+                <span style="margin-left: 5px; float: left; width: 280px;">
+                    <font *ngIf="f.submitted &&  repeat.errors?.selectZeroInvalid" color="red">Notification Repeat Days is required</font></span>
+          </div>     
+        </div>
+
+        <div class="row ">
+          <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+            <label for="alerttime" class="control-label label-large">Notification Time</label>
+          
+           <!--  <input [ngxTimepicker]="picker" class="form-control input" placeholder="Click Here To Input"
+             [ngClass]="{'border-red': (alerttime.errors?.incorrect) || (f.submitted && alerttime.errors?.required)}"
+             id="alerttime" #alerttime="ngModel" required [(ngModel)]="alert.alerttime" name="alerttime">
+             <ngx-material-timepicker #picker></ngx-material-timepicker> -->
+
+            <div class="date-container">
+              <input class="shadow-input" name="alert_time" [(ngModel)]="alertTime"
+                [owlDateTime]="dt3" #alerttime="ngModel" (dateTimeChange)="getAlertTime($event)" required>
+         
+              <input class="form-control form-control-sm input" type="text" [owlDateTimeTrigger]="dt3" placeholder="Click Here To Input"
+              [ngClass]="{'border-red':!isFromCancel && f.submitted && alerttime.errors?.required}" 
+              [value]="alertTime | datetimeFilter:timefmt" name="alerttime" id="alerttime">
+              <owl-date-time [pickerType]="'timer'" [showSecondsTimer]="true" [hour12Timer]="true" #dt3></owl-date-time>
+            </div>
+
+            <!-- <input type="time" class="form-control input" placeholder="hh:mm:ss"
+             [ngClass]="{'border-red': (alerttime.errors?.incorrect) || (f.submitted && alerttime.errors?.required)}"
+             id="alerttime" #alerttime="ngModel" required [(ngModel)]="alert.alerttime" name="alerttime"> -->
+          </div>
+          <div class="form-group col-sm-3 text-left required">
+            <label for="start" class="control-label label-large">Notification Start Date & Time</label>
+           <!--  <mat-form-field>
+              <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a notification start date" [formControl]="dateControl"
+                [min]="minDate" [max]="maxDate" [disabled]="disabled" [ngClass]="{'border-red':!isFromCancel && f.submitted && end.errors?.required}" 
+                class="form-control form-control-sm input" id="start" name="start" required 
+                 [(ngModel)]="alert.AlertStartDateTime" #start="ngModel">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="touchUi"
+                [color]="color" [enableMeridian]="enableMeridian">
+              </ngx-mat-datetime-picker>
+            </mat-form-field> -->
+            <div class="date-container">
+              <input class="shadow-input" name="start_datetime" [(ngModel)]="alertStartDatetime"
+               [owlDateTime]="dt1" #start="ngModel" (dateTimeChange)="getStartDateTime($event)" required> 
+         
+              <input class="form-control form-control-sm input" type="text" [owlDateTimeTrigger]="dt1" placeholder="Click Here To Input"
+              [ngClass]="{'border-red':!isFromCancel && f.submitted && start.errors?.required}" 
+              [value]="alertStartDatetime | datetimeFilter:fmt" name="start" id="start" >
+
+              <!-- <input class="form-control form-control-sm input" [(ngModel)]="alertStartDatetime" 
+               [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Click Here To Input"
+               [ngClass]="{'border-red':!isFromCancel && f.submitted && start.errors?.required}"
+               #start="ngModel" name="start" id="start" (dateTimeChange)="getStartDateTime($event)" required > -->
+              <owl-date-time [showSecondsTimer]="true" [hour12Timer]="true"  [dateFormat]="'MM/DD/YYYY h:mm:ss a'" #dt1></owl-date-time>
+            </div>
+            <!-- <app-date-time-picker placeholder="mm/dd/yyyy" [(ngModel)]="alert.alertStartDateTime" id="start" name="start" #start="ngModel" required></app-date-time-picker> -->
+
+         <!--  <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+            <label for="start" class="control-label label-large">Notify Start Date & Time</label>
+            <app-date-time-picker [ngClass]="{'border-red':!isFromCancel && f.submitted && start.errors?.required}" 
+             class="form-control form-control-sm" id="start" name="start" required 
+             placeholder="Notification Start Date & Time" [(ngModel)]="alert.AlertStartDateTime" #start="ngModel"></app-date-time-picker> -->
+           <!--  <input type="datetime-local" [ngClass]="{'border-red':!isFromCancel && f.submitted && start.errors?.required}" 
+            class="form-control form-control-sm input" id="start" name="start" required 
+            placeholder="Notification Start Date & Time" [(ngModel)]="alert.AlertStartDateTime" #start="ngModel"> -->
+          </div>
+          <div class="form-group col-sm-3 text-left required">
+            <label for="end" class="control-label label-large">Notification End Date & Time</label>
+           <!--  <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Click Here To Input"
+            [(ngModel)]="alert.alertEndDateTime" [ngClass]="{'border-red':!isFromCancel && f.submitted && end.errors?.required}" 
+            id="end" name="end" #end="ngModel" class="form-control form-control-sm input" required>
+            <owl-date-time  [showSecondsTimer]="true" [hour12Timer]="true" #dt2></owl-date-time> -->
+            <div class="date-container">
+              <input class="shadow-input" name="end_datetime" [(ngModel)]="alertEndDatetime"
+               [owlDateTime]="dt2" #end="ngModel" (dateTimeChange)="getEndDateTime($event)" required>
+         
+              <input class="form-control form-control-sm input" type="text" [owlDateTimeTrigger]="dt2" placeholder="Click Here To Input"
+              [ngClass]="{'border-red':!isFromCancel && f.submitted && end.errors?.required}" 
+              [value]="alertEndDatetime | datetimeFilter:fmt" name="end" id="end" >
+              <owl-date-time [showSecondsTimer]="true" [hour12Timer]="true" #dt2></owl-date-time>
+            </div>
+
+           <!--  <app-date-time-picker 
+             id="end" name="end" required placeholder="Notification End Date & Time"
+             [(ngModel)]="alert.alertEndDateTime" #end="ngModel"></app-date-time-picker> -->
+           <!--  <input type="datetime-local" [ngClass]="{'border-red':!isFromCancel && f.submitted && end.errors?.required}" 
+            class="form-control form-control-sm input" id="end" name="end" required 
+            placeholder="Notification End Date" [(ngModel)]="alert.AlertEndDateTime" #end="ngModel"> -->
+          </div>
+ 
+          <div class="form-row error-message14" [hidden]="isFromCancel">
+                <span style="margin-left: 4px; float: left; width: 300px;">
+                   <font *ngIf="f.submitted && alerttime.errors?.required" color="red">Notification Time is required</font></span>      
+                <span style="margin-left: 4px; float: left; width: 300px;">
+                   <font *ngIf="f.submitted && start.errors?.required" color="red">Notification Start Date & Time is required</font></span>  
+                <span style="margin-left: 4px; float: left; width: 306px;">
+                   <font *ngIf="f.submitted && end.errors?.required" color="red">Notification End Date & Time  is required</font></span> 
+           </div>     
+        </div>
+
+        <div class="row">
+          <div class="form-group flex-fill mr-2 text-left w-75 required">
+            <label for="alertmessage" class="control-label label-large" style="padding-left: 12px;">Notification Message</label>
+            <textarea class="form-control rounded-0 my-textarea input" [ngClass]="{'border-red':!isFromCancel && f.submitted && alertmessage.errors?.required}" 
+            name="alertmessage" id="alertmessage" #alertmessage="ngModel" rows="3" [(ngModel)]="alert.alertMessage" placeholder="Notification Message" required></textarea>
+          </div>
+          <div class="form-row error-message14" [hidden]="isFromCancel">
+            <span style="margin-left: 5px; float: left; width: 300px;">
+               <font *ngIf="f.submitted &&  alertmessage.errors?.required" color="red">Notification Message is required</font></span>
+          </div>     
+        </div>
+
+      <!-- <div  [hidden]="guardian.addressSameAsStudent == 'Y'" >
+        <div class="row">
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="city" class="control-label label-large">City</label>
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && city.errors?.required}" 
+                class="form-control form-control-sm input" id="city" name="city"
+                [required]="guardian.addressSameAsStudent==='N'" 
+                placeholder="City" [(ngModel)]="guardian.city" #city="ngModel">
+            </div>
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="state" class="control-label label-large">State</label>
+                <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+                 [ngClass]="{'border-red':!isFromCancel &&  f.submitted && state.errors?.required}" 
+                  id="state" name="state" 
+                  [required]="guardian.addressSameAsStudent==='N'" 
+                  [(ngModel)]="guardian.state" #state="ngModel">
+                  <option *ngFor="let opt of stateOptions" [ngValue]="opt.value"
+                    [selected]="opt.value == guardian.state">{{opt.label}}</option>
+                </select>               
+            </div>
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="zip" class="control-label label-large">Zip</label>
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && zip.errors?.required}" 
+                class="form-control form-control-sm input" id="zip" name="zip"
+                [required]="guardian.addressSameAsStudent==='N'" 
+                placeholder="Zip" [(ngModel)]="guardian.zip" #zip="ngModel">
+            </div>
+            <div class="form-row error-message14" [hidden]="isFromCancel">
+                <span style="padding-left: 4px; float: left; width: 306px; ">
+                 <font  *ngIf="f.submitted && city.errors?.required" color="red">City is a required field</font>
+               </span>
+               <span style="width: 306px; float: left;">
+                 <font *ngIf="f.submitted && state.errors?.required" color="red">State is required</font>
+               </span>  
+               <span style="float: right;">
+                 <font *ngIf="f.submitted && zip.errors?.required" color="red">Zip is required</font>
+               </span>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6 col-md-6 input-sm text-left required">
+                <label for="address" class="control-label label-large">Address</label>
+                <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && address.errors?.required}" 
+                class="form-control form-control-sm input" id="address" name="address" 
+                [required]="guardian.addressSameAsStudent==='N'" 
+                placeholder="Address" [(ngModel)]="guardian.address" #address="ngModel">
+            </div>       
+        </div>
+        <div class="form-row error-message14" [hidden]="isFromCancel">
+            <span style="float: left; width: 246px; margin-left: -100px;">
+             <font  *ngIf="f.submitted && address.errors?.required" color="red">Guardian Address is a required field</font>
+           </span>             
+        </div>
+      </div>-->
+
+    </div>
+    
+    
+
+    <!-- Send button -->
+    <center>
+     <!--  {{ dateValue }} -->
+    <!--   {{isFromCancel}} -->
+      <ng-template [ngIf]="isUpdate" [ngIfElse]="addButton">
+        <div class="" style="display: inline; padding-top: 3.5em; " >
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                   <button type="submit" class="myButton">Update Notification</button>&nbsp;&nbsp;
+        </div>
+      </ng-template>   
+      <ng-template #addButton >
+        <div class="" style="display: inline; padding-top: 3.5em; " >
+          &nbsp;&nbsp;&nbsp;&nbsp;
+              <button type="submit" class="myButton">Add Notification</button>&nbsp;&nbsp;
+        </div>
+      </ng-template>
+      
+        <div class="" style="display: inline; padding-top: 3.5em; ">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+     <!-- <button   [routerLink]="'/welcome'" class="myButton">Add Class</button>&nbsp;&nbsp; -->
+        <button (click)="isFromCancel=true; cancel(); $event.preventDefault()" class="myButton">Cancel</button>&nbsp;&nbsp;
+       
+        </div>
+    </center>  
+    <br/>  
+
+    <center>
+      <div tyle="display: block;  padding-top:0em;">
+        <font color="green"><span id="message"></span></font>
+      </div>
+      <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
+         <h3>{{errorMessage}}</h3>
+      </span>
+      <div tyle="display: block;  padding-top:1em;">
+        <font color="green"><span id="message"></span></font>
+      </div>
+      <span [hidden]="hideMessage" class="help-block" style="color: rgb(6, 128, 46); margin-top: -28px;">
+        <strong>{{message}}</strong>
+      </span> 
+    </center>
+</form>
+<!-- Default form contact -->
+<br/>
+<center> 
+<div style="width: 1378px; height: 400px; margin-left: -132px;">
+  <ag-grid-angular 
+    #agGrid
+    id="myGrid"
+    style="width: 100%; height: 100%;" 
+    class="ag-theme-blue"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)"
+    (rowClicked)='onRowClicked($event)'
+    [modules]="modules"
+    [frameworkComponents]="frameworkComponents"
+    >
+</ag-grid-angular>
+
+</div>
+</center>

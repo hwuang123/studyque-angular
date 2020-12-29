@@ -15,6 +15,7 @@ import { AssignmentTypeComponent } from './after-login/assignment-type/assignmen
 import { AssignmentComponent } from './after-login/assignment/assignment.component';
 import { DisplayAssignmentsComponent } from './after-login/display-assignments/display-assignments.component';
 import { GuardianComponent } from './after-login/guardian/guardian.component';
+import { AlertComponent } from './after-login/alert/alert.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'assignment', component: AssignmentComponent},
   { path: 'displayassignment', component: DisplayAssignmentsComponent},
   { path: 'guardian', component: GuardianComponent},
+  { path: 'alert', component: AlertComponent},
   {path: '',  redirectTo: '/welcome', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];

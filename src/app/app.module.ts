@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { FormsModule } from '@angular/forms'; 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -12,6 +13,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AgGridModule } from 'ag-grid-angular';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library as fontLibrary } from '@fortawesome/fontawesome-svg-core';
+import { faCalendar,  faClock } from '@fortawesome/free-regular-svg-icons';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -31,7 +38,6 @@ import { UpdateEmployeeComponent } from './after-login/update-employee/update-em
 import { ModelUpdateComponent } from './after-login/model-update/model-update.component';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 import { LoadingScreenInterceptor } from './interceptors/loading-screen.interceptor';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgGridComponent } from './after-login/ag-grid/ag-grid.component';
 import { ButtonRendererComponent } from './shared/button-renderer/button-renderer.component';
 import { CheckboxCellRendererComponent } from './shared/checkbox-cell-renderer/checkbox-cell-renderer.component';
@@ -43,6 +49,15 @@ import { AssignmentTypeComponent } from './after-login/assignment-type/assignmen
 import { AssignmentComponent } from './after-login/assignment/assignment.component';
 import { DisplayAssignmentsComponent } from './after-login/display-assignments/display-assignments.component';
 import { GuardianComponent } from './after-login/guardian/guardian.component';
+import { AlertComponent } from './after-login/alert/alert.component';
+import { DateTimePickerComponent } from './model/date-time-picker/date-time-picker.component';
+import { SelectZeroValidatorDirective } from './directive/select-zero-validator.directive';
+import { DatetimeFilterPipe } from './shared/datetime-filter.pipe';
+
+fontLibrary.add(
+  faCalendar,
+  faClock
+);
 
 @NgModule({
   declarations: [
@@ -69,13 +84,19 @@ import { GuardianComponent } from './after-login/guardian/guardian.component';
     AssignmentTypeComponent,
     AssignmentComponent,
     DisplayAssignmentsComponent,
-    GuardianComponent
+    GuardianComponent,
+    AlertComponent,
+    DateTimePickerComponent,
+    SelectZeroValidatorDirective,
+    DatetimeFilterPipe
 
   ],
   imports: [
     NgbModule,
+    NgxMaterialTimepickerModule,
     DateValueAccessorModule,
     BrowserModule,
+    FontAwesomeModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -90,7 +111,9 @@ import { GuardianComponent } from './after-login/guardian/guardian.component';
     MatCardModule,
     MatDialogModule,
     AgGridModule.withComponents([ButtonRendererComponent,CheckboxCellRendererComponent,GridHeaderSelectComponent]),
-    AppRoutingModule 
+    AppRoutingModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule 
 
   ],
   entryComponents: [
@@ -101,10 +124,12 @@ import { GuardianComponent } from './after-login/guardian/guardian.component';
     provide: HTTP_INTERCEPTORS,
     useClass: LoadingScreenInterceptor,
     multi: true
-  }],
+  },
+  DatePipe],
   bootstrap: [AppComponent],
   exports: [
     MatButtonModule, MatDialogModule,DragDropModule
   ] 
 })
-export class AppModule { }
+export class AppModule {
+  }
