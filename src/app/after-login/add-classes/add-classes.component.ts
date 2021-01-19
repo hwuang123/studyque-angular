@@ -153,37 +153,49 @@ export class AddClassesComponent implements OnInit {
           headerName: 'Class Name',
           field: 'classname',
           cellRenderer: 'agGroupCellRenderer',
-          resizable: true 
+          resizable: true,
+          cellStyle: {'text-align': 'left'}   
         },
         { headerName: 'Class Type',
           field: 'classtype',
-          resizable: true  },
+          resizable: true,
+          cellStyle: {'text-align': 'left'}  
+        },
         { headerName: 'Instructor',
           field: 'instructor',
-          resizable: true  },
+          resizable: true,
+          cellStyle: {'text-align': 'left'}  
+        },
         { headerName: 'Class Room',
           field: 'classroom',
           resizable: true  },
         { headerName: 'Academic Term',
           field: 'semester',
-          resizable: true  },
+          resizable: true,
+          cellStyle: {'text-align': 'left'}  
+        },
         { headerName: 'Academic Start Date',
           field: 'semStartDate',
           valueFormatter: function (params) {
             return moment(params.value).format('MM/DD/yyyy');
         },
          /*  cellRenderer: (data) => { return formatDate(data.value, 'MM/dd/yyyy', this.locale); }, */
-          resizable: true  },
+          resizable: true,
+          cellStyle: {'text-align': 'left'}  
+        },
         { headerName: 'Academic End Date',
           field: 'semEndDate',
           valueFormatter: function (params) {
             return moment(params.value).format('MM/DD/yyyy');
         },
-          resizable: true  }, 
+          resizable: true,
+          cellStyle: {'text-align': 'left'}  
+        }, 
           {
             headerName: '',
             field: 'description',
-            hide: true
+            hide: true,
+            cellStyle: {'text-align': 'left'}  
           }, 
         {
             headerName: 'Update',

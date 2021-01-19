@@ -90,14 +90,16 @@ export class DisplayAssignmentsComponent implements OnInit {
         headerName: 'Class Name',
         field: 'classname',
         resizable: true, 
-        hide: false
+        hide: false,
+        cellStyle: {'text-align': 'left'}
       },
       {
         headerName: 'Assignment Type',
         field: 'assignmenttype',
         hide: false,
         maxWidth: 300,
-        resizable: true 
+        resizable: true,
+        cellStyle: {'text-align': 'left'} 
       },
       {
         headerName: 'Due Date',
@@ -106,19 +108,22 @@ export class DisplayAssignmentsComponent implements OnInit {
         valueFormatter: function (params) {
           return moment(params.value).format('MM/DD/yyyy');
         },
-        resizable: true 
+        resizable: true,
+        cellStyle: {'text-align': 'left'} 
       }, 
       {
         headerName: 'Due Day of Week',
         field: 'dueDayofweek',
         maxWidth:200,
-        resizable: true         
+        resizable: true,
+        cellStyle: {'text-align': 'left'}         
       },
       {
         headerName: 'Description',
         field: 'description',
         minWidth:500,
-        resizable: true 
+        resizable: true,
+        cellStyle: {'text-align': 'left'} 
       } 
     
     ];

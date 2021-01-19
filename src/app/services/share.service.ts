@@ -190,7 +190,7 @@ export class ShareService {
           "label":"Tuesday"       
          },
          {
-          "value":"3",
+          "value":"Wednesday",
           "label":"Wednesday"
          },
          {

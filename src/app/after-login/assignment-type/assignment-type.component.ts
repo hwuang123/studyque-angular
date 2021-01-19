@@ -90,13 +90,15 @@ export class AssignmentTypeComponent implements OnInit {
         field: 'assignment',
         cellRenderer: 'agGroupCellRenderer',
         maxWidth: 300,
-        resizable: true 
+        resizable: true,
+        cellStyle: {'text-align': 'left'}   
       },
       {
           headerName: 'Description',
           field: 'description',
           minWidth:500,
-          resizable: true 
+          resizable: true,
+          cellStyle: {'text-align': 'left'}   
       }, 
       {
           headerName: 'Update',
