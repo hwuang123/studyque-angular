@@ -1,23 +1,9 @@
-<div class="container1"  style="width:1590px; margin-left: -6em; text-align: left; color: white;">
-    
+<div class="container1"  style="width:1590px; margin-left: -7em; text-align: left; color: white;">
+    <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Profile: </h3>
     <form class="well-body" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
         <div class="layoutrow">
-            <div class="column-left200" [hidden]="userProfile.orderTerm !== ''">
-              <h3>&nbsp;&nbsp;&nbsp;&nbsp;Order Options: </h3>   
-                <fieldset class="fieldset">
-                 <legend class="legend"><h5>Select a Term</h5></legend>
-
-                 <div  *ngFor="let term of terms" style="display: block; text-align: left;">
-                   <label style="padding-left: 1em;">
-                     <input type="radio" [(ngModel)]="userProfile.orderTerm" [(value)]="term.term" name="orderTerm" 
-                     [checked]="term.term == userProfile.orderTerm? true: false" #orderTerm="ngModel"/>&nbsp;&nbsp;<span class="text-white">{{term.label}}</span>
-                   </label>
-                 </div>
-            
-                
-                </fieldset>
-            </div>
-           <div [hidden]="userProfile.orderTerm == ''">
+           
+         
            <div class="column-left">
               <div style="width: 634px;">
               <fieldset class="form-group fieldset" style="margin-left:2px;">  
@@ -139,7 +125,7 @@
                       <font [hidden]="password.valid || (password.pristine && !f.submitted)" color="red">Password is required</font>
                     </span>  
                     <span style="float: right;">
-                      <font [hidden]="confirmpassword.valid || (confirmpassword.pristine && !f.submitted)" color="red">Password do not match</font>
+                      <font [hidden]="confirmpassword.valid || (confirmpassword.pristine && !f.submitted)" color="red">Password does not match</font>
                     </span>  
              </div>
                <br/>            
@@ -184,19 +170,6 @@
              </div>
              
               <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
-   <!--              <div class="form-group col-xs-9 required control-label align-left310">
-                  <label for="homephone" class="labellow col-form-label required">Home Phone</label>
-                  <input type="input"  class="form-control form-control-sm input align-left280 " [pattern]="phonePattern" 
-                   [ngClass]="{'border-red': f.submitted && (homephone.errors?.required||homephone.errors?.pattern)}"
-                    id="homephone" name="homephone" required placeholder="Home Phone" 
-                    [(ngModel)]="userProfile.studentBean.homePhone" #homephone="ngModel">
-                </div>
-                <div class="form-group col-xs-9 control-label align-left310">
-                  <label for="cellphone" class="labellow col-form-label">Cell Phone</label>
-                  <input type="input" class="form-control form-control-sm input align-left280" 
-                  id="cellphone" name="cellphone" placeholder="Cell Phone" 
-                  [(ngModel)]="userProfile.studentBean.cellPhone" #cellphone="ngModel">
-                </div>   -->
                 <div class="form-group col-xs-9 required control-label align-left310">
                   <label for="cellphone" class="labellow col-form-label required">Cell Phone</label>
                   <input type="input"  class="form-control form-control-sm input align-left280 " [pattern]="phonePattern" 
@@ -213,7 +186,7 @@
               </div>
               <div class="form-row error-message14"> 
                 <span style="margin-left: 4px; float: left;" *ngIf="f.submitted && cellphone.errors?.required"><font color="red">Cell Phone is a required field</font></span>
-                <span style="margin-left: 4x; float: left;"  [hidden]="cellphone.valid || (cellhone.pristine && !f.submitted) || f.submitted && cellphone.errors?.required"><font color="red">Invalid Phone Pattern</font></span>
+                <span style="margin-left: 4x; float: left;"  [hidden]="cellphone.valid || (cellphone.pristine && !f.submitted) || f.submitted && cellphone.errors?.required"><font color="red">Invalid Phone Pattern</font></span>
               </div>
 
               <div class="form-row" style="width:620px; margin-left:1em; height: 72px;">
@@ -520,7 +493,7 @@
               <div class="" style="display: inline; padding-top: 3.5em; ">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                    <button   [routerLink]="'/welcome'" class="myButton">Cancel</button>&nbsp;&nbsp;
-                   <button type="submit" class="myButton" >Buy Now</button> 
+                   <button type="submit" class="myButton" >Save</button> 
                     
               </div>
               <br/>
@@ -539,16 +512,17 @@
               </span>
               <br/>
               <br/>
-              <span [hidden]="hideMessage" class="alert alert-success">
+              <!-- <span [hidden]="hideMessage" class="alert alert-success">
                 
-                <strong>Registration Success!&nbsp;&nbsp;</strong> <a [routerLink]="'/login'">Please click here to login!</a>
-              </span>
+                <strong>Save Successfully!&nbsp;&nbsp;</strong> <a [routerLink]="'/login'">Please click here to login!</a>
+              </span> -->
             </center>
            
            </div>
           </div><!-- orderTerm -->
-         </div><!--<div class="layoutrow">-->
+         
                   
         </div>
     </form> 
 </div>
+

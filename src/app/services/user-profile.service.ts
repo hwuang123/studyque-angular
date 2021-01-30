@@ -11,6 +11,7 @@ import { ShareService } from './share.service';
 export class UserProfileService {
   // private userProfileSaveUrl = 'http://localhost:8083/RESTful/register/userprofile';
   private userProfileSaveUrl:any;
+
   errorMsg = "";
   headers = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -19,13 +20,38 @@ export class UserProfileService {
     headers: this.headers
  }
   constructor(private http: HttpClient, private shareService: ShareService) {
-  //  this.userProfileSaveUrl = this.shareService.url + 'register/userprofile';
-    this.userProfileSaveUrl = 'http://Studyque-env-2.eba-nxupp7m2.us-east-2.elasticbeanstalk.com/register/userprofile';
+    this.userProfileSaveUrl = this.shareService.url + 'register/userprofile';
+  //  this.userProfileSaveUrl = 'http://Studyque-env-2.eba-nxupp7m2.us-east-2.elasticbeanstalk.com/register/userprofile';
    }
 
  saveUserProfile(userProfile: Object): Observable<Object> {
     this.errorMsg = " saveUserProfile from Service "
     return this.http.post(`${this.userProfileSaveUrl}`, userProfile).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  updateUserProfile(userProfile: Object): Observable<Object> {
+    this.errorMsg = " saveUserProfile from Service "
+    return this.http.put(`${this.shareService.url}`+'register/updateUserProfile', userProfile).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+
+getUserProfile(): Observable<Object> {
+    this.errorMsg = " getUserProfile from Service "
+    return this.http.get(`${this.shareService.url}`+'register/getUserProfile').pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);

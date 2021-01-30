@@ -53,6 +53,7 @@ import { AlertComponent } from './after-login/alert/alert.component';
 import { DateTimePickerComponent } from './model/date-time-picker/date-time-picker.component';
 import { SelectZeroValidatorDirective } from './directive/select-zero-validator.directive';
 import { DatetimeFilterPipe } from './shared/datetime-filter.pipe';
+import { ProfileComponent } from './after-login/profile/profile.component';
 
 fontLibrary.add(
   faCalendar,
@@ -88,7 +89,8 @@ fontLibrary.add(
     AlertComponent,
     DateTimePickerComponent,
     SelectZeroValidatorDirective,
-    DatetimeFilterPipe
+    DatetimeFilterPipe,
+    ProfileComponent
 
   ],
   imports: [

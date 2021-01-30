@@ -8,7 +8,7 @@ export class StudentBean {
              major: string;
              email: string;
              confirmEmail: string;
-             homePhone: string;
+             cellPhone2nd: string;
              cellPhone: string;
              address: string;
              city: string;
