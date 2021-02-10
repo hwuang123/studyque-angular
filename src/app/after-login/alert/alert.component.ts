@@ -150,45 +150,52 @@ export class AlertComponent implements OnInit {
         headerName: 'Assignment',
         field: 'assignmentBean.assignmenttype',
         resizable: true,
+        maxWidth: 150,
         cellStyle: {'text-align': 'left'}  
       },
       {
         headerName: 'Guardian',
         field: 'guardianName',
         resizable: true,
+        maxWidth: 150,
         cellStyle: {'text-align': 'left'}  
       },
       {
         headerName: 'Notify With',
         field: 'mediaVal',
         resizable: true,
+        maxWidth: 140,
         cellStyle: {'text-align': 'left'}  
       },
       {
         headerName: 'Notification Time',
         field: 'alerttime',
         resizable: true,
+        minWidth: 100,
         cellStyle: {'text-align': 'left'}  
       },     
       {
         headerName: 'Notification Start Time',
         field: 'alertStartDateTime',
         resizable: true,
+        minWidth: 165,
         cellStyle: {'text-align': 'left'}  
       },
       {
         headerName: 'Notification End Time',
         field: 'alertEndDateTime',
+        minWidth: 165,
         resizable: true,
         cellStyle: {'text-align': 'left'}  
       },
       {
-        headerName: 'Days of Notification',
+        headerName: 'Days of Alert',
         field: 'repeatDays',
+        maxWidth: 150,
         resizable: true 
       },
-      {
-        headerName: 'Notification Message',
+      {C
+        headerName: 'Alert Message',
         field: 'alertMessage',
         resizable: true,
         cellStyle: {'text-align': 'left'}  
@@ -197,17 +204,17 @@ export class AlertComponent implements OnInit {
       {
           headerName: 'Update',
           template: `<button data-action-type="edit" class="mybtn" type="button" >edit</button>`,
-          width: 90,
-          minWidth:80,
-          maxWidth: 100,
+       width: 105,
+       //   minWidth:100,
+        //  maxWidth: 70,
           resizable: true 
       },  
       {
           headerName: 'Delete',
           template: `<button data-action-type="delete" class="mybtn" type="button" >delete</button>`,
-          width: 90,
-          minWidth:80,
-          maxWidth: 100,
+          width: 100,
+        //  minWidth:50,
+      //    maxWidth: 100,
           resizable: true 
       } 
     ];

@@ -56,9 +56,13 @@
 			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="guardian" [routerLinkActive]="['active']">Manage Guardians</a></li>
                <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="alert" [routerLinkActive]="['active']">Setup Notifications</a></li>
 			</ul>
-		</li> 
-		<li class="nav-item" [routerLinkActive]="['active']">
-			<a class="nav-link" routerLink="profile" >Manage Profile<span class="sr-only">(current)</span></a>
+		</li>
+		<li class="nav-item dropdown"  [routerLinkActive]="['active']">
+			<a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Manage User Profile</a>
+		    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="updatepassword" [routerLinkActive]="['active']">Change Password</a></li>
+               <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="profile" [routerLinkActive]="['active']">Edit User Profile</a></li>
+			</ul>
 		</li>  
 		<li class="nav-item" [routerLinkActive]="['active']">
 		  <a class="nav-link" routerLink="home" >Home <span class="sr-only">(current)</span></a>

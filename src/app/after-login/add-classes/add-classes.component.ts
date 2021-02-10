@@ -154,28 +154,34 @@ export class AddClassesComponent implements OnInit {
           field: 'classname',
           cellRenderer: 'agGroupCellRenderer',
           resizable: true,
+          maxWidth: 170,
           cellStyle: {'text-align': 'left'}   
         },
         { headerName: 'Class Type',
           field: 'classtype',
+          maxWidth: 140,
           resizable: true,
           cellStyle: {'text-align': 'left'}  
         },
         { headerName: 'Instructor',
           field: 'instructor',
           resizable: true,
+          maxWidth: 170,
           cellStyle: {'text-align': 'left'}  
         },
         { headerName: 'Class Room',
           field: 'classroom',
+          maxWidth: 110,
           resizable: true  },
         { headerName: 'Academic Term',
           field: 'semester',
+          maxWidth: 130,
           resizable: true,
           cellStyle: {'text-align': 'left'}  
         },
         { headerName: 'Academic Start Date',
           field: 'semStartDate',
+          maxWidth: 160,
           valueFormatter: function (params) {
             return moment(params.value).format('MM/DD/yyyy');
         },
@@ -185,6 +191,7 @@ export class AddClassesComponent implements OnInit {
         },
         { headerName: 'Academic End Date',
           field: 'semEndDate',
+          maxWidth: 150,
           valueFormatter: function (params) {
             return moment(params.value).format('MM/DD/yyyy');
         },
@@ -206,9 +213,9 @@ export class AddClassesComponent implements OnInit {
               onClick: this.onBtnClickUpdate.bind(this),
               label: 'update'
             }, */
-            width: 90,
-            minWidth:80,
-            maxWidth: 100,
+            width: 60,
+            minWidth:50,
+            maxWidth: 70,
             resizable: true 
         },  
         {
@@ -219,9 +226,9 @@ export class AddClassesComponent implements OnInit {
               onClick: this.onBtnClickDelete.bind(this),
               label: 'delete'
             }, */
-            width: 90,
-            minWidth:80,
-            maxWidth: 100,
+            width: 80,
+            minWidth:70,
+            maxWidth: 80,
             resizable: true 
         } ,
         {
@@ -232,9 +239,9 @@ export class AddClassesComponent implements OnInit {
             onClick: this.onBtnClickCreateSchedule.bind(this),
             label: 'schedule'
           }, */
-          width: 150,
-          minWidth:150,
-          maxWidth: 160,
+          width: 125,
+          minWidth:125,
+          maxWidth: 125,
           resizable: true 
       }      
       ];

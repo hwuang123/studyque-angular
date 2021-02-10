@@ -48,6 +48,17 @@ export class UserProfileService {
     );
   }
 
+  changePassword(changePassword: Object): Observable<Object> {
+    this.errorMsg = " Change Password "
+    return this.http.post(`${this.shareService.url}`+'register/changepassword', changePassword).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );   
+  }
 
 getUserProfile(): Observable<Object> {
     this.errorMsg = " getUserProfile from Service "

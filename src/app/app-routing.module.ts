@@ -17,6 +17,7 @@ import { DisplayAssignmentsComponent } from './after-login/display-assignments/d
 import { GuardianComponent } from './after-login/guardian/guardian.component';
 import { AlertComponent } from './after-login/alert/alert.component';
 import { ProfileComponent } from './after-login/profile/profile.component'
+import { UpdatePasswordComponent } from './after-login/update-password/update-password.component'
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'guardian', component: GuardianComponent},
   { path: 'alert', component: AlertComponent},
   { path: 'profile', component: ProfileComponent},
+  { path: 'updatepassword', component: UpdatePasswordComponent},
   {path: '',  redirectTo: '/welcome', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];

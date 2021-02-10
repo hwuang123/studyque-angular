@@ -96,7 +96,7 @@ export class AssignmentTypeComponent implements OnInit {
       {
           headerName: 'Description',
           field: 'description',
-          minWidth:500,
+          minWidth:400,
           resizable: true,
           cellStyle: {'text-align': 'left'}   
       }, 
@@ -111,9 +111,9 @@ export class AssignmentTypeComponent implements OnInit {
       {
           headerName: 'Delete',
           template: `<button data-action-type="delete" class="mybtn" type="button" >delete</button>`,
-          width: 90,
-          minWidth:80,
-          maxWidth: 100,
+          width: 110,
+          minWidth:110,
+          maxWidth: 120,
           resizable: true 
       } 
  

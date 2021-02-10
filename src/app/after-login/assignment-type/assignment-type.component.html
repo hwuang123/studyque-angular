@@ -3,19 +3,17 @@
     <p class="h4 mb-4" style="color: #d7e0a8; margin-top: -40px;">Input Assignment Type</p>
     <div class="container">
 
-        <div class="row">
+       <div class="row">
             <div class="form-group col-xs-3 col-md-3 text-left input-sm required">
                 <label for="assignment" class="control-label label-large">Assignment Type</label>
                 <input type="input" [ngClass]="{'border-red':!isFromCancel && f.submitted && assignment.errors?.required}" 
                 class="form-control form-control-sm input" id="assignment" name="assignment" required 
                 placeholder="Assignment Type" [(ngModel)]="assignmentType.assignment" #assignment="ngModel">
+                <font *ngIf="f.submitted && assignment.errors?.required" color="red">Assignment Type is required</font>
             </div>
-            <div class="form-row error-message14" [hidden]="isFromCancel">
-                <span style="width: 612px;">
-                   <font *ngIf="f.submitted && assignment.errors?.required" color="red">Assignment Type is required</font></span>
-            </div>
-            
+ 
         </div>
+
         <div class="row">
           <div class="form-group flex-fill mr-2 text-left">
             <label for="description" class="control-label label-large" style="padding-left: 12px;">Description</label>
@@ -69,7 +67,7 @@
 <!-- Default form contact -->
 <br/>
 <center> 
-<div style="width: 1378px; height: 400px; margin-left: -132px;">
+<div style="width: 1318px; height: 400px; margin-left: -72px;">
   <ag-grid-angular 
     #agGrid
     id="myGrid"

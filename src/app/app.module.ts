@@ -54,6 +54,8 @@ import { DateTimePickerComponent } from './model/date-time-picker/date-time-pick
 import { SelectZeroValidatorDirective } from './directive/select-zero-validator.directive';
 import { DatetimeFilterPipe } from './shared/datetime-filter.pipe';
 import { ProfileComponent } from './after-login/profile/profile.component';
+import { UpdatePasswordComponent } from './after-login/update-password/update-password.component';
+import { EqualValidatorDirective } from './directive/equal-validator.directive';
 
 fontLibrary.add(
   faCalendar,
@@ -90,7 +92,9 @@ fontLibrary.add(
     DateTimePickerComponent,
     SelectZeroValidatorDirective,
     DatetimeFilterPipe,
-    ProfileComponent
+    ProfileComponent,
+    UpdatePasswordComponent,
+    EqualValidatorDirective
 
   ],
   imports: [
