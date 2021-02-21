@@ -19,6 +19,8 @@ import { library as fontLibrary } from '@fortawesome/fontawesome-svg-core';
 import { faCalendar,  faClock } from '@fortawesome/free-regular-svg-icons';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { jqxBarGaugeModule }    from 'jqwidgets-ng/jqxbargauge';
+import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -56,6 +58,10 @@ import { DatetimeFilterPipe } from './shared/datetime-filter.pipe';
 import { ProfileComponent } from './after-login/profile/profile.component';
 import { UpdatePasswordComponent } from './after-login/update-password/update-password.component';
 import { EqualValidatorDirective } from './directive/equal-validator.directive';
+import { MethodComponent } from './admin/method/method.component';
+import { TermComponent } from './admin/term/term.component';
+import { AddTermComponent } from './modal/add-term/add-term.component';
+
 
 fontLibrary.add(
   faCalendar,
@@ -94,7 +100,11 @@ fontLibrary.add(
     DatetimeFilterPipe,
     ProfileComponent,
     UpdatePasswordComponent,
-    EqualValidatorDirective
+    EqualValidatorDirective,
+    MethodComponent,
+    TermComponent,
+    jqxGridComponent,
+    AddTermComponent
 
   ],
   imports: [
@@ -119,8 +129,8 @@ fontLibrary.add(
     AgGridModule.withComponents([ButtonRendererComponent,CheckboxCellRendererComponent,GridHeaderSelectComponent]),
     AppRoutingModule,
     OwlDateTimeModule, 
-    OwlNativeDateTimeModule 
-
+    OwlNativeDateTimeModule,
+    jqxBarGaugeModule 
   ],
   entryComponents: [
     ConfirmationDialogComponent,

@@ -16,8 +16,10 @@ import { AssignmentComponent } from './after-login/assignment/assignment.compone
 import { DisplayAssignmentsComponent } from './after-login/display-assignments/display-assignments.component';
 import { GuardianComponent } from './after-login/guardian/guardian.component';
 import { AlertComponent } from './after-login/alert/alert.component';
-import { ProfileComponent } from './after-login/profile/profile.component'
-import { UpdatePasswordComponent } from './after-login/update-password/update-password.component'
+import { ProfileComponent } from './after-login/profile/profile.component';
+import { UpdatePasswordComponent } from './after-login/update-password/update-password.component';
+import { MethodComponent } from './admin/method/method.component';
+import { TermComponent } from './admin/term/term.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -37,6 +39,8 @@ const routes: Routes = [
   { path: 'alert', component: AlertComponent},
   { path: 'profile', component: ProfileComponent},
   { path: 'updatepassword', component: UpdatePasswordComponent},
+  { path: 'method', component: MethodComponent},
+  { path: 'term', component: TermComponent},
   {path: '',  redirectTo: '/welcome', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];

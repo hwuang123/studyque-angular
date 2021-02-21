@@ -29,6 +29,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/
 import { ButtonRendererComponent } from 'src/app/shared/button-renderer/button-renderer.component';
 import { CheckboxCellRendererComponent } from 'src/app/shared/checkbox-cell-renderer/checkbox-cell-renderer.component';
 import { CommonFunctionService } from './../../shared/common-function.service';
+import { TermBean } from './../../domains/term-bean';
 
 @Component({
   selector: 'app-add-classes',
@@ -112,6 +113,7 @@ export class AddClassesComponent implements OnInit {
   assignment: Assignment;
   assignmentType: AssignmentType;
   className: ClassName;
+  termBean: TermBean;
   classdayOfWeek: ClassdayOfWeek;
   academicTerms = [];
   hideSucceed = true;

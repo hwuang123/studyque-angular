@@ -1,0 +1,107 @@
+<div class="modal-header" >
+  <center><b> <h2 class="modal-title">Term Id : {{termBean.term}} </h2></b></center>
+   <button type="button" class="close" data-dismiss="modal" (click)="activeModal.close('close')">
+     <span aria-hidden="true">&times;</span>
+   </button>
+</div>
+
+<form #termForm="ngForm" (ngSubmit)="isFromCancel=false; termForm.form.valid && onSubmit()">
+  <div class="container">
+     <div class="row">
+       <div class="form-group col-xs-3 col-md-3 text-left input-sm required">
+           <label for="term" class="control-label label-large">Term</label>
+           <input type="input" [ngClass]="{'border-red':!isFromCancel && termForm.submitted && term.errors?.required}" 
+           class="form-control form-control-sm input" id="term" name="term" required 
+           placeholder="Term" [(ngModel)]="termBean.term" #term="ngModel">
+           <font class="text-nowrap" *ngIf="termForm.submitted && term.errors?.required" color="red">term is required</font>
+       </div>
+    <div class="form-group col-xs-4 col-md-4 input-sm text-left  required">
+      <label for="label" class="control-label label-large">Label of Term</label>
+      <input type="input" [ngClass]="{'border-red':!isFromCancel && termForm.submitted && label.errors?.required}" 
+           class="form-control form-control-sm input" id="label" name="label" required 
+           placeholder="Label" [(ngModel)]="termBean.label" #label="ngModel">
+           <font class="text-nowrap" *ngIf="termForm.submitted && label.errors?.required" color="red">Label is required</font>
+    </div>
+    <div class="form-group col-xs-2 col-md-2 input-sm text-left  required">
+      <label class="control-label label-large" for="price">Price</label>
+      <div>
+      <span style="position: absolute; margin-left: 1px; margin-top: 5px;">$</span>
+      <input style="padding-left: 8px;" type="number" [ngClass]="{'border-red':!isFromCancel && termForm.submitted && price.errors?.required}"
+       value="50" min="0" step="1.00" data-number-to-fixed="2" data-number-stepfactor="100"
+       class="currency form-control form-control-sm input" required
+       id="price" name="price" placeholder="Price" [(ngModel)]="termBean.price" #price="ngModel"/>
+      </div>
+       <font class="text-nowrap" *ngIf="termForm.submitted && price.errors?.required" color="red">Price is required</font>
+    </div>
+    
+    </div>
+  </div>
+
+  <div class="modal-body" >
+    
+      <center>
+        <!--  {{ dateValue }} -->
+       <!--   {{isFromCancel}} -->
+         <ng-template [ngIf]="isUpdate" [ngIfElse]="addButton">
+           <div class="" style="display: inline; padding-top: 3.5em; " >
+                     &nbsp;&nbsp;&nbsp;&nbsp;
+                      <button type="submit" class="myButton">Update Term</button>&nbsp;&nbsp;
+           </div>
+         </ng-template>   
+         <ng-template #addButton >
+           <div class="" style="display: inline; padding-top: 3.5em; " >
+             &nbsp;&nbsp;&nbsp;&nbsp;
+                 <button type="submit" class="myButton">Save Term</button>&nbsp;&nbsp;
+           </div>
+         </ng-template>
+         
+           <div class="" style="display: inline; padding-top: 3.5em; ">
+             &nbsp;&nbsp;&nbsp;&nbsp;
+               <button (click)="isFromCancel=true; cancel(); $event.preventDefault()" class="myButton">Cancel</button>&nbsp;&nbsp;
+           </div>
+           <div class="" style="display: inline; padding-top: 3.5em; ">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+              <button (click)="activeModal.close('Close click')" class="myButton">Exit</button>&nbsp;&nbsp;
+          </div>
+       </center> 
+       <br/> 
+      <div [hidden]="hideSucceed" class="alert alert-success alert-dismissible fade show">
+        <strong> {{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert">&times;</button> 
+      </div>
+      <div [hidden]="hideError" class="alert alert-danger alert-dismissible fade show" >
+        <strong>Failed!</strong> {{errorMessage}}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+
+    </div>
+    
+   <!--  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="activeModal.close('Close click')">Cancel</button>
+      <button type="submit" class="btn btn-primary" >Save Schedule</button>
+    </div>
+   -->
+  <div class="center" *ngIf="IsWait">
+    <mat-progress-spinner diameter=50 
+      overlay=true
+      mode="indeterminate"
+      color="accent">
+    </mat-progress-spinner>
+  </div>
+  <!-- <mat-spinner></mat-spinner> -->
+  <!-- <div class="overlay" *ngif="IsWait" > -->
+    <!-- <div class="center" *ngIf="IsWait"> -->
+    <div class="center">  
+        <!-- <mat-progress-spinner diameter=50 
+                          overlay=true
+                          mode="indeterminate"
+                          color="accent">
+        </mat-progress-spinner>  -->
+        <app-spinner></app-spinner>
+    </div>
+  <!-- </div> -->
+  <!-- </div> -->
+</form>
+
+ 
+ 

@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   username: any;
   list:any;
   selected :any;
+  hasAdminRole: boolean= false;
   constructor(private router: Router,
     private authService: AuthService, 
     private tokenStorage: TokenStorageService,
@@ -33,6 +34,7 @@ export class HeaderComponent implements OnInit {
    this.shareService.currentDisplayLogoutStatus.subscribe(showLogout => this.showLogout = showLogout);
    this.shareService.currentLoginStatus.subscribe( loginStatus => this.showNavBar = loginStatus);
    this.shareService.currentUserName.subscribe( username => this.username = username);
+   this.shareService.currentHasAdminRole.subscribe(hasAdminRole =>this.hasAdminRole = hasAdminRole);
   }
 
   displayLogout($event){

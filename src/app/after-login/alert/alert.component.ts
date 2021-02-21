@@ -194,7 +194,7 @@ export class AlertComponent implements OnInit {
         maxWidth: 150,
         resizable: true 
       },
-      {C
+      {
         headerName: 'Alert Message',
         field: 'alertMessage',
         resizable: true,

@@ -8,10 +8,11 @@ import { StudentBean } from './../../domains/student-bean';
 import { SchoolBean } from './../../domains/school-bean';
 import { GuardianBean } from './../../domains/guardian-bean';
 import { UserProfileService } from './../../services/user-profile.service';
-
+import { AdminService } from './../../services/admin.service';
 
 // import custom validator to validate that password and confirm password fields match
 import { MustMatch } from './../../helpers/must-match.validator';
+import { TermBean } from 'src/app/domains/term-bean';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class PlaceOrderComponent implements OnInit {
   pwdPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$"; 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-  terms= [
+ /*  terms= [
     {      
       "term": '1',
       "amount": 19.99,
@@ -55,8 +56,8 @@ export class PlaceOrderComponent implements OnInit {
       "amount": 69.99,
       "label": "$69.99 for Four Years"
     }
-  ];
- 
+  ]; */
+  terms = []
   titleOptions=[];
   genderOptions=[];
   yesOrNoOptions=[];
@@ -68,6 +69,7 @@ export class PlaceOrderComponent implements OnInit {
               // private formBuilder: FormBuilder, 
               private router: Router,
               private shareService: ShareService,
+              private adminService: AdminService,
               private userProfileService: UserProfileService) { }
 
   ngOnInit(): void {
@@ -81,6 +83,7 @@ export class PlaceOrderComponent implements OnInit {
     this.relationOptions = this.shareService.relationOptions;
     this.yesOrNoOptions = this.shareService.yesOrNoOptions;
     this.schoolTypeOptions = this.shareService.schoolTypeOptions;
+    this.getTermList();
 /*     this.userProfileForm = this.formBuilder.group({
       orderTerm: '',
       userName: ['', Validators.required],
@@ -151,6 +154,20 @@ clickGuardianGender(selectedValue): void{
     }
      
      ); 
+}
+
+
+getTermList() {
+
+ this.userProfileService.getAllTerms()
+      .subscribe(
+        (data: TermBean[]) => {
+          console.log(data);
+          console.log(JSON.stringify(data));
+          this.terms = data;
+        },
+        error => {console.log(error); }
+      );
 }
 
  onSubmit(): void{
