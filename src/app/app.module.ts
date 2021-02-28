@@ -61,6 +61,13 @@ import { EqualValidatorDirective } from './directive/equal-validator.directive';
 import { MethodComponent } from './admin/method/method.component';
 import { TermComponent } from './admin/term/term.component';
 import { AddTermComponent } from './modal/add-term/add-term.component';
+import { AddMethodComponent } from './modal/add-method/add-method.component';
+import { PrivilegeComponent } from './admin/privilege/privilege.component';
+import { RoleComponent } from './admin/role/role.component';
+import { RolePrivilegeComponent } from './admin/role-privilege/role-privilege.component';
+import { UserRoleComponent } from './admin/user-role/user-role.component';
+import { AddPrivilegeComponent } from './modal/add-privilege/add-privilege.component';
+import { AddRoleComponent } from './modal/add-role/add-role.component';
 
 
 fontLibrary.add(
@@ -104,7 +111,14 @@ fontLibrary.add(
     MethodComponent,
     TermComponent,
     jqxGridComponent,
-    AddTermComponent
+    AddTermComponent,
+    AddMethodComponent,
+    PrivilegeComponent,
+    RoleComponent,
+    RolePrivilegeComponent,
+    UserRoleComponent,
+    AddPrivilegeComponent,
+    AddRoleComponent
 
   ],
   imports: [

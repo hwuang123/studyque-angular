@@ -47,6 +47,9 @@ li.active{
   padding: 0.1rem 1rem;
 }
 
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(22, 21, 21, 0.76);
+}
 
 .navbar-nav li:hover > ul.dropdown-menu {
   display: block;
@@ -97,12 +100,6 @@ li.nav-item:hover,
   background-color: #4ed4e6 !important;
 } 
 
-
-
-
-
-
-
    :host {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;
@@ -113,7 +110,7 @@ li.nav-item:hover,
   }
 
   a {
-    color: #edf1f4;
+    color: #343536;
     text-decoration: none;
         text-decoration-line: none;
         text-decoration-style: solid;
@@ -121,7 +118,7 @@ li.nav-item:hover,
         text-decoration-thickness: auto;
     background-color: transparent;
     font-size: 17px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 a:hover {

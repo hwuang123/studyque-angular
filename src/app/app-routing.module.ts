@@ -20,6 +20,11 @@ import { ProfileComponent } from './after-login/profile/profile.component';
 import { UpdatePasswordComponent } from './after-login/update-password/update-password.component';
 import { MethodComponent } from './admin/method/method.component';
 import { TermComponent } from './admin/term/term.component';
+import { PrivilegeComponent } from './admin/privilege/privilege.component';
+import { RoleComponent } from './admin/role/role.component';
+import { RolePrivilegeComponent } from './admin/role-privilege/role-privilege.component';
+import { UserRoleComponent } from './admin/user-role/user-role.component';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -41,6 +46,10 @@ const routes: Routes = [
   { path: 'updatepassword', component: UpdatePasswordComponent},
   { path: 'method', component: MethodComponent},
   { path: 'term', component: TermComponent},
+  { path: 'privilege', component: PrivilegeComponent},
+  { path: 'role', component: RoleComponent},
+  { path: 'roleprivilege', component: RolePrivilegeComponent},
+  { path: 'userrole', component: UserRoleComponent},
   {path: '',  redirectTo: '/welcome', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];

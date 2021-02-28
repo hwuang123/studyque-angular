@@ -1,0 +1,19 @@
+<center> 
+   <div class="container-sm">
+      <div class="row">  
+          <div class="w-25"></div>
+          <!-- <div class="ml-1"></div> -->
+          <button (click)="onBtnClickCreatePrivilege()" class="myButton" type="button" >Add New Privilege</button>
+        </div>
+      </div>    
+        <br/>
+        <jqxGrid #myGrid  [width]="getWidth()" [source]="dataAdapter" [columns]="columns"
+             [columnsresize]="true" [sortable]="true" [theme]='"energyblue"' [columnsheight]="28" 
+              (onRowselect)="myGridOnRowSelect($event)" >
+        </jqxGrid>
+ 
+      <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
+        <h3>{{errorMessage}}</h3>
+      </span>
+    
+ </center>

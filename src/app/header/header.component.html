@@ -54,6 +54,7 @@
 			<a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Manage Notifications</a>
 		    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="guardian" [routerLinkActive]="['active']">Manage Guardians</a></li>
+			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="contact" [routerLinkActive]="['active']">Manage Contacts</a></li>
                <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="alert" [routerLinkActive]="['active']">Setup Notifications</a></li>
 			</ul>
 		</li>
@@ -69,6 +70,19 @@
 		    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="method" [routerLinkActive]="['active']">Contact Method</a></li>
                <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="term" [routerLinkActive]="['active']">Terms</a></li>
+			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="privilege" [routerLinkActive]="['active']">Privileges</a></li>
+			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="role" [routerLinkActive]="['active']">Roles</a></li>
+			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="roleprivilege" [routerLinkActive]="['active']">Role Privilege</a></li>
+			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="userrole" [routerLinkActive]="['active']">User Role</a></li>
+			   <li class="dropdown-submenu"  [routerLinkActive]="['active']"><a class="dropdown-item dropdown-toggle" >Mange Accounts</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				  <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="regtype" [routerLinkActive]="['active']" >Regist Types</a></li>
+				  <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="regstatus" [routerLinkActive]="['active']" >Regist Status</a></li>
+				  <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="orders" [routerLinkActive]="['active']" >Mange Order</a></li>
+				  <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="payment" [routerLinkActive]="['active']" >Mange Payment</a></li>
+				  <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="useraccount" [routerLinkActive]="['active']" >User Accounts</a></li>
+				</ul>
+			  </li>		
 			</ul>
 		</li>    
 		<li class="nav-item" [routerLinkActive]="['active']">
