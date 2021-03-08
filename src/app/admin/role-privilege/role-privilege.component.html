@@ -1,1 +1,85 @@
-<p>role-privilege works!</p>
+<form class="border border-light p-5 my-form" name="form" (ngSubmit)="isFromCancel=false; saveChange()" #f="ngForm" novalidate>
+
+    <p class="h4 mb-4" style="color: #d7e0a8; margin-top: -40px;">Assign Privileges to Role:</p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+                <label for="role" class="control-label label-large">Choose a Role</label>
+                <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+                  id="role" name="role" (change)="selectRoleandler($event)"
+                  [ngClass]="{'border-red': f.submitted &&  role.errors?.selectZeroInvalid }" 
+                  [(ngModel)]="roleprivilegeBean.pkRoleId" #role="ngModel" selectNonZero >
+                  <option [value]="0">Select a Role</option>
+                  <option *ngFor="let role of rolelist" [value]="role.pkRoleId"
+                    [selected]="roleprivilegeBean.pkRoleId == role.pkRoleId">{{role.roleName}}</option>
+                </select>
+                <font *ngIf="f.submitted &&  role.errors?.selectZeroInvalid" color="red">Role is required</font>               
+            </div>
+        </div>
+        <div [hidden]="roleprivilegeBean.pkRoleId == 0"  class="row justify-content-center">
+          <div class="form-group col-xs-6 col-md-6 input-sm text-left">
+            <label for="role" class="control-label label-large">To assign privileges to a role, please drag and drop a privilege item between the listboxs. </label>
+          </div>  
+        </div>
+        <div class="row justify-content-center">
+          <div class="form-group col-xs-3 col-md-3 input-sm text-left">
+              <label for="role" class="control-label label-large">Privilege Options:</label>
+              <jqxListBox style="float: left;" #listBoxA
+                [allowDrop]="true"
+                [allowDrag]="true"
+                [altrows]= "true"
+                [source]="dataAdapter1"
+                [displayMember]="'privName'"
+                [valueMember]="'pkPrivilegeId'"
+                (onDragEnd)="dragEndA($event)"
+                [width]="250"
+                [height]="250">
+              </jqxListBox>
+          </div>
+          <div class="form-group col-xs-3 col-md-3 input-sm text-left">
+            <label for="" class="control-label label-large"> Selected Privileges:</label>
+              <jqxListBox style="margin-left: 0px; float: left;" #listBoxB
+                [allowDrop]="true"
+                [allowDrag]="true"
+                [altrows]= "true"
+                [source]="dataAdapter2"
+                [displayMember]="'privName'"
+                [valueMember]="'pkPrivilegeId'"
+                (onDragEnd)="dragEndB($event)"
+                [width]="250"
+                [height]="250">
+              </jqxListBox>
+        </div>
+      </div>
+    </div>
+    <center>
+       
+           <div class="" style="display: inline; padding-top: 3.5em; " >
+             &nbsp;&nbsp;&nbsp;&nbsp;
+                 <button type="submit" class="myButton">Save</button>&nbsp;&nbsp;
+           </div>
+         
+           <div class="" style="display: inline; padding-top: 3.5em; ">
+             &nbsp;&nbsp;&nbsp;&nbsp;
+        <!-- <button   [routerLink]="'/welcome'" class="myButton">Add Class</button>&nbsp;&nbsp; -->
+           <button (click)="cancel(); $event.preventDefault()" class="myButton">Cancel</button>&nbsp;&nbsp;
+          
+           </div>
+       </center>  
+       <br/>  
+   
+       <center>
+         <div tyle="display: block;  padding-top:0em;">
+           <font color="green"><span id="message"></span></font>
+         </div>
+         <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
+            <h3>{{errorMessage}}</h3>
+         </span>
+         <div tyle="display: block;  padding-top:1em;">
+           <font color="green"><span id="message"></span></font>
+         </div>
+         <span [hidden]="hideMessage" class="help-block" style="color: rgb(128 199 110); margin-top: -28px;">
+           <strong>{{message}}</strong>
+         </span> 
+       </center>
+ </form>   

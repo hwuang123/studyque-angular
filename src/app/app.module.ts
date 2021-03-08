@@ -21,6 +21,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { jqxBarGaugeModule }    from 'jqwidgets-ng/jqxbargauge';
 import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
+import { jqxListBoxModule } from 'jqwidgets-ng/jqxlistbox';
+import { jqxTextAreaModule } from 'jqwidgets-ng/jqxtextarea';
+import { jqxDragDropModule } from 'jqwidgets-ng/jqxdragdrop';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -144,7 +147,10 @@ fontLibrary.add(
     AppRoutingModule,
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
-    jqxBarGaugeModule 
+    jqxBarGaugeModule,
+    jqxListBoxModule, 
+    jqxTextAreaModule, 
+    jqxDragDropModule 
   ],
   entryComponents: [
     ConfirmationDialogComponent,

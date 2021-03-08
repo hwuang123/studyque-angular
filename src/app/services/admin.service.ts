@@ -22,6 +22,30 @@ export class AdminService {
     this.baseUrl = this.shareService.url + 'studyque/admin';
    }
 
+   getRolePrivileges(alertObj: Object): Observable<Object> {
+    this.errorMsg = " get RolePrivileges from Service "
+    return this.http.post(`${this.baseUrl}/getRolePrivileges`, alertObj).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  saveRolePrivileges(alertObj: Object): Observable<Object> {
+    this.errorMsg = " save RolePrivileges from Service "
+    return this.http.post(`${this.baseUrl}/saveRolePrivileges`, alertObj).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
    createTerm(alertObj: Object): Observable<Object> {
     this.errorMsg = " create Term from Service "
     return this.http.post(`${this.baseUrl}/createTerm`, alertObj).pipe(
