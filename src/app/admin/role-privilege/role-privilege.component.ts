@@ -97,14 +97,16 @@ onDragEnd(event: any): void {
           ).subscribe(
           (data: RolePrivilege) => {
             this.roleprivilegeBean = data;
-            this.source1.localdata = this.roleprivilegeBean.privilegeList;
+            this.refreshListBox( this.listBoxA, this.roleprivilegeBean.privilegeList);
+            this.refreshListBox( this.listBoxB, this.roleprivilegeBean.selectedPrivilegeList);
+            /* this.source1.localdata = this.roleprivilegeBean.privilegeList;
             this.listBoxA.refresh();
             this.source2.localdata = this.roleprivilegeBean.selectedPrivilegeList;
-            this.listBoxB.refresh();
+            this.listBoxB.refresh(); */
             this.hideErrorMessage= true;
             this.errorMessage = "";
             this.message = "";
-            console.log(this.source1.localdata);
+   //         console.log(this.source1.localdata);
           },
           err =>{ 
             console.log(err);
@@ -153,7 +155,12 @@ onDragEnd(event: any): void {
           this.adminService.saveRolePrivileges(this.roleprivilegeBean
             ).subscribe(
             (data: RolePrivilege) => {
-              this.roleprivilegeBean = data;
+              
+ /*              this.roleprivilegeBean = data;
+              this.source1.localdata = this.roleprivilegeBean.privilegeList;
+              this.listBoxA.refresh();
+              this.source2.localdata = this.roleprivilegeBean.selectedPrivilegeList;
+              this.listBoxB.refresh(); */
               this.hideErrorMessage= true;
               this.errorMessage = "";
               this.message = "Successfully Assign Privileges to Role !";
@@ -169,6 +176,8 @@ onDragEnd(event: any): void {
       });
  
   }
+
+  
 
   dragStart = (item: any): boolean => {
     if (item.label == 'Breve') {
@@ -216,5 +225,10 @@ dragEndB(event: any): void {
    this.source2.localdata = [];
    this.listBoxB.refresh();
    this.roleprivilegeBean = new RolePrivilege();
+ }
+
+ refreshListBox(listBox:jqxListBoxComponent, items: PrivilegeBean[]){
+   listBox.clear();
+   items.forEach(e => listBox.addItem(e));
  }
 }
