@@ -22,8 +22,8 @@ export class AdminService {
     this.baseUrl = this.shareService.url + 'studyque/admin';
    }
 
-   getRolePrivileges(alertObj: Object): Observable<Object> {
-    this.errorMsg = " get RolePrivileges from Service "
+  getRolePrivileges(alertObj: Object): Observable<Object> {
+    this.errorMsg = " get Role Privileges from Service "
     return this.http.post(`${this.baseUrl}/getRolePrivileges`, alertObj).pipe(
       catchError((err) => {
         console.log('error caught in service')
@@ -33,6 +33,44 @@ export class AdminService {
       })
     );
   }
+
+  getUserRoles(alertObj: Object): Observable<Object> {
+    this.errorMsg = " get User Roles from Service "
+    return this.http.post(`${this.baseUrl}/getUserRoles`, alertObj).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+ // getUserBeanList(alertObj: Object): Observable<Object> {
+  getUserBeanList(): Observable<Object> {
+    this.errorMsg = " get UserBean List from Service "
+    return this.http.get(`${this.baseUrl}/getUserBeanList`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  saveUserRoles(alertObj: Object): Observable<Object> {
+    this.errorMsg = " save UserRoles from Service "
+    return this.http.post(`${this.baseUrl}/saveUserRoles`, alertObj).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
 
   saveRolePrivileges(alertObj: Object): Observable<Object> {
     this.errorMsg = " save RolePrivileges from Service "
@@ -186,6 +224,8 @@ export class AdminService {
     );
   }
 
+
+  
   getAllTerms(): Observable<any> {
     this.errorMsg = " get Term List from Service ";
     return this.http.get(`${this.baseUrl}/getAllTerms`).pipe(

@@ -138,7 +138,7 @@ onDragEnd(event: any): void {
         );//End of subscribe()
   };//End of getData()
 
-  selectRoleandler(event: any){
+  selectRoleHandler(event: any){
     this.roleprivilegeBean.pkRoleId = event.target.value;
     this.getRolePrivileges();
   }
