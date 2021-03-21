@@ -22,6 +22,18 @@ export class AdminService {
     this.baseUrl = this.shareService.url + 'studyque/admin';
    }
 
+   getAllStatus(): Observable<any> {
+    this.errorMsg = " get Status List from Service ";
+    return this.http.get(`${this.baseUrl}/getAllStatus`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    ); 
+  } 
+
   getRolePrivileges(alertObj: Object): Observable<Object> {
     this.errorMsg = " get Role Privileges from Service "
     return this.http.post(`${this.baseUrl}/getRolePrivileges`, alertObj).pipe(
@@ -96,6 +108,18 @@ export class AdminService {
     );
   }
 
+  createStatus(alertObj: Object): Observable<Object> {
+    this.errorMsg = " create Status from Service "
+    return this.http.post(`${this.baseUrl}/createStatus`, alertObj).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
   createMethod(alertObj: Object): Observable<Object> {
     this.errorMsg = " create Term from Service "
     return this.http.post(`${this.baseUrl}/createMethod`, alertObj).pipe(
@@ -127,6 +151,17 @@ export class AdminService {
         console.log('error caught in service')
         console.error(err);
         //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  updateStatus(id: number, value: any): Observable<Object> {
+    this.errorMsg = " update Status from Service ";
+    return this.http.put(`${this.baseUrl}/updateStatus/${id}`, value).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
         return throwError(err);    //Rethrow it back to component
       })
     );
@@ -176,6 +211,18 @@ export class AdminService {
     );
   }
 
+  deleteStatus(id: number): Observable<any> {
+    this.errorMsg = " delete Status from Service "
+    return this.http.delete(`${this.baseUrl}/deleteStatus/${id}`, { responseType: 'text' }).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
   deleteTerm(id: number): Observable<any> {
     this.errorMsg = " delete Term from Service "
     return this.http.delete(`${this.baseUrl}/deleteTerm/${id}`, { responseType: 'text' }).pipe(
@@ -187,6 +234,7 @@ export class AdminService {
       })
     );
   }
+
 
   deleteMethod(id: number): Observable<any> {
     this.errorMsg = " delete Method from Service "

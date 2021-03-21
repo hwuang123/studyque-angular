@@ -1,0 +1,20 @@
+
+<center> 
+    <div class="container-sm">
+        <div class="row w-75">  
+          <div class="w-25 ml-10 p1-10"></div>
+          <div class="ml-2 pl-2"></div>
+          <button (click)="onBtnClickCreateStatus()" class="myButton" type="button" >Add New Status</button>
+        </div>
+    </div>    
+        <br/>
+      <jqxGrid #myGrid  [width]="getWidth()" [source]="dataAdapter" [columns]="columns"
+             [columnsresize]="true" [sortable]="true" [theme]='"energyblue"' [columnsheight]="28" 
+              (onRowselect)="myGridOnRowSelect($event)" >
+      </jqxGrid>
+    
+      <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
+        <h3>{{errorMessage}}</h3>
+      </span>
+    
+ </center>

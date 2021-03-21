@@ -3,6 +3,7 @@ import {Router, RouterOutlet} from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { TokenStorageService } from './../services/token-storage.service';
 import { ShareService } from './../services/share.service';
+import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit {
   list:any;
   selected :any;
   hasAdminRole: boolean= false;
+  hasDeveloperRole: boolean= false;
   constructor(private router: Router,
     private authService: AuthService, 
     private tokenStorage: TokenStorageService,
@@ -35,6 +37,7 @@ export class HeaderComponent implements OnInit {
    this.shareService.currentLoginStatus.subscribe( loginStatus => this.showNavBar = loginStatus);
    this.shareService.currentUserName.subscribe( username => this.username = username);
    this.shareService.currentHasAdminRole.subscribe(hasAdminRole =>this.hasAdminRole = hasAdminRole);
+   this.shareService.currentHasDeveloperRole.subscribe(hasDeveloperRole =>this.hasDeveloperRole = hasDeveloperRole);
   }
 
   displayLogout($event){

@@ -11,6 +11,7 @@ export class ShareService {
   private _displayLogout: boolean = false;
   private _loginStatus: boolean = false;
   private _hasAdminRole: boolean = false;
+  private _hasDeveloperRole: boolean = false;
   private _targetItem: any;
   private _username: any;
   private _url: any = 'http://Studyque-env-2.eba-nxupp7m2.us-east-2.elasticbeanstalk.com/';
@@ -19,12 +20,14 @@ export class ShareService {
   targetItemValue:  Subject<any> = new Subject();
   userNameValue: Subject<any> = new Subject();
   hasAdminValue: Subject<boolean> = new Subject();
+  hasDeveloperValue: Subject<boolean> = new Subject();  
   //private displayLogoutStatus = new BehaviorSubject(this._displayLogout);
   currentDisplayLogoutStatus = this.displayLogoutStatus.asObservable();
   currentLoginStatus = this.loginStatusValue.asObservable();
   currentTargetItem = this.targetItemValue.asObservable();
   currentUserName = this.userNameValue.asObservable();
   currentHasAdminRole = this.hasAdminValue.asObservable();
+  currentHasDeveloperRole = this.hasDeveloperValue.asObservable();
   _stateOptions= [ 
     { "value": "", "label":"-- choose state --"},      
     { "value": "AL", "label":"Alabama"},
@@ -274,6 +277,15 @@ export class ShareService {
     this._hasAdminRole = value;
     this.hasAdminValue.next(value);
   }
+
+  get hasDeveloperRole():boolean {
+    return this._hasDeveloperRole;
+}
+
+set hasDeveloperRole(value) {
+  this._hasDeveloperRole = value;
+  this.hasDeveloperValue.next(value);
+}
 
   get displayLogout():boolean {
     return this._displayLogout;

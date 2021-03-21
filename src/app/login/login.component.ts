@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
          this.roles = this.tokenStorage.getUser().roles;
          this.shareService.userName = data.username;
          this.shareService.hasAdminRole = this.roles.some(x => x === "ROLE_ADMIN");
+         this.shareService.hasDeveloperRole = this.roles.some(x => x === "ROLE_DEVELOPER");
          //this.reloadPage();
          this.router.navigateByUrl("/addclasses");
        },

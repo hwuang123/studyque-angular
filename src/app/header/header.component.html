@@ -74,9 +74,9 @@
 			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="role" [routerLinkActive]="['active']">Roles</a></li>
 			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="roleprivilege" [routerLinkActive]="['active']">Role Privilege</a></li>
 			   <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="userrole" [routerLinkActive]="['active']">User Role</a></li>
-			   <li class="dropdown-submenu"  [routerLinkActive]="['active']"><a class="dropdown-item dropdown-toggle" >Mange Accounts</a>
+			   <li class="dropdown-submenu"  [routerLinkActive]="['active']"><a class="dropdown-item dropdown-toggle" >Manage Accounts</a>
 				<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				  <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="regtype" [routerLinkActive]="['active']" >Regist Types</a></li>
+				  <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="status" [routerLinkActive]="['active']" >Manage Account Status</a></li>
 				  <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="regstatus" [routerLinkActive]="['active']" >Regist Status</a></li>
 				  <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="orders" [routerLinkActive]="['active']" >Manage Order</a></li>
 				  <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="payment" [routerLinkActive]="['active']" >Manage Payment</a></li>
@@ -85,7 +85,7 @@
 			  </li>		
 			</ul>
 		</li>    
-		<li class="nav-item" [routerLinkActive]="['active']">
+		<li [hidden]="!hasDeveloperRole" class="nav-item" [routerLinkActive]="['active']">
 		  <a class="nav-link" routerLink="home" >Home <span class="sr-only">(current)</span></a>
 		</li>
 			<!-- <li class="nav-item dropdown"  [routerLinkActive]="['active']">
@@ -101,12 +101,12 @@
 				</li>		
 			</ul>
 		</li> -->
-		<li class="nav-item dropdown"  [routerLinkActive]="['active']">
+		<li [hidden]="!hasDeveloperRole" class="nav-item dropdown"  [routerLinkActive]="['active']">
 			<a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >RESTful Test</a>
 		    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 				<li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="employees" [routerLinkActive]="['active']">Employee List</a></li>
-        <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="add" [routerLinkActive]="['active']">Add Employee</a></li>
-        <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="grid" [routerLinkActive]="['active']">AG Grid</a></li>
+                <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="add" [routerLinkActive]="['active']">Add Employee</a></li>
+                <li [routerLinkActive]="['active']"><a class="dropdown-item" routerLink="grid" [routerLinkActive]="['active']">AG Grid</a></li>
 			</ul>
 		</li>
 		
