@@ -211,6 +211,17 @@ export class AdminService {
     );
   }
 
+  editUser(id: number, value: any): Observable<Object> {
+    this.errorMsg = " edit User Account from Service ";
+    return this.http.put(`${this.baseUrl}/editUser/${id}`, value).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
   deleteStatus(id: number): Observable<any> {
     this.errorMsg = " delete Status from Service "
     return this.http.delete(`${this.baseUrl}/deleteStatus/${id}`, { responseType: 'text' }).pipe(

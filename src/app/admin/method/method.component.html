@@ -10,7 +10,7 @@
         <br/>
       <jqxGrid #myGrid  [width]="getWidth()" [source]="dataAdapter" [columns]="columns"
              [columnsresize]="true" [sortable]="true" [theme]='"energyblue"' [columnsheight]="28" 
-              (onRowselect)="myGridOnRowSelect($event)" >
+             [altrows]="true" (onRowselect)="myGridOnRowSelect($event)" >
       </jqxGrid>
     
       <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">

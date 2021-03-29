@@ -25,6 +25,7 @@ import { RoleComponent } from './admin/role/role.component';
 import { RolePrivilegeComponent } from './admin/role-privilege/role-privilege.component';
 import { UserRoleComponent } from './admin/user-role/user-role.component';
 import { StatusComponent } from './admin/status/status.component';
+import { ManageUserComponent } from './admin/manage-user/manage-user.component'
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
   { path: 'roleprivilege', component: RolePrivilegeComponent},
   { path: 'userrole', component: UserRoleComponent},
   { path: 'status', component: StatusComponent},
+  { path: 'manageuser', component: ManageUserComponent},
   {path: '',  redirectTo: '/welcome', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];

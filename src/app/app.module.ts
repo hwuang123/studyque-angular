@@ -73,6 +73,8 @@ import { AddPrivilegeComponent } from './modal/add-privilege/add-privilege.compo
 import { AddRoleComponent } from './modal/add-role/add-role.component';
 import { StatusComponent } from './admin/status/status.component';
 import { AddStatusComponent } from './modal/add-status/add-status.component';
+import { ManageUserComponent } from './admin/manage-user/manage-user.component';
+import { EditUseraccountComponent } from './modal/edit-useraccount/edit-useraccount.component';
 
 
 fontLibrary.add(
@@ -125,7 +127,9 @@ fontLibrary.add(
     AddPrivilegeComponent,
     AddRoleComponent,
     StatusComponent,
-    AddStatusComponent
+    AddStatusComponent,
+    ManageUserComponent,
+    EditUseraccountComponent
 
   ],
   imports: [

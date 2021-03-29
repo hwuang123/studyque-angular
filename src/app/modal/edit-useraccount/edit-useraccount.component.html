@@ -1,0 +1,88 @@
+<div class="modal-header" >
+    <center><b> <h2 class="modal-title">User Account : {{userBean.userName}} </h2></b></center>
+     <button type="button" class="close" data-dismiss="modal" (click)="activeModal.close('close')">
+       <span aria-hidden="true">&times;</span>
+     </button>
+  </div>
+  
+  <form #userForm="ngForm" (ngSubmit)="isFromCancel=false; userForm.form.valid && onSubmit()">
+    <div class="container">
+       <div class="row">
+         <div class="form-group col-xs-3 col-md-3 text-left input-sm">
+             <label for="status" class="control-label label-large">Account Status</label>
+             <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+                   id="status" name="status"  
+                  [(ngModel)]="userBean.pkStatusId" #status="ngModel">
+                  <option *ngFor="let obj of statusList" [value]="obj.pkStatusId"
+                    [selected]="obj.pkStatusId == userBean.pkStatusId">{{obj.status}}</option>
+                </select>         
+         </div>
+      <div class="form-group col-xs-4 col-md-4 input-sm text-left  required">
+        <label for="expiredDate" class="control-label label-large">Expired Date</label>
+        <input type="Date" 
+        [ngClass]="{'border-red': (expiredDate.errors?.incorrect) || (!isFromCancel &&  userForm.submitted && expiredDate.errors?.required)}" 
+        class="form-control form-control-sm input" id="expiredDate" name="expiredDate" required 
+        placeholder="Expired Date" [(ngModel)]="userBean.expiredDate" 
+        #expiredDate="ngModel" useValueAsDate>
+        <font class="text-nowrap" *ngIf="userForm.submitted && expiredDate.errors?.required" color="red">Expired Date is required</font>
+      </div>
+      
+      </div>
+    </div>
+  
+    <div class="modal-body" >
+      
+        <center>
+          <!--  {{ dateValue }} -->
+         <!--   {{isFromCancel}} -->
+           <ng-template [ngIf]="isUpdate" [ngIfElse]="addButton">
+             <div class="" style="display: inline; padding-top: 3.5em; " >
+                       &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="submit" class="myButton">Update User</button>&nbsp;&nbsp;
+             </div>
+           </ng-template>   
+           <ng-template #addButton >
+             <div class="" style="display: inline; padding-top: 3.5em; " >
+               &nbsp;&nbsp;&nbsp;&nbsp;
+                   <button type="submit" class="myButton">Save User</button>&nbsp;&nbsp;
+             </div>
+           </ng-template>
+           
+             <div class="" style="display: inline; padding-top: 3.5em; ">
+               &nbsp;&nbsp;&nbsp;&nbsp;
+                 <button (click)="isFromCancel=true; cancel(); $event.preventDefault()" class="myButton">Cancel</button>&nbsp;&nbsp;
+             </div>
+             <div class="" style="display: inline; padding-top: 3.5em; ">
+              &nbsp;&nbsp;&nbsp;&nbsp;
+                <button (click)="activeModal.close('Close click')" class="myButton">Exit</button>&nbsp;&nbsp;
+            </div>
+         </center> 
+         <br/> 
+
+        <div [hidden]="hideSucceed" class="alert alert-success alert-dismissible fade show">
+          <strong> {{ message }}</strong>
+          <button type="button" class="close" data-dismiss="alert">&times;</button> 
+        </div>
+        <div [hidden]="hideError" class="alert alert-danger alert-dismissible fade show" >
+          <strong>Failed!</strong> {{errorMessage}}
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+  
+      </div>
+      
+    <div class="center" *ngIf="IsWait">
+      <mat-progress-spinner diameter=50 
+        overlay=true
+        mode="indeterminate"
+        color="accent">
+      </mat-progress-spinner>
+    </div>
+
+      <div class="center">  
+            <app-spinner></app-spinner>
+      </div>
+
+  </form>
+  
+   
+
