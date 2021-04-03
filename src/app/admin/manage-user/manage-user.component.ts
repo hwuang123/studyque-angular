@@ -6,8 +6,10 @@ import { MatDialog } from '@angular/material/dialog';
 //import * as moment from 'moment';
 import { ShareService } from './../../services/share.service';
 import { AdminService } from './../../services/admin.service';
+import { AddClassService } from './../../services/add-class.service';
 import { EditUseraccountComponent } from './../../modal/edit-useraccount/edit-useraccount.component';
 import { UserBean } from './../../domains/user-bean.bean';
+import { ClassName } from './../../domains/class-name';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 
@@ -19,11 +21,13 @@ import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/
 export class ManageUserComponent implements OnInit, AfterViewInit  {
   userBean: UserBean =  new UserBean();
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-  @ViewChild('f') classForm: NgForm;
+  //@ViewChild('f') classForm: NgForm;
   hideErrorMessage: boolean = true;
+  expandRows: boolean[];
+  expandRowIndexs: number[]=[];
   errorMessage: string = "";
   message: string = "";
-
+  gridInstance: any;
   source: any = {
     localdata: null,
     datafields: [
@@ -40,20 +44,23 @@ export class ManageUserComponent implements OnInit, AfterViewInit  {
         { name: 'schoolId', type: 'int' },
         { name: 'expiredDate', type: 'date'}
     ],
+    id: "pkStudentId",
     datatype: 'json'
 };
-
+renderer = (row: number, column: any, value: string): string => {
+  return '<span style="margin-left: 4px; margin-top: 9px; float: left;">' + value + '</span>';
+}
 dataAdapter: any = new jqx.dataAdapter(this.source);
 
 columns: any[] = [
-  { text: 'User Name', datafield: 'userName', width: 100 },
-  { text: 'First Name', datafield: 'firstName', width: 100 },
-  { text: 'Last Name', datafield: 'lastName', width: 100 },
-  { text: 'Gender', datafield: 'gender', width: 100 },
-  { text: 'Age', datafield: 'age', width: 100 },
-  { text: 'Major', datafield: 'major', width: 200 },
+  { text: 'User Name', datafield: 'userName', width: 100, cellsrenderer: this.renderer },
+  { text: 'First Name', datafield: 'firstName', width: 100, cellsrenderer: this.renderer },
+  { text: 'Last Name', datafield: 'lastName', width: 100, cellsrenderer: this.renderer },
+  { text: 'Gender', datafield: 'gender', width: 100, cellsrenderer: this.renderer },
+  { text: 'Age', datafield: 'age', width: 100, cellsrenderer: this.renderer },
+  { text: 'Major', datafield: 'major', width: 200, cellsrenderer: this.renderer },
   { text: 'Expired Ddate', datafield: 'expiredDate', width: 100, cellsformat: 'MM/dd/yyyy' },
-  { text: 'Status', datafield: 'status', width: 100 },
+  { text: 'Status', datafield: 'status', width: 100, cellsrenderer: this.renderer },
   {
     text: 'Change Status',
     datafield: 'Edit',
@@ -75,47 +82,105 @@ columns: any[] = [
     buttonclick: (row) => {
       this.onEditClick(row);
      }
-  }//Edit
-  /* {
-    text: 'Delete',
-    datafield: 'Delete',
-    width: 50,
-    cellsalign: 'center',
-    columntype: 'button',
-    filterable: false,
-    sortable: false,
-    menu: false,
-    cellclassname: (row) => {
-      const draw = this.myGrid.getrowdata(row);
-      let result = 'jqx-custom-button jqx-custom-button-green';
-      return result;
-    },
-    cellsrenderer: () => {
-      return 'Delete';
-    },
-    buttonclick: (row) => {
-      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        width: '510px',
-        height: "180px",
-        panelClass: 'mat-dialog-container',
-        data: "Do you confirm the deletion of the Role for " + this.myGrid.getrowdata(row).roleName +" ?"
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if(result) {
-          console.log('Yes clicked');
-          // DO SOMETHING
-          this.onDeleteClick(row);
-        }
-      });
-     
-    }
-  } */
-];
+   }//Edit
+  ];
 
+  classesSource: any =
+  {
+      datafields: [
+          { name: 'pkClsnmId', type: 'int' },
+          { name: 'classname', type: 'string' },
+          { name: 'classtype', type: 'string' },
+          { name: 'instructor', type: 'string' },
+          { name: 'semStartDate', type: 'date' },
+          { name: 'semEndDate', type: 'date' }
+      ],
+      id: 'pkStudentId',
+      root: 'Classes',
+      record: 'Class',
+      datatype: 'json',
+      async: false,
+      localdata: null
+  };
+  classesDataAdapter = new jqx.dataAdapter(this.classesSource, { autoBind: true });
+  nestedGrids: any[] = new Array();
+
+  initRowDetails = (index: number, parentElement: any, gridElement: any, record: any): void => {
+        let id = record.uid.toString();
+        let nestedGridContainer = parentElement.children[0];
+        this.nestedGrids[index] = nestedGridContainer;
+        this.getClassNameListById(nestedGridContainer,id);
+
+ /*        let secondSource = {
+          dataType: "json",
+          datafields: [
+            { name: 'pkClsnmId', type: 'int' },
+            { name: 'classname', type: 'string' },
+            { name: 'classtype', type: 'string' },
+            { name: 'instructor', type: 'string' },
+            { name: 'semStartDate', type: 'date' },
+            { name: 'semEndDate', type: 'date' }
+          ],
+          id: "pkStudentId",
+          async: false,
+          localdata: null
+      };
+     let secondLevelAdapter = new jqx.dataAdapter(secondSource, { autoBind: true,
+      loadComplete: null
+     });
+ 
+
+     this.addClassService.getClassnamesByStudentId(id)
+     .subscribe(
+       data => {
+         console.log(JSON.stringify(data));
+         secondSource.localdata = data;
+         if (nestedGridContainer != null) {
+          let settings = {
+              width: 820,
+              height: 200,
+              source: secondLevelAdapter, 
+              columns: [
+                  { text: 'Class Name', datafield: 'classname', width: 200 },
+                  { text: 'Class Type', datafield: 'classtype', width: 150 },
+                  { text: 'Instructor', datafield: 'instructor', width: 200 },
+                  { text: 'Start Date', datafield: 'semStartDate', width: 150, cellsformat: 'MM/dd/yyyy' },
+                  { text: 'End Date', datafield: 'semEndDate', width: 150, cellsformat: 'MM/dd/yyyy' }
+              ]
+          };
+          this.gridInstance = jqwidgets.createInstance(`#${nestedGridContainer.id}`, 'jqxGrid', settings);
+         }//if
+        },
+        error => {console.log(error); }
+      ); */
+ }
+
+collapseAll =(rowindex: number): void =>{
+  this.expandRowIndexs.forEach(idx =>{
+    if(idx != rowindex){
+       this.myGrid.hiderowdetails(idx);
+    }  
+  });
+  this.expandRowIndexs = [];
+} 
+
+rowdetailstemplate: any = {
+    rowdetails: '<div id="nestedGrid" style="margin: 10px;"></div>', rowdetailsheight: 220, rowdetailshidden: true
+};
+
+ready = (): void => {
+    this.myGrid.showrowdetails(1);
+    let data = this.myGrid.getrows();
+    for (var i = 0; i < data.length; i++) {
+            this.expandRows.push(false);
+        };
+};
+  // create nested grid.
   constructor(private shareService: ShareService,
     private modalService: NgbModal,
     public dialog: MatDialog,
-    private adminService: AdminService) { }
+    private adminService: AdminService,
+    private addClassService: AddClassService) { }
 
   ngOnInit(): void {
   }
@@ -148,10 +213,10 @@ columns: any[] = [
   };//End of getData()
 
   getWidth() : any {
-    if (document.body.offsetWidth < 1000) {
+    if (document.body.offsetWidth < 1032) {
       return '90%';
     }
-     return 1000;
+     return 1032;
   }
 
   onEditClick(row){
@@ -188,4 +253,53 @@ columns: any[] = [
     let selectedRowIndex = args.rowindex;
     let value = this.myGrid.getrowdata(selectedRowIndex);
    }
+
+   Rowexpand(event: any): void {
+    const args = event.args;
+    this.collapseAll(args.rowindex);
+    this.expandRowIndexs.push(args.rowindex);
+   }
+
+  getClassNameListById(nestedGridContainer: any,pkStudentId: number) {
+
+    let secondSource = {
+      dataType: "json",
+      datafields: [
+        { name: 'pkClsnmId', type: 'int' },
+        { name: 'classname', type: 'string' },
+        { name: 'classtype', type: 'string' },
+        { name: 'instructor', type: 'string' },
+        { name: 'semStartDate', type: 'date' },
+        { name: 'semEndDate', type: 'date' }
+      ],
+      id: "pkStudentId",
+      async: false,
+      localdata: null
+    };
+    let secondLevelAdapter = new jqx.dataAdapter(secondSource);
+
+    this.addClassService.getClassnamesByStudentId(pkStudentId)
+     .subscribe(
+       data => {
+         console.log(JSON.stringify(data));
+         secondSource.localdata = data;
+         if (nestedGridContainer != null) {
+          let settings = {
+              width: 820,
+              height: 200,
+              source: secondLevelAdapter, 
+              columns: [
+                  { text: 'Class Name', datafield: 'classname', width: 200 },
+                  { text: 'Class Type', datafield: 'classtype', width: 150 },
+                  { text: 'Instructor', datafield: 'instructor', width: 200 },
+                  { text: 'Start Date', datafield: 'semStartDate', width: 150, cellsformat: 'MM/dd/yyyy' },
+                  { text: 'End Date', datafield: 'semEndDate', width: 150, cellsformat: 'MM/dd/yyyy' }
+              ]
+          };
+          this.gridInstance = jqwidgets.createInstance(`#${nestedGridContainer.id}`, 'jqxGrid', settings);
+         }//if
+        },
+        error => {console.log(error); }
+      );
+  } 
 }

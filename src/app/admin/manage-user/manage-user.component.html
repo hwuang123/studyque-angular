@@ -1,11 +1,13 @@
 <center> 
     <div class="container-sm text-warning font-weight-bold">
-       <h2>User Management</h2> 
+       <h2 style="color: #d7e0a8; ">User Management</h2> 
         </div>    
          <br/>
          <jqxGrid #myGrid  [width]="getWidth()" [source]="dataAdapter" [columns]="columns"
               [columnsresize]="true" [sortable]="true" [theme]='"energyblue"' [columnsheight]="28" 
-              [altrows]="true" (onRowselect)="myGridOnRowSelect($event)" >
+              [altrows]="true" [rowdetails]="true" [rowsheight]="28" [initrowdetails]="initRowDetails"
+              [ready]="ready" [rowdetailstemplate]="rowdetailstemplate" (onRowexpand)="Rowexpand($event)" >
+              <!-- [altrows]="true" (onRowselect)="myGridOnRowSelect($event)" > -->
          </jqxGrid>
   
        <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
