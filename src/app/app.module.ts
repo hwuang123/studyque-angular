@@ -75,6 +75,7 @@ import { StatusComponent } from './admin/status/status.component';
 import { AddStatusComponent } from './modal/add-status/add-status.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 import { EditUseraccountComponent } from './modal/edit-useraccount/edit-useraccount.component';
+import { DisplayDetailComponent } from './modal/display-detail/display-detail.component';
 
 
 fontLibrary.add(
@@ -129,7 +130,8 @@ fontLibrary.add(
     StatusComponent,
     AddStatusComponent,
     ManageUserComponent,
-    EditUseraccountComponent
+    EditUseraccountComponent,
+    DisplayDetailComponent
 
   ],
   imports: [

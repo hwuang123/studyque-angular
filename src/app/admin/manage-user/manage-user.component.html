@@ -1,12 +1,40 @@
 <center> 
+ 
     <div class="container-sm text-warning font-weight-bold">
        <h2 style="color: #d7e0a8; ">User Management</h2> 
-        </div>    
+        </div>  
+        <div class="row">
+          <div class="col-1 "></div>
+          <div class="col-2 mb-n3 ml-n1">
+              <span class="" style="color: #d7e0a8; ">Page Size:</span>
+              <select (change)="onPageSizeChanged()" id="page-size">
+              <!-- <select class='test-header' [ngModel]="getPaginationPageSize()" (ngModelChange)="setPaginationPageSize($event)"  id="page-size"> -->
+                <option *ngFor="let size of pageSizeList"
+                [selected]="size == selectedPageSize"
+                [value]="size">
+                    {{ size }}
+                </option>
+              </select>
+          </div> 
+          <!-- <div class="col-1 "></div> -->
+          <div class="col-3 mb-n3 ml-n1">
+              <span class="" style="color: #d7e0a8; ">Display Detail Options:</span>
+              <select (change)="onPageSizeChanged()" id="detailOptions" [(ngModel)]="selectDetailType" (change)="selectDetailHandler($event)">
+              <!-- <select class='test-header' [ngModel]="getPaginationPageSize()" (ngModelChange)="setPaginationPageSize($event)"  id="page-size"> -->
+                <option *ngFor="let option of displayOptions"
+                [selected]="option.value == selectDetailType"
+                [value]="option.value">
+                    {{ option.label }}
+                </option>
+              </select>
+          </div> 
+         </div>  
          <br/>
          <jqxGrid #myGrid  [width]="getWidth()" [source]="dataAdapter" [columns]="columns"
               [columnsresize]="true" [sortable]="true" [theme]='"energyblue"' [columnsheight]="28" 
               [altrows]="true" [rowdetails]="true" [rowsheight]="28" [initrowdetails]="initRowDetails"
-              [ready]="ready" [rowdetailstemplate]="rowdetailstemplate" (onRowexpand)="Rowexpand($event)" >
+              [ready]="ready" [rowdetailstemplate]="rowdetailstemplate" (onRowexpand)="Rowexpand($event)" 
+              [editable]=true (cellSelect)="cellSelect">
               <!-- [altrows]="true" (onRowselect)="myGridOnRowSelect($event)" > -->
          </jqxGrid>
   

@@ -125,3 +125,7 @@
         background-color: #2b9999;
 
     }
+.modal-xxl .modal-xl {
+        max-width: 100%;
+        width:700px; 
+    }

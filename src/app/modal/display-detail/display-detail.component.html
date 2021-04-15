@@ -1,0 +1,56 @@
+<div class="modal-header" >
+    <center><b> <h2 class="modal-title">Detail Data for : {{userBean.userName}} </h2></b></center>
+     <button type="button" class="close" data-dismiss="modal" (click)="activeModal.close('close')">
+       <span aria-hidden="true">&times;</span>
+     </button>
+</div>
+<div class="container-fluid">
+  <div class="form-inline">
+    <label for="detailOptions" class="m-2">What's Detail Type to Display?</label>
+    <!-- <input type="email" class="form-control m-2" id="inlineFormEmail"> -->
+    <select class="form-control form-control-sm input" (change)="onDetailTypeChanged()" id="detailOptions" [(ngModel)]="selectDetailType" (change)="selectDetailHandler($event)">
+      <option value="" >--- Choose one ---</option> 
+      <option *ngFor="let option of displayOptions" [selected]="option.value == selectDetailType"
+        [value]="option.value">{{ option.label }}
+      </option>
+     </select>
+    </div>
+    
+    <div [hidden]="selectDetailType == ''">
+      <jqxGrid #myGrid  [width]="getWidth()" [source]="dataAdapter" [columns]="columns"
+      [columnsresize]="true" [sortable]="true" [theme]='"energyblue"' [columnsheight]="28" 
+      [altrows]="true"  [rowsheight]="28"  [rowdetailstemplate]="rowdetailstemplate" 
+      [ready]="ready" [rowdetails]="rowdetails"  [initrowdetails]="initRowDetails">
+     <!--  [ready]="ready" (onRowexpand)="Rowexpand($event)" 
+      [rowdetailstemplate]="rowdetailstemplate" [rowdetails]="true" [initrowdetails]="initRowDetails"> -->
+      </jqxGrid>
+
+    </div>  
+</div>  
+<!-- <div class="container-fluid">
+ 
+    <div class="form-group">
+      <label class="control-label col-sm-3" for="detailOptions">Display Detail Options?</label>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" id="username" placeholder="Enter username">
+      </div>
+    </div>
+
+   <div class="form-group">
+    <label class="col-sm-10 control-label text-right">Display Detail Options?</label>
+    <div class="col-sm-3">
+      <select (change)="onPageSizeChanged()" id="detailOptions" [(ngModel)]="selectDetailType" (change)="selectDetailHandler($event)">
+       
+          <option *ngFor="let option of displayOptions"
+          [selected]="option.value == selectDetailType"
+          [value]="option.value">
+              {{ option.label }}
+          </option>
+         </select>
+    </div>
+
+  </div>
+
+
+
+</div> -->

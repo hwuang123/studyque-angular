@@ -69,6 +69,30 @@ export class AssignmentService {
     ); 
   }
 
+  getAssignmentListByStudentId(id: number):  Observable<any> {
+    this.errorMsg = " get Assignment List from Service ";
+    return this.http.get(`${this.baseUrl}/getAssignmentListByStudentId/${id}`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    ); 
+  }
+
+  getAssignmentListByClassId(id: number): Observable<any> {
+    this.errorMsg = " get Assignment List from Service ";
+    return this.http.get(`${this.baseUrl}/getAssignmentListByClassId/${id}`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    ); 
+  }
+
   searchAssignmentList(searchAssignmentObj: Object): Observable<any> {
     this.errorMsg = " get Assignment List from Service ";
     return this.http.post(`${this.baseUrl}/searchAssignments`, searchAssignmentObj).pipe(

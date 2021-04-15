@@ -212,6 +212,29 @@ export class ShareService {
          }
        ]; 
 
+  _display_options= [
+    {
+      "value":"Alert",
+      "label":"Alert"        
+    },
+    {
+      "value":"Assignment",
+      "label":"Assignment"        
+    },
+    {
+      "value":"Classes",
+      "label":"Classes"        
+    },
+    {
+      "value":"Contact",
+      "label":"Contact"        
+    },
+    {
+      "value":"Guardian",
+      "label":"Guardian"        
+    }   
+  ];       
+
   get url(): any {
     var hostname: any = this.location['_platformLocation'].hostname;
     if (hostname == 'localhost'){
@@ -219,7 +242,11 @@ export class ShareService {
     }
     return this._url;
   }   
-      
+     
+  get displayOptios(): any[] {
+      return this._display_options;
+  }
+  
   get weekDays(): any[] {
     return this._week_days;
   }     

@@ -1,0 +1,6 @@
+/* .modal-xxl .modal-xl {
+        max-width: 1000px;
+        width:1000px; 
+    } */
+    
+.modal-lg { max-width: 1200px !important; }

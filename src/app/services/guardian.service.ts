@@ -70,4 +70,16 @@ export class GuardianService {
     ); 
   }
 
+  getGuardianListByStudentId(id: number): Observable<any> {
+    this.errorMsg = " get Guardian List from Service ";
+    return this.http.get(`${this.baseUrl}/getGuardianListByStudentId/${id}`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    ); 
+  }
+
 }
