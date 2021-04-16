@@ -19,7 +19,7 @@
           <!-- <div class="col-1 "></div> -->
           <div class="col-3 mb-n3 ml-n1">
               <span class="" style="color: #d7e0a8; ">Display Detail Options:</span>
-              <select (change)="onPageSizeChanged()" id="detailOptions" [(ngModel)]="selectDetailType" (change)="selectDetailHandler($event)">
+              <select id="detailOptions" [(ngModel)]="selectDetailType" (change)="selectDetailHandler($event)">
               <!-- <select class='test-header' [ngModel]="getPaginationPageSize()" (ngModelChange)="setPaginationPageSize($event)"  id="page-size"> -->
                 <option *ngFor="let option of displayOptions"
                 [selected]="option.value == selectDetailType"

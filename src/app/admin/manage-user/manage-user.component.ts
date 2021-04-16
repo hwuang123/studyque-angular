@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,6 +9,10 @@ import { ShareService } from './../../services/share.service';
 import { AdminService } from './../../services/admin.service';
 import { AddClassService } from './../../services/add-class.service';
 import { AlertService } from './../../services/alert.service';
+import { GuardianService } from './../../services/guardian.service';
+import { AssignmentService } from './../../services/assignment.service';
+import { ContactService } from './../../services/contact.service';
+import { ContactBean } from './../../domains/contact-bean.bean';
 import { EditUseraccountComponent } from './../../modal/edit-useraccount/edit-useraccount.component';
 import { UserBean } from './../../domains/user-bean.bean';
 import { ClassName } from './../../domains/class-name';
@@ -35,37 +40,7 @@ export class ManageUserComponent implements OnInit, AfterViewInit  {
   errorMessage: string = "";
   message: string = "";
   gridInstance: any;
- /*  detailsource =
-  {
-    datatype: "array",
-    datafields: [
-      { name: 'value',type: 'string'},
-      { name: 'label',type: 'string'}
-    ],
-    localdata: [
-      {
-        "value":"Alert",
-        "label":"Alert"        
-      },
-      {
-        "value":"Assignment",
-        "label":"Assignment"        
-      },
-      {
-        "value":"Classes",
-        "label":"Classes"        
-      },
-      {
-        "value":"Contact",
-        "label":"Contact"        
-      },
-      {
-        "value":"Guardian",
-        "label":"Guardian"        
-      }   
-    ]
-  };
-  detailAdapter: any = new jqx.dataAdapter(this.detailsource, { autoBind : true }); */
+ 
   source: any = {
     localdata: null,
     datafields: [
@@ -332,7 +307,11 @@ ready = (): void => {
     public dialog: MatDialog,
     private adminService: AdminService,
     private addClassService: AddClassService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private assignmentService: AssignmentService,
+    private guardianService: GuardianService,
+    private contactService: ContactService,
+    private _router: Router
     ) { }
 
   ngOnInit(): void {
@@ -492,6 +471,7 @@ ready = (): void => {
           let settings = {
               width: 820,
               height: 200,
+              columnsresize: true,
               source: secondLevelAdapter, 
               columns: [
                   { text: 'Class Name', datafield: 'classname', width: 200 },
@@ -568,14 +548,152 @@ ready = (): void => {
 
   getAssignmentListById(nestedGridContainer: any,pkStudentId: number){
 
+    let secondSource = {
+      dataType: "json",
+      datafields: [
+        { name: 'pkAssignmentId', type: 'int' },
+        { name: 'classname', type: 'string' },
+        { name: 'assignmenttype', type: 'string' },
+        { name: 'dueDate', type: 'date' },
+        { name: 'description', type: 'string' },
+        { name: 'dueDayofweek', type: 'string' }
+    ],
+      id: "pkAssignmentId",
+      async: false,
+      localdata: null
+    };
+    let secondLevelAdapter = new jqx.dataAdapter(secondSource);
+
+    this.assignmentService.getAssignmentListByStudentId(pkStudentId)
+     .subscribe(
+       data => {
+         console.log(JSON.stringify(data));
+         secondSource.localdata = data;
+         if (nestedGridContainer != null) {
+          let settings = {
+              width: 960,
+              height: 200,
+              columnsresize : true,
+              source: secondLevelAdapter, 
+          //    autowidth: true,
+              columns: [
+                { text: 'Class Name', datafield: 'classname', width: 200 },
+                { text: 'Assignment Type', datafield: 'assignmenttype', width: 200 },
+                { text: 'Due Date', datafield: 'dueDate', width: 150, cellsformat: 'MM/dd/yyyy' },
+                { text: 'Description', datafield: 'description', width: 250 },
+                { text: 'Due Day of Week', datafield: 'dueDayofweek', width: 200 }
+            ]
+          };
+          this.gridInstance = jqwidgets.createInstance(`#${nestedGridContainer.id}`, 'jqxGrid', settings);
+         }//if
+        },
+        error => {console.log(error); }
+      );
   }//getAssignmentListById
 
   getContactListById(nestedGridContainer: any,pkStudentId: number){
+    let secondSource = {
+      dataType: "json",
+      datafields:[
+        { name: 'pkContactId', type: 'int' },
+        { name: 'pkMethodId', type: 'int' },
+        { name: 'pkGuardianId', type: 'int' },
+        { name: 'pkStudentId', type: 'int' },
+        { name: 'firstName', type: 'string' },
+        { name: 'lastName', type: 'string' },    
+        { name: 'email', type: 'string' },    
+        { name: 'phone', type: 'string' },    
+        { name: 'relationship', type: 'string' }, 
+        { name: 'isStudentContact', type: 'string' },
+        { name: 'errorMessage', type: 'string' },
+        { name: 'message', type: 'string' }
+    ],
+      id: "pkStudentId",
+      async: false,
+      localdata: null
+    };
+    let secondLevelAdapter = new jqx.dataAdapter(secondSource);
 
+    this.contactService.getContactListByStudentId(pkStudentId)
+     .subscribe(
+       data => {
+         console.log(JSON.stringify(data));
+         secondSource.localdata = data;
+         if (nestedGridContainer != null) {
+          let settings = {
+              width: 1200,
+              height: 200,
+              columnsresize: true,
+              source: secondLevelAdapter, 
+              columns: [
+                { text: 'First Name', datafield: 'firstName', width: 150 },
+                { text: 'Last Name', datafield: 'lastName', width: 150 },
+                { text: 'Email', datafield: 'email', width: 200 },
+                { text: 'Cell Phone', datafield: 'phone', width: 200 },
+                { text: 'Relationship', datafield: 'relationship', width: 100 },
+                { text: 'Is for Student Contact?', datafield: 'isStudentContact', width: 200 }
+            ]
+          };
+          this.gridInstance = jqwidgets.createInstance(`#${nestedGridContainer.id}`, 'jqxGrid', settings);
+         }//if
+        },
+        error => {console.log(error); }
+      );
   }//getContactListById
 
   getGuardianListById(nestedGridContainer: any,pkStudentId: number){
+    let secondSource = {
+      dataType: "json",
+      datafields: [
+        { name: 'guardianId', type: 'int' },
+        { name: 'addressId', type: 'int' },
+        { name: 'firstName', type: 'string' },
+        { name: 'middleName', type: 'string' },   
+        { name: 'lastName', type: 'string' },        
+        { name: 'gender', type: 'string' }, 
+        { name: 'age', type: 'int' }, 
+        { name: 'relationship', type: 'string' },  
+        { name: 'city', type: 'string' },  
+        { name: 'state', type: 'string' },    
+        { name: 'zip', type: 'string' }, 
+        { name: 'address', type: 'string' },      
+        { name: 'addressSameAsStudent', type: 'string' }
+    ],
+      id: "pkStudentId",
+      async: false,
+      localdata: null
+    };
+    let secondLevelAdapter = new jqx.dataAdapter(secondSource);
 
+    this.guardianService.getGuardianListByStudentId(pkStudentId)
+     .subscribe(
+       data => {
+         console.log(JSON.stringify(data));
+         secondSource.localdata = data;
+         if (nestedGridContainer != null) {
+          let settings = {
+              width: 1200,
+              height: 200,
+              columnsresize: true,
+              source: secondLevelAdapter, 
+              columns: [
+                { text: 'First Name', datafield: 'firstName', width: 150 },
+                { text: 'Last Name', datafield: 'lastName', width: 150 },
+                { text: 'Gender', datafield: 'gender', width: 60 },
+                { text: 'Age', datafield: 'age', width: 40 },
+                { text: 'Relationship', datafield: 'relationship', width: 100 },
+                { text: 'City', datafield: 'city', width: 200 },
+                { text: 'State', datafield: 'state', width: 100 },
+                { text: 'Zip', datafield: 'zip', width: 60 },
+                { text: 'Address', datafield: 'address', width: 200},
+                { text: 'Address Same As Student', datafield: 'addressSameAsStudent', width: 300 },
+            ]
+          };
+          this.gridInstance = jqwidgets.createInstance(`#${nestedGridContainer.id}`, 'jqxGrid', settings);
+         }//if
+        },
+        error => {console.log(error); }
+      );
   }//getContactListById
 
   selectDetailHandler(event: any){

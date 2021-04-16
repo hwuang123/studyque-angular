@@ -82,9 +82,9 @@ rowdetailstemplate: any = {
 ready = (): void => {
   this.myGrid.showrowdetails(1);
   let data = this.myGrid.getrows();
-  for (var i = 0; i < data.length; i++) {
+ /*  for (var i = 0; i < data.length; i++) {
           this.expandRows.push(false);
-      };
+      }; */
 };
 
   constructor(@Inject(LOCALE_ID) private locale: string,
@@ -291,7 +291,9 @@ ready = (): void => {
   }//displayClasses
 
   displayContact(){
-    this.gridWidth = 800;
+   // let tdata = [{"pkContactId":3,"pkMethodId":2,"pkGuardianId":1,"pkStudentId":1,"firstName":"Steve","lastName":"Hwuang","mediaVal":"0987654321","relationship":"Parent","isStudentContact":"No","errorMessage":null,"message":null},{"pkContactId":5,"pkMethodId":2,"pkGuardianId":0,"pkStudentId":1,"firstName":"Steve","lastName":"Hwuang","mediaVal":"1234567890","relationship":null,"isStudentContact":"Yes","errorMessage":null,"message":null},{"pkContactId":11,"pkMethodId":1,"pkGuardianId":4,"pkStudentId":1,"firstName":"Sharon","lastName":"Hwuag","mediaVal":"9737843642","relationship":"Parent","isStudentContact":"No","errorMessage":null,"message":null},{"pkContactId":1,"pkMethodId":3,"pkGuardianId":1,"pkStudentId":1,"firstName":"Steve","lastName":"Hwuang","mediaVal":"hwuang13@gmail.com","relationship":"Parent","isStudentContact":"No","errorMessage":null,"message":null},{"pkContactId":2,"pkMethodId":1,"pkGuardianId":1,"pkStudentId":1,"firstName":"Steve","lastName":"Hwuang","mediaVal":"1234567890","relationship":"Parent","isStudentContact":"No","errorMessage":null,"message":null},{"pkContactId":4,"pkMethodId":3,"pkGuardianId":0,"pkStudentId":1,"firstName":"Steve","lastName":"Hwuang","mediaVal":"hwuang@aim.com","relationship":null,"isStudentContact":"Yes","errorMessage":null,"message":null}];
+   this.displayClasses();
+    this.gridWidth = 960;
     this.source.datafields = [
       { name: 'pkContactId', type: 'int' },
       { name: 'pkMethodId', type: 'int' },
@@ -299,17 +301,20 @@ ready = (): void => {
       { name: 'pkStudentId', type: 'int' },
       { name: 'firstName', type: 'string' },
       { name: 'lastName', type: 'string' },    
-      { name: 'mediaVal', type: 'string' },    
+      { name: 'email', type: 'string' },    
+      { name: 'phone', type: 'string' },    
       { name: 'relationship', type: 'string' }, 
-      { name: 'isStudentContact', type: 'string' }
+      { name: 'isStudentContact', type: 'string' },
+      { name: 'errorMessage', type: 'string' },
+      { name: 'message', type: 'string' }
   ];
     this.columns = [
       { text: 'First Name', datafield: 'firstName', width: 150 },
       { text: 'Last Name', datafield: 'lastName', width: 150 },
-      { text: 'Email or Phone Number', datafield: 'mediaVal', width: 200 },
+      { text: 'Email', datafield: 'email', width: 200 },
+      { text: 'Cell Phone', datafield: 'phone', width: 200 },
       { text: 'Relationship', datafield: 'relationship', width: 100 },
       { text: 'Is for Student Contact?', datafield: 'isStudentContact', width: 200 }
- 
   ];
     this.dataAdapter = new jqx.dataAdapter(this.source);
     this.contactService.getContactListByStudentId(this.userBean.pkStudentId).subscribe(
