@@ -292,7 +292,7 @@ ready = (): void => {
 
   displayContact(){
    // let tdata = [{"pkContactId":3,"pkMethodId":2,"pkGuardianId":1,"pkStudentId":1,"firstName":"Steve","lastName":"Hwuang","mediaVal":"0987654321","relationship":"Parent","isStudentContact":"No","errorMessage":null,"message":null},{"pkContactId":5,"pkMethodId":2,"pkGuardianId":0,"pkStudentId":1,"firstName":"Steve","lastName":"Hwuang","mediaVal":"1234567890","relationship":null,"isStudentContact":"Yes","errorMessage":null,"message":null},{"pkContactId":11,"pkMethodId":1,"pkGuardianId":4,"pkStudentId":1,"firstName":"Sharon","lastName":"Hwuag","mediaVal":"9737843642","relationship":"Parent","isStudentContact":"No","errorMessage":null,"message":null},{"pkContactId":1,"pkMethodId":3,"pkGuardianId":1,"pkStudentId":1,"firstName":"Steve","lastName":"Hwuang","mediaVal":"hwuang13@gmail.com","relationship":"Parent","isStudentContact":"No","errorMessage":null,"message":null},{"pkContactId":2,"pkMethodId":1,"pkGuardianId":1,"pkStudentId":1,"firstName":"Steve","lastName":"Hwuang","mediaVal":"1234567890","relationship":"Parent","isStudentContact":"No","errorMessage":null,"message":null},{"pkContactId":4,"pkMethodId":3,"pkGuardianId":0,"pkStudentId":1,"firstName":"Steve","lastName":"Hwuang","mediaVal":"hwuang@aim.com","relationship":null,"isStudentContact":"Yes","errorMessage":null,"message":null}];
-   this.displayClasses();
+    this.displayClasses();
     this.gridWidth = 960;
     this.source.datafields = [
       { name: 'pkContactId', type: 'int' },

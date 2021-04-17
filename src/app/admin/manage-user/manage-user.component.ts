@@ -608,7 +608,7 @@ ready = (): void => {
         { name: 'errorMessage', type: 'string' },
         { name: 'message', type: 'string' }
     ],
-      id: "pkStudentId",
+      id: "pkContactId",
       async: false,
       localdata: null
     };
