@@ -1,0 +1,123 @@
+<div class="modal-header" >
+    <center><b> <h2 class="modal-title">Contact for : {{userName}} </h2></b></center>
+     <button type="button" class="close" data-dismiss="modal" (click)="activeModal.close('close')">
+       <span aria-hidden="true">&times;</span>
+     </button>
+  </div>
+  
+  <!-- <form #contactForm="ngForm" (ngSubmit)="isFromCancel=false; contactForm.form.valid && onSubmit()"> -->
+  <form #contactForm="ngForm" (ngSubmit)="isFromCancel=false; contactForm.form.valid && onSubmit()">
+    <div class="container">
+      <div class="row form-inline">
+        <label for="detailOptions" class="m-2">Is this for Student Contact? </label>
+        <div  *ngFor="let opt of contactChoices" style="display: block; text-align: left;">
+          <label style="padding-left: 1em;">
+            <input type="radio" [(ngModel)]="contactBean.isStudentContact" [(value)]="opt.value" name="choice" 
+            [checked]="opt.value == contactBean.isStudentContact? true: false" #choice="ngModel"/>&nbsp;&nbsp;<span class="text-black">{{opt.label}}</span>
+          </label>
+        </div>   
+      </div>
+      <div class="row">
+
+        <div [hidden]="contactBean.isStudentContact == 'Yes'" class="form-group col-xs-3 col-md-3 input-sm text-left required">
+          <label for="guardian" class="control-label label-large">Guardian :</label>
+          <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+           [ngClass]="{'border-red':!isFromCancel &&  contactForm.submitted && guardian.errors?.selectZeroInvalid}" 
+            id="guardian" name="guardian" selectNonZero 
+            [(ngModel)]="contactBean.pkGuardianId" #guardian="ngModel">
+            <option [value]="0">-- Choose One --</option>
+            <option *ngFor="let guardian of guardians" [value]="guardian.guardianId"
+              [selected]="guardian.guardianId == contactBean.pkGuardianId">{{guardian.firstName}} {{guardian.lastName}}</option>
+          </select>  
+          <span style="margin-left: 5px; float: left; width: 300px;">
+            <font *ngIf=" contactForm.submitted &&  guardian.errors?.selectZeroInvalid" color="red">Guardian is required</font></span>             
+        </div>
+        <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+          <label for="method" class="control-label label-large">Contact Method :</label>
+          <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+           [ngClass]="{'border-red':!isFromCancel &&  contactForm.submitted && method.errors?.selectZeroInvalid}" 
+            id="method" name="method" selectNonZero 
+            [(ngModel)]="contactBean.pkMethodId" #method="ngModel">
+            <option [value]="0">-- Choose One --</option>
+            <option *ngFor="let method of methods" [value]="method.pkMethodId"
+              [selected]="contactBean.pkMethodId == method.pkMethodId">{{method.contactMethod}}</option>
+          </select>
+          <span style="margin-left: 5px; float: left; width: 300px;">
+          <font *ngIf=" contactForm.submitted &&  method.errors?.selectZeroInvalid" color="red">Method is required</font></span>                            
+        </div>
+      <ng-template [ngIf]="contactBean.pkMethodId == '1' || contactBean.pkMethodId == '2'" [ngIfElse]="isEmail">  
+        <div class="form-group col-xs-4 col-md-4 input-sm text-left  required">
+         <label for="phone" class="control-label label-large">Contact phone</label>
+         <input type="input" [ngClass]="{'border-red':!isFromCancel && contactForm.submitted && phone.errors?.required}" 
+             class="form-control form-control-sm input" id="phone" name="phone" required 
+             placeholder="Contact Phone" [(ngModel)]="contactBean.phone" #phone="ngModel">
+             <font class="text-nowrap" *ngIf="contactForm.submitted && phone.errors?.required" color="red">Contact Phone is required</font>
+        </div>
+      </ng-template>
+      <ng-template #isEmail >
+       <div class="form-group col-xs-4 col-md-4 input-sm text-left  required">
+        <label for="email" class="control-label label-large">Contact Email</label>
+        <input type="input" [ngClass]="{'border-red':!isFromCancel && contactForm.submitted && email.errors?.required}" 
+             class="form-control form-control-sm input" id="email" name="email" required 
+             placeholder="Contact Email" [(ngModel)]="contactBean.email" #email="ngModel">
+             <font class="text-nowrap" *ngIf="contactForm.submitted && email.errors?.required" color="red">Contact Email is required</font>
+       </div>  
+      </ng-template>
+      </div>
+    </div>
+  
+    <div class="modal-body" >
+      
+        <center>
+          <!--  {{ dateValue }} -->
+         <!--   {{isFromCancel}} -->
+           <ng-template [ngIf]="isUpdate" [ngIfElse]="addButton">
+             <div class="" style="display: inline; padding-top: 3.5em; " >
+                       &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="submit" class="myButton">Update Contact</button>&nbsp;&nbsp;
+             </div>
+           </ng-template>   
+           <ng-template #addButton >
+             <div class="" style="display: inline; padding-top: 3.5em; " >
+               &nbsp;&nbsp;&nbsp;&nbsp;
+                   <button type="submit" class="myButton">Save Contact</button>&nbsp;&nbsp;
+             </div>
+           </ng-template>
+           
+             <div class="" style="display: inline; padding-top: 3.5em; ">
+               &nbsp;&nbsp;&nbsp;&nbsp;
+                 <button (click)="isFromCancel=true; cancel(); $event.preventDefault()" class="myButton">Cancel</button>&nbsp;&nbsp;
+             </div>
+             <div class="" style="display: inline; padding-top: 3.5em; ">
+              &nbsp;&nbsp;&nbsp;&nbsp;
+                <button (click)="activeModal.close('Close click')" class="myButton">Exit</button>&nbsp;&nbsp;
+            </div>
+         </center> 
+         <br/> 
+
+        <div [hidden]="hideSucceed" class="alert alert-success alert-dismissible fade show">
+          <strong> {{ message }}</strong>
+          <button type="button" class="close" data-dismiss="alert">&times;</button> 
+        </div>
+        <div [hidden]="hideError" class="alert alert-danger alert-dismissible fade show" >
+          <strong>Failed!</strong> {{errorMessage}}
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+  
+      </div>
+      
+    <div class="center" *ngIf="IsWait">
+      <mat-progress-spinner diameter=50 
+        overlay=true
+        mode="indeterminate"
+        color="accent">
+      </mat-progress-spinner>
+    </div>
+
+      <div class="center">  
+            <app-spinner></app-spinner>
+      </div>
+
+  </form>
+  
+   

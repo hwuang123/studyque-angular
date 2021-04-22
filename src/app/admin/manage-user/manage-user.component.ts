@@ -119,65 +119,6 @@ columns: any[] = [
       this.onDetailClick(row);
      }
    },
-   /*{
-    text: 'Show Detail',
-    width: 150,
-    columntype: "dropdownlist",
-    datafield: 'detail', 
-    initeditor: function (row, cellvalue, editor, celltext, cellwidth, cellheight) {
-      let detailSource = [
-        {
-          "value":"Alert",
-          "label":"Alert"        
-        },
-        {
-          "value":"Assignment",
-          "label":"Assignment"        
-        },
-        {
-          "value":"Classes",
-          "label":"Classes"        
-        },
-        {
-          "value":"Contact",
-          "label":"Contact"        
-        },
-        {
-          "value":"Guardian",
-          "label":"Guardian"        
-        }   
-      ];
-      editor.jqxDropDownList({ source: detailSource, displayMember: 'value', valueMember: 'label', placeHolder:'Please Select'  } );
-
-     
-    },
-    cellsrenderer: () => {
-      return 'Click Here...';
-    },
-    createeditor: function (row, column, editor){
-      editor.bind("select", function (event){
-        let selectedIndex = event.args.index + 1;
-
-      });
-    },
-    geteditorvalue: function (row, cellValue, editor) {
-       return editor.val();
-      },
-    cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
-    
-      if (newvalue == "") return oldvalue;     
-   //   alert(row);    
-   //   $("#jqxgrid").on('cellselect', function (event) {
-   //     var column = $("#jqxgrid").jqxGrid('getcolumn', event.args.datafield);
-   //     var value = $("#jqxgrid").jqxGrid('getcellvalue', event.args.rowindex, column.datafield);
-    //    var displayValue = $("#jqxgrid").jqxGrid('getcellvalue', event.args.rowindex, column.displayfield);
-
-  //      $("#eventLog").html("<div>Selected Cell<br/>Row: " + event.args.rowindex + ", Column: " + column.text + ", Value: " + value + ", Label: " + displayValue + "</div>");
-   //   }); 
-
-
-  }
-   } */
    
   ];
 
@@ -236,49 +177,7 @@ columns: any[] = [
          }
 
         }
- 
- /*        let secondSource = {
-          dataType: "json",
-          datafields: [
-            { name: 'pkClsnmId', type: 'int' },
-            { name: 'classname', type: 'string' },
-            { name: 'classtype', type: 'string' },
-            { name: 'instructor', type: 'string' },
-            { name: 'semStartDate', type: 'date' },
-            { name: 'semEndDate', type: 'date' }
-          ],
-          id: "pkStudentId",
-          async: false,
-          localdata: null
-      };
-     let secondLevelAdapter = new jqx.dataAdapter(secondSource, { autoBind: true,
-      loadComplete: null
-     });
- 
-
-     this.addClassService.getClassnamesByStudentId(id)
-     .subscribe(
-       data => {
-         console.log(JSON.stringify(data));
-         secondSource.localdata = data;
-         if (nestedGridContainer != null) {
-          let settings = {
-              width: 820,
-              height: 200,
-              source: secondLevelAdapter, 
-              columns: [
-                  { text: 'Class Name', datafield: 'classname', width: 200 },
-                  { text: 'Class Type', datafield: 'classtype', width: 150 },
-                  { text: 'Instructor', datafield: 'instructor', width: 200 },
-                  { text: 'Start Date', datafield: 'semStartDate', width: 150, cellsformat: 'MM/dd/yyyy' },
-                  { text: 'End Date', datafield: 'semEndDate', width: 150, cellsformat: 'MM/dd/yyyy' }
-              ]
-          };
-          this.gridInstance = jqwidgets.createInstance(`#${nestedGridContainer.id}`, 'jqxGrid', settings);
-         }//if
-        },
-        error => {console.log(error); }
-      ); */
+  
  }
 
 collapseAll =(rowindex: number): void =>{
@@ -365,6 +264,7 @@ ready = (): void => {
   }
 
   onDetailClick(row){
+    this.collapseAll(0);
     this.userBean.pkUseraccountId = this.myGrid.getrowdata(row).pkUseraccountId;
     this.userBean.userName = this.myGrid.getrowdata(row).userName;
     this.userBean.status = this.myGrid.getrowdata(row).status;

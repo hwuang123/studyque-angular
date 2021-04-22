@@ -76,6 +76,8 @@ import { AddStatusComponent } from './modal/add-status/add-status.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 import { EditUseraccountComponent } from './modal/edit-useraccount/edit-useraccount.component';
 import { DisplayDetailComponent } from './modal/display-detail/display-detail.component';
+import { ContactComponent } from './after-login/contact/contact.component';
+import { AddContactComponent } from './modal/add-contact/add-contact.component';
 
 
 fontLibrary.add(
@@ -131,7 +133,9 @@ fontLibrary.add(
     AddStatusComponent,
     ManageUserComponent,
     EditUseraccountComponent,
-    DisplayDetailComponent
+    DisplayDetailComponent,
+    ContactComponent,
+    AddContactComponent
 
   ],
   imports: [

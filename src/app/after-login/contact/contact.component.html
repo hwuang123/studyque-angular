@@ -1,0 +1,23 @@
+<center> 
+    <div class="container-sm">
+        <div class="row w-100">  
+          <div class="w-50 "></div>
+          <!-- <div class="w-50 ml-10 p1-10"></div> -->
+          <!-- <div class="ml-2 pl-2"></div> -->
+          <button (click)="onBtnClickCreateContact()" class="myButton" type="button" >Add New Contact</button>
+        </div>
+    </div>    
+        <br/>
+      <jqxGrid class="ml-n4" #myGrid  [width]="getWidth()" [source]="dataAdapter" [columns]="columns"
+             [columnsresize]="true" [sortable]="true" [theme]='"energyblue"' [columnsheight]="28" 
+             [altrows]="true" [rowsheight]="28"  [rowdetailstemplate]="rowdetailstemplate" 
+             [ready]="ready" [rowdetails]="true"  [initrowdetails]="initRowDetails">
+             <!-- [altrows]="true" (onRowselect)="myGridOnRowSelect($event)" > -->
+      </jqxGrid>
+    
+      <!-- <span [hidden]="hideErrorMessage" class="help-block" style="color: red; "> -->
+        <span class="help-block" style="color: red; ">
+        <h3>{{errorMessage}}</h3>
+      </span>
+    
+ </center>

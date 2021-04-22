@@ -1,7 +1,7 @@
 export class ContactBean {
     pkContactId: number;
-	pkMethodId: number;
-	pkGuardianId: number;
+	pkMethodId: number=0;
+	pkGuardianId: number=0;
     pkStudentId: number;
 	firstName: string;
 	lastName: string;
@@ -9,7 +9,7 @@ export class ContactBean {
 	email: string;
 	phone: string;
 	relationship: string;
-	isStudentContact: string;
+	isStudentContact: string="No";
 	errorMessage: string;
 	message: string;
 }

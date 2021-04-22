@@ -82,6 +82,18 @@ export class AlertService {
     ); 
   }
 
+  getAlertListByContactId(id: number): Observable<any> {
+    this.errorMsg = " get Alert List from Service ";
+    return this.http.get(`${this.baseUrl}/getAlertListByContactId/${id}`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    ); 
+  }
+
   getMethodList(): Observable<any> {
     this.errorMsg = " get Method List from Service ";
     return this.http.get(`${this.baseUrl}/getMethods`).pipe(

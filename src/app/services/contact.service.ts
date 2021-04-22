@@ -34,4 +34,54 @@ export class ContactService {
     ); 
   }
 
+  getContactList(): Observable<any> {
+    this.errorMsg = " get Contact List from Service ";
+    return this.http.get(`${this.baseUrl}/getContacts`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    ); 
+  }
+
+  saveContact(obj: Object): Observable<Object> {
+    this.errorMsg = " save Contact from Service "
+    return this.http.post(`${this.baseUrl}/addContact`, obj).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  updateContact(id: number, value: any): Observable<Object> {
+    this.errorMsg = " update Contact from Service ";
+    //return this.http.put(`${this.baseUrl}/${id}`, value);
+    return this.http.put(`${this.baseUrl}/updateContact/${id}`, value).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  deleteContact(id: number): Observable<any> {
+    this.errorMsg = " delete Contact from Service "
+    return this.http.delete(`${this.baseUrl}/deleteContact/${id}`, { responseType: 'text' }).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+
+
 }
