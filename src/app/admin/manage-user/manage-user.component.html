@@ -5,19 +5,17 @@
         </div>  
         <div class="row">
           <div class="col-1 "></div>
-          <div class="col-2 mb-n3 ml-n1">
+         <!-- <div class="col-2 mb-n3 ml-n1">
               <span class="" style="color: #d7e0a8; ">Page Size:</span>
               <select (change)="onPageSizeChanged()" id="page-size">
-              <!-- <select class='test-header' [ngModel]="getPaginationPageSize()" (ngModelChange)="setPaginationPageSize($event)"  id="page-size"> -->
-                <option *ngFor="let size of pageSizeList"
-                [selected]="size == selectedPageSize"
+                [selected]="size == pagesize"
                 [value]="size">
                     {{ size }}
                 </option>
               </select>
-          </div> 
+          </div>  -->
           <!-- <div class="col-1 "></div> -->
-          <div class="col-3 mb-n3 ml-n1">
+          <div class="col-3 mb-n3 ml-n4">
               <span class="" style="color: #d7e0a8; ">Display Detail Options:</span>
               <select id="detailOptions" [(ngModel)]="selectDetailType" (change)="selectDetailHandler($event)">
               <!-- <select class='test-header' [ngModel]="getPaginationPageSize()" (ngModelChange)="setPaginationPageSize($event)"  id="page-size"> -->
@@ -28,13 +26,20 @@
                 </option>
               </select>
           </div> 
-         </div>  
+          <div class="col-md-2 mb-n3 ml-n6">
+              <button (click)="onBtnRemoveFilter()" class="myButton " type="button" >Remove Filter</button>
+          </div>
+        </div>  
          <br/>
          <jqxGrid #myGrid  [width]="getWidth()" [source]="dataAdapter" [columns]="columns"
               [columnsresize]="true" [sortable]="true" [theme]='"energyblue"' [columnsheight]="28" 
               [altrows]="true" [rowdetails]="true" [rowsheight]="28" [initrowdetails]="initRowDetails"
               [ready]="ready" [rowdetailstemplate]="rowdetailstemplate" (onRowexpand)="Rowexpand($event)" 
-              [editable]=true (cellSelect)="cellSelect">
+              [editable]=true (cellSelect)="cellSelect" [pageable]="true" [virtualmode]="true" [rendergridrows]="rendergridrows"
+             (onPagechanged)="onPageChanged($event)" (onPagesizechanged)="onPageSizeChanged($event)" [pagesizeoptions]="[5,10,20,50]"
+             [filterable]="true" [showfilterrow]="true" [autoshowfiltericon]="false" 
+             (onFilter)="onFilter($event)" (onSort)="sortEvent($event)" [updatefilterconditions]= "configureFilters">
+              <!-- [updatefilterconditions]= configureFilters>  -->
               <!-- [altrows]="true" (onRowselect)="myGridOnRowSelect($event)" > -->
          </jqxGrid>
   

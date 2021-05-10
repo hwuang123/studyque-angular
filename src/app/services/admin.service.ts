@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse, HttpEvent, HttpHandler, Htt
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ShareService } from './share.service';
+import { FilterRequest } from './../shared/filter-request';
 
 
 @Injectable({
@@ -70,6 +71,73 @@ export class AdminService {
       })
     );
   }
+
+  getUseraccounCount(): Observable<any> {
+    this.errorMsg = " getUseraccounCount from Service ";
+    return this.http.get(`${this.baseUrl}/count/userAccounts`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  getPagingUserBeanList(pageNumber: number, pageSize: number, sortItem: string, sortDirection: string): Observable<any>{
+    this.errorMsg = " getPagingUserBeanList from Service ";
+    let url = this.baseUrl+"/paging/userAccounts?pageNumber="+pageNumber+"&pageSize="+pageSize+"&sortItem="+sortItem+"&sortDirection="+sortDirection;
+    return this.http.get(`${url}`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  // getPagingUseraccountList(pageNumber: number, pageSize: number): Observable<any> {
+  //   this.errorMsg = " getPagingUseraccountList from Service ";
+  //   let url = this.baseUrl+"/paging/userAccounts?pageNumber="+pageNumber+"&pageSize="+pageSize;
+  //   return this.http.get(`${url}`).pipe(
+  //     catchError((err) => {
+  //       console.log('error caught in service')
+  //       console.error(err);
+  //       //Handle the error here
+  //       return throwError(err);    //Rethrow it back to component
+  //     })
+  //   );
+  // }
+
+  getFilterUserBeanList(pageNumber: number, pageSize: number, filterRequest: FilterRequest): Observable<any> {
+    this.errorMsg = " getPagingUserBeanList from Service ";
+    let url = this.baseUrl+"/filter/userBeans?pageNumber="+pageNumber
+            +"&pageSize="+pageSize
+            +"&filterRequest="+encodeURI(JSON.stringify(filterRequest));
+    return this.http.get(`${url}`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+  getFilterUserBeanCount(filterRequest: FilterRequest): Observable<any> {
+    this.errorMsg = " getPagingUserBeanList from Service ";
+    let url = this.baseUrl+"/filter/count/userBeans?filterRequest="+encodeURI(JSON.stringify(filterRequest));
+    return this.http.get(`${url}`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
 
   saveUserRoles(alertObj: Object): Observable<Object> {
     this.errorMsg = " save UserRoles from Service "
