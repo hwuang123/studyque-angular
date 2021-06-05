@@ -50,6 +50,9 @@ export class HeaderComponent implements OnInit {
     this.username = "";
     this.shareService.currentUserName = this.username;
     this.tokenStorage.signOut();
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('rememberMe');
     this.router.navigateByUrl('welcome');
   }
 

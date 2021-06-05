@@ -1040,3 +1040,12 @@
   .width278 {
       width: 278px;
   }
+
+  .width300 {
+    width: 300px;
+}
+
+button:disabled {
+    opacity: .35 !important;
+    color:#717782;
+}

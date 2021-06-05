@@ -24,6 +24,7 @@ import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
 import { jqxListBoxModule } from 'jqwidgets-ng/jqxlistbox';
 import { jqxTextAreaModule } from 'jqwidgets-ng/jqxtextarea';
 import { jqxDragDropModule } from 'jqwidgets-ng/jqxdragdrop';
+import { RecaptchaModule } from "ng-recaptcha";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -136,8 +137,7 @@ fontLibrary.add(
     DisplayDetailComponent,
     ContactComponent,
     AddContactComponent
-
-  ],
+    ],
   imports: [
     NgbModule,
     NgxMaterialTimepickerModule,
@@ -164,7 +164,8 @@ fontLibrary.add(
     jqxBarGaugeModule,
     jqxListBoxModule, 
     jqxTextAreaModule, 
-    jqxDragDropModule 
+    jqxDragDropModule,
+    RecaptchaModule 
   ],
   entryComponents: [
     ConfirmationDialogComponent,

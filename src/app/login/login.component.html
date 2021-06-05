@@ -73,8 +73,9 @@
     <div class="align-vertical-center">
 
         <div class="container">
-
-            <div class="row">
+          <form class="well-body" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+          <ng-container [ngSwitch]="switchType">
+            <div *ngSwitchCase="'login'" class="row">
                 
                 <div class="well col-sm-offset-3 col-sm-6" >
                     
@@ -82,7 +83,6 @@
                          <button [routerLink]="'/userprofile'" class="myButton" style="margin-left:4em; width: 130px; height: 26px;">Place Order</button>
                     </div>
   
-                    <form class="well-body" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
                      <div class="" style="width:420px; padding-top:2em;">
                       
                       <p class="text-white h3 ml-4 pl-5 d-flex justify-content-between">Sign in your account</p>
@@ -90,7 +90,7 @@
                             <label class="ml-n1 control-label text-white" for="login">*User Name</label>
                             <input type="text" class="form-control input-group input" name="username" [(ngModel)]="form.username" required
             #username="ngModel" style="height:1.8em"/>
-                    <div class="bg-danger text-white msgerror" role="alert" *ngIf="f.submitted && username.errors?.required">
+                    <div class="help-block pt-2" style="color: red;" role="alert" *ngIf="f.submitted && username.errors?.required">
                          <h3>Username is required!</h3>
                     </div>                              
                         </div>
@@ -98,30 +98,24 @@
                           <label class="ml-n1 control-label text-white" for="login">*Password</label>
                           <input type="password" class="form-control input-group input" name="password" [(ngModel)]="form.password" required
           #password="ngModel" minlength="4" style="height:1.8em; "/>
-         <div class="bg-danger text-white msgerror" role="alert" *ngIf="f.submitted && password.errors?.required">
+         <div class="help-block pt-2" style="color: red;" role="alert" *ngIf="f.submitted && password.errors?.required">
               <h3>Password is required</h3>              
           </div>  
           <div class="bg-danger text-white msgerror290" role="alert" *ngIf="f.submitted && password.errors?.minlength">
               <h3>Password must be at least 6 characters</h3>
           </div> 
                         </div>
-                        <!-- <div class="form-group label-floating" [ngClass]="authenticationError">
-                            <label class="ml-n1 control-label text-white" for="password">*Password</label>
-                            <input type="password" class="form-control input-group" name="password" [(ngModel)]="form.password" required
-            minlength="4" #password="ngModel" style="height:1.8em"/>
-                           
-                        </div> -->
+                      
                        </div>
                        
                         <div class="form-group label-floating" [ngClass]="authenticationError" style="padding-top: 1.5em; margin-left: 0em; " >
                             <label>
-                                <input type="checkbox" ng-model="rememberMe"/><span class="text-white"> Remember me</span>
+                                <input type="checkbox" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}"/><span class="text-white"> Remember me</span>
                             </label>
                         </div>
 
                         <br/>
                         
-                        <!-- <div class="col-sm-offset-3 col-sm-6" style="display: inline"> -->
                          <div class="form-group label-floating width340">
                             <button type="submit" style="margin-left: 5em; width: 98px; height: 26px;" class="myButton">Login</button>
                              &nbsp;&nbsp;&nbsp;&nbsp;<button [routerLink]="'/welcome'" class="myButton"  style="width: 98px; height: 26px;">Cancel</button>
@@ -129,8 +123,8 @@
                         <br/>
                      <div class="form-group label-floating width488" style="text-align: center; margin-left: -2em;">
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                       <button (click)="forgetname()" class="myButton" style="width: 140px; height: 26px;">Forget Username</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                       <button (click)="forgetpassword()" class="myButton" style="width: 140px; height: 26px;">Forget Password</button> 
+                       <button type="button" (click)="forgetname()" class="myButton" style="width: 140px; height: 26px;">Forget Username</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                       <button  type="button" (click)="forgetpassword()" class="myButton" style="width: 140px; height: 26px;">Forget Password</button> 
                      </div>
                      <div  role="alert" *ngIf="f.submitted && isLoginFailed" class="form-group" style="margin-top: 1em;
                       text-align: left; padding-left: 2em;">
@@ -143,11 +137,178 @@
                             Please check your credentials and try again.
                         </span>
                     </div> 
-                    </form>
+                  
                  </div>
             
             </div>
+            <div *ngSwitchCase="'forgetname'" class="row">
+              <span class="text-white"><h2>Forgot your user name?</h2>We can help. </span>
+              <span class="text-white">Enter the email address for your StudeyQue account.<br/> We'll send a verification code for you to enter before signing in.<br/></span>
+              <div class="form-group label-floating width300" [ngClass]="authenticationError">
+                <label class="ml-n1 control-label text-white" for="login">*Email</label>
+                <input type="email"  class="form-control input-group input" name="email" [(ngModel)]="myEmailAddress" required
+                [ngClass]="{'border-red': f.submitted && email.errors?.required}" #email="ngModel" style="height:1.8em"/>
+                <div class="form-group label-floating width340">
+                  <re-captcha
+                   (resolved)="resolved($event)"
+                   (error)="onError($event)"
+                   errorMode="handled"
+                   siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"></re-captcha>
+                </div>
+                 <div class="form-group label-floating width340">
+                   <!-- <button type="button" (click)="sendEmailForgetName()" style="margin-left: -3em; width: 98px; height: 26px;" class="myButton">Send Email</button> -->
+                   <button style="margin-left: -3em; width: 98px; height: 26px;" class="myButton" [disabled]="isDisabled">Send Email</button>
+                   &nbsp;&nbsp;&nbsp;&nbsp;<button  type="button" (click)="cancel()" class="myButton"  style="width: 98px; height: 26px;">Cancel</button>
+                  </div>
 
+                  <br/>
+                  <!-- <span style="margin-right: 30px; float: right;" *ngIf="(email.dirty || email.touched) && email.errors?.required"><font color="red">Email is a required field0</font></span> -->
+                  <div *ngIf="f.submitted && email.errors?.required" class="help-block pt-2" style="color: red;">
+                  Email is a required field
+                  </div>
+                  <div class="help-block pt-2" style="color: red;">
+                    {{errorMessage}}
+                  </div>
+                  <div class="help-block pt-2" style="color: rgb(56, 240, 117);">
+                    {{message}}
+                  </div>
+              </div>
+              
+            </div>
+            <div *ngSwitchCase="'verifyForgetUserName'" class="row">
+              <span class="text-white"><h2>Forgot your user name?</h2>We can help. </span>
+              <span class="text-white">Please enter the verification code that we sent to your email before signing in.<br/></span>
+              <div class="form-group label-floating width278" [ngClass]="authenticationError">
+                <label class="ml-n1 control-label text-white" for="login">*Verification Code</label>
+                <input type="text"  class="form-control input-group input" name="vcode" [(ngModel)]="vCode" required
+                [ngClass]="{'border-red': f.submitted && vcode.errors?.required}" #vcode="ngModel" style="height:1.8em"/>
+                
+                 <div class="form-group label-floating width340">
+                   <button style="margin-left: -3em; width: 98px; height: 26px;" class="myButton">Submit</button>
+                   &nbsp;&nbsp;&nbsp;&nbsp;<button  type="button" (click)="cancel()" class="myButton"  style="width: 98px; height: 26px;">Cancel</button>
+                  </div>
+                  <br/>
+                
+                  <!-- <div *ngIf="f.submitted && vcode.errors?.required" class="help-block pt-2" style="color: red;">
+                  Verification code is a required field
+                  </div> -->
+                  <div class="help-block pt-2" style="color: red;">
+                    {{errorMessage}}
+                  </div>
+                  <div class="help-block pt-2" style="color: rgb(56, 240, 117);">
+                    {{message}}
+                  </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="'forgetpassword'" class="row">
+              <span class="text-white"><h2>Forgot your password?</h2>We can help. </span>
+              <span class="text-white">Enter the email address for your StudeyQue account.<br/> We'll send a verification code for you to reset your passwrod.<br/></span>
+              <div class="form-group label-floating width300" [ngClass]="authenticationError">
+                <label class="ml-n1 control-label text-white" for="username">*User Name</label>
+                <input type="text" class="form-control input-group input" name="username" [(ngModel)]="form.username" required
+                 #username="ngModel" style="height:1.8em"/>
+                 <span role="alert" *ngIf="f.submitted && username.errors?.required">
+                  <h3><font color="red">Username is required!</font></h3>
+                </span>     
+              </div>
+              <br/>
+                 
+              <div class="form-group label-floating width300" [ngClass]="authenticationError">
+                <label class="ml-n1 control-label text-white" for="login">*Email</label>
+                <input type="email"  class="form-control input-group input" name="email" [(ngModel)]="myEmailAddress" required
+                [ngClass]="{'border-red': f.submitted && email.errors?.required}" #email="ngModel" style="height:1.8em"/>
+                <div *ngIf="f.submitted && email.errors?.required" class="help-block pt-2" style="color: red;">
+                  Email is a required field
+                </div>
+                <div class="form-group label-floating width340">
+                  <re-captcha
+                   (resolved)="resolved($event)"
+                   (error)="onError($event)"
+                   errorMode="handled"
+                   siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"></re-captcha>
+                </div>
+                <div class="form-group label-floating width340">
+                   <!-- <button type="button" (click)="sendEmailForgetName()" style="margin-left: -3em; width: 98px; height: 26px;" class="myButton">Send Email</button> -->
+                   <button  [disabled]="isDisabled" style="margin-left: -3em; width: 98px; height: 26px;" class="myButton">Send Email</button>
+                   &nbsp;&nbsp;&nbsp;&nbsp;<button  type="button" (click)="cancel()" class="myButton"  style="width: 98px; height: 26px;">Cancel</button>
+                </div>
+                <br/>
+                  <!-- <span style="margin-right: 30px; float: right;" *ngIf="(email.dirty || email.touched) && email.errors?.required"><font color="red">Email is a required field0</font></span> -->
+                 
+                  <div class="help-block pt-2" style="color: red;">
+                    {{errorMessage}}
+                  </div>
+                  <div class="help-block pt-2" style="color: rgb(56, 240, 117);">
+                    {{message}}
+                  </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="'verifyForgetPassword'" class="row">
+              <span class="text-white"><h2>Forgot your password?</h2>We can help. </span>
+              <span class="text-white">Please enter the verification code that we e-mail to your email before reset your password.<br/></span>
+              <div class="form-group label-floating width278" [ngClass]="authenticationError">
+                <label class="ml-n1 control-label text-white" for="login">*Verification Code</label>
+                <input type="text"  class="form-control input-group input" name="vcode" [(ngModel)]="vCode" required
+                [ngClass]="{'border-red': f.submitted && vcode.errors?.required}" #vcode="ngModel" style="height:1.8em"/>
+                
+                 <div class="form-group label-floating width340">
+                   <button style="margin-left: -3em; width: 98px; height: 26px;" class="myButton">Submit</button>
+                   &nbsp;&nbsp;&nbsp;&nbsp;<button  type="button" (click)="cancel()" class="myButton"  style="width: 98px; height: 26px;">Cancel</button>
+                  </div>
+                  <br/>
+                  <div class="help-block pt-2" style="color: red;">
+                    {{errorMessage}}
+                  </div>
+                  <div class="help-block pt-2" style="color: rgb(56, 240, 117);">
+                    {{message}}
+                  </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="'resetPassword'" class="row ml-n10">
+              <div class="form-group col-xs-4 col-md-4 text-left input-sm "></div> 
+              <div class="form-group col-xs-6 col-md-6 text-left input-sm">
+                <label class="ml-n1 control-label text-white" for="username">*User Name</label>
+                <input type="text" class="form-control input-group input" name="username" [(ngModel)]="form.username" required
+                 #username="ngModel" style="height:1.8em"/>
+                <div class="bg-danger text-white" role="alert" *ngIf="f.submitted && username.errors?.required">
+                   <h3><font color="red">Username is required!</font></h3>
+                </div>
+              </div>  
+
+              <div class="form-group col-xs-4 col-md-4 text-left input-sm "></div> 
+              <div class="form-group col-xs-6 col-md-6 text-left input-sm">
+                <label for="password" class="control-label text-white">*New Password</label>
+                <input type="password" [ngClass]="{'border-red':!isFromCancel && f.submitted && password.errors?.required}" 
+                class="form-control form-control-sm input" id="password" name="password" required 
+                placeholder="New Password" [(ngModel)]="email.password" #password="ngModel">
+                <font *ngIf="f.submitted && password.errors?.required" color="red">Password is required</font>
+              </div>
+              <br/>
+              <div class="form-group col-xs-4 col-md-4 text-left input-sm "></div>
+              <div class="form-group col-xs-6 col-md-6 text-left input-sm">
+                <label for="confirmpassword" class="control-label text-white">*Confirm Password</label>
+                <input type="password" [ngClass]="{'border-red':(f.submitted && confirmpassword.errors?.required || (confirmpassword.errors?.notEqual 
+                && confirmpassword.touched))}" 
+                class="form-control form-control-sm input" id="confirmpassword" name="confirmpassword" required 
+                placeholder="Confirm Password" validateEqual="password" [(ngModel)]="confirmPassword" #confirmpassword="ngModel">
+                <font *ngIf="confirmpassword.touched && confirmpassword.errors?.notEqual" color="red">Password does not match</font>
+                <font class="text-nowrap" *ngIf="f.submitted && confirmpassword.errors?.required" color="red">Confirm Password is required</font>
+              </div>
+              <div class="form-group label-floating width340">
+                <button style="margin-left: 3em; width: 150px; height: 26px;" class="myButton">Reset Password</button>
+              </div>
+              <br/>
+              <div class="ml-10 help-block pt-2" style="color: red; margin-left: 5em;">
+                {{errorMessage}}
+              </div>
+              <div class="ml-10 help-block pt-2" style="color: rgb(56, 240, 117); margin-left: 13.5em;">
+                {{message}}  <a *ngIf="message !==''" [routerLink]='' (click)='clickLogin()'>Login</a>
+              </div>
+              
+            </div>
+          </ng-container> 
+         </form>
         </div>
     </div>
 </div>
+
