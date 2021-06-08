@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   switchType: string = 'login';
   confirmPassword: string = '';
   isDisabled: boolean = true;
+  siteKey: string = "6LdmmxsbAAAAAI7PJQQPwIs5unpt8KT35XIxS1v_";
  
   constructor(private router: Router,
               private activeRouter: ActivatedRoute,  
