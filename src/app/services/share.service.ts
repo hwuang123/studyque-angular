@@ -233,7 +233,18 @@ export class ShareService {
       "value":"Guardian",
       "label":"Guardian"        
     }   
-  ];       
+  ];    
+  
+  _notification_status= [
+    {
+      "value":"1",
+      "label":"Active"        
+    },
+    {
+      "value":"2",
+      "label":"Inactive"     
+    }
+  ];
 
   get url(): any {
     var hostname: any = this.location['_platformLocation'].hostname;
@@ -242,6 +253,10 @@ export class ShareService {
     }
     return this._url;
   }   
+
+  get notificationStatus(): any[] {
+    return this._notification_status;
+  }
      
   get displayOptios(): any[] {
       return this._display_options;

@@ -79,6 +79,8 @@ import { EditUseraccountComponent } from './modal/edit-useraccount/edit-useracco
 import { DisplayDetailComponent } from './modal/display-detail/display-detail.component';
 import { ContactComponent } from './after-login/contact/contact.component';
 import { AddContactComponent } from './modal/add-contact/add-contact.component';
+import { ScheduleComponent } from './admin/schedule/schedule.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 fontLibrary.add(
@@ -136,7 +138,8 @@ fontLibrary.add(
     EditUseraccountComponent,
     DisplayDetailComponent,
     ContactComponent,
-    AddContactComponent
+    AddContactComponent,
+    ScheduleComponent
     ],
   imports: [
     NgbModule,
@@ -165,7 +168,8 @@ fontLibrary.add(
     jqxListBoxModule, 
     jqxTextAreaModule, 
     jqxDragDropModule,
-    RecaptchaModule 
+    RecaptchaModule,
+    MDBBootstrapModule.forRoot() 
   ],
   entryComponents: [
     ConfirmationDialogComponent,

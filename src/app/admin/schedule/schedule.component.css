@@ -1,0 +1,148 @@
+.mybtn {
+  box-shadow: 2px 1px 1px 0px #286090;
+  background: linear-gradient(to bottom, #286090 5%, #46b8da 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#286090', endColorstr='##46b8da',GradientType=0);
+  color: #fff;
+  background-color: #46b8da;
+  border-color: #46b8da;
+  border-radius: 6px;
+  border: 1px solid #286092;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0px 12px 0px 10px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #122b40;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.mybtn:hover{
+  color: rgb(248, 241, 241);
+  background-color: #798ab9;
+  padding: 0px 12px 0px 10px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #810e05;
+}
+
+.form-group.required .control-label:before {
+  content:"*";
+  color:red;
+
+}
+
+.control-label{
+      font-size: 16px;
+      color: rgb(8, 8, 8);
+      margin-bottom: -1px;
+ }
+
+ .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -100px;
+}
+
+.my-form {
+      width: 1376px;
+      text-align: center;
+      margin-left: -132px;
+}
+
+.custom-select {
+  display: inline-block;
+  width: 100%;
+  height: calc(1em + .75rem + 2px);
+  padding: .375rem 1.75rem .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  vertical-align: middle;
+  background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right .75rem center/8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.my-textarea {
+  margin-left: 14px;
+  max-width: 1198px;
+}
+
+.container {
+  margin-left: 110px;
+}
+
+.form-row {
+  margin-top: -18px;
+  height: 25px;
+  text-align: left;
+  margin-left: 14px;
+}
+
+.border-red {
+  border: 1.2px solid red;
+}
+
+#gridButton {
+  box-shadow: 2px 1px 1px 0px #8a2a21;
+  background: linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+  background-color: rgba(0, 0, 0, 0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24437',GradientType=0);
+  background-color: #c62d1f;
+  border-radius: 6px;
+  border: 1px solid #d02718;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Times New Roman;
+  font-size: 17px;
+  padding: 0px 12px 0px 10px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #810e05;
+}
+.button { margin: 10px; }
+.button:hover:after { 
+      font-family: Arial;
+      position: absolute;
+      top: 0;
+      width: 20px;
+      height: 1.25rem;   
+      background-color: gray;
+      color: white;
+  }
+
+.modal-xxl .modal-xl {
+      max-width: 100%;
+  }
+  
+.toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+.toggle.ios .toggle-handle { border-radius: 20px; }
+
+.custom-switch.custom-switch-md .custom-control-label {
+  padding-left: 2rem;
+  padding-bottom: 1.5rem;
+  color: white;
+  padding-top: 6px;
+  vertical-align: middle;
+  font-size: larger;
+}
+
+.custom-switch.custom-switch-md .custom-control-label::before {
+  height: 1.5rem;
+  width: calc(2rem + 0.75rem);
+  border-radius: 3rem;
+}
+
+.custom-switch.custom-switch-md .custom-control-label::after {
+  width: calc(1.5rem - 4px);
+  height: calc(1.5rem - 4px);
+  border-radius: calc(2rem - (1.5rem / 2));
+}
+
+.custom-switch.custom-switch-md .custom-control-input:checked ~ .custom-control-label::after {
+  transform: translateX(calc(1.5rem - 0.25rem));
+}

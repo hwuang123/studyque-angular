@@ -96,6 +96,7 @@ export class AlertComponent implements OnInit {
   alertStartDatetime: any;
   alertEndDatetime: any;
   alertTime: any;
+  notificationStatus = [];
   constructor(
     private router: Router,
     private shareService: ShareService,
@@ -200,7 +201,16 @@ export class AlertComponent implements OnInit {
         resizable: true,
         cellStyle: {'text-align': 'left'}  
       },
- 
+      {
+        headerName: '',
+        field: 'alertSubject',
+        hide: true
+      },
+      {
+        headerName: '',
+        field: 'alertedStatus',
+        hide: true
+      },
       {
           headerName: 'Update',
           template: `<button data-action-type="edit" class="mybtn" type="button" >edit</button>`,
@@ -216,7 +226,7 @@ export class AlertComponent implements OnInit {
         //  minWidth:50,
       //    maxWidth: 100,
           resizable: true 
-      } 
+      }
     ];
 
     this.frameworkComponents = {
@@ -228,6 +238,7 @@ export class AlertComponent implements OnInit {
   ngOnInit(): void {
     this.assignment = new Assignment();
     this.alert = new AlertBean();
+    this.alert.alertedStatus = 1;
     this.searchAlertBean = new SearchAlertBean();
     this.searchassignmentBean = new SearchassignmentBean();
     this.getClassnameList();
@@ -236,6 +247,7 @@ export class AlertComponent implements OnInit {
     this.getMethodList();
     this.getRepeatDaysList();
     this.browserType = this.myBrowser();
+    this.notificationStatus = this.shareService.notificationStatus;
     this.formGroup = new FormGroup({
       activeEndDate:  new FormControl(new Date(), {validators: [Validators.required, DateTimeValidator]})
     }, { updateOn: 'change' });
@@ -390,7 +402,13 @@ export class AlertComponent implements OnInit {
           this.alert.message = data.message;
           this.message = data.message;
           this.hideMessage = false;
+          let pkClsnmId = this.alert.pkClsnmId;
+          let pkAssignmentId = this.alert.pkAssignmentId;
+          this.alert.pkClsnmId = 0;
+          this.alert.pkAssignmentId = 0;
           this.reloadData();
+          this.alert.pkClsnmId = pkClsnmId;
+          this.alert.pkAssignmentId = pkAssignmentId;
        }
        
      },
@@ -426,7 +444,7 @@ export class AlertComponent implements OnInit {
    /*  this.alert.alertStartDateTime = moment(this.alert.alertStartDateTime).format(this.fmt);
     this.alert.alertEndDateTime = moment(this.alert.alertEndDateTime).format(this.fmt);
     this.alert.alerttime = moment(this.alert.alerttime, [this.timefmt]).format(this.timefmt); */
-  
+    this.alert.alerttime = this.datePipe.transform(this.alertTime,this.timefmt);
       if(this.isUpdate){
           this.updateAlert();
       }
@@ -496,6 +514,8 @@ export class AlertComponent implements OnInit {
     //          this.alert.alerttime = moment(e.data.alerttime, [this.timefmt]).format(this.timefmt);
               this.alert.repeatDays = e.data.repeatDays; 
               this.alert.alertMessage = e.data.alertMessage;
+              this.alert.alertSubject = e.data.alertSubject;
+              this.alert.alertedStatus = e.data.alertedStatus;
               this.alert.errorMessage= "";
               this.alert.message="";
               this.hideErrorMessage = true;

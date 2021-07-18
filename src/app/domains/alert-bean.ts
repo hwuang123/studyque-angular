@@ -17,4 +17,6 @@ export class AlertBean {
 	alertMessage: string;
 	errorMessage: string;
 	message: string;
+	alertSubject: string;
+	alertedStatus: number;
 }

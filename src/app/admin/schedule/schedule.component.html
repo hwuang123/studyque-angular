@@ -1,0 +1,81 @@
+<center> 
+  <h2 style="color: white;">Notification Cron Control</h2>
+    <div class="container-sm">
+       <div class="row">  
+           <div class="w-25"></div>
+           <!-- <div class="ml-1"></div> -->
+           
+         </div>
+       </div>    
+         <br/>
+         <!-- Default switch -->
+  
+  <div class="custom-control custom-switch custom-switch-md">
+    <input type="checkbox" (click)="toggleChanges($event)" class="custom-control-input" id="customSwitch4" [checked]="isSlideChecked">
+    <label class="custom-control-label" for="customSwitch4">Toggle {{on_off}} Notification Cron Service</label>
+  </div>
+
+  <form #scheduleForm="ngForm" (ngSubmit)="scheduleForm.form.valid && onSubmit()">
+    <div class="container">
+      <div class="row">
+        <div class="form-group col-xs-8 col-md-8 text-left input-sm  offset-md-4">
+          <h2 class="text-white">A Cron expression consists of six sequential fields :</h2>
+          <h3 class="text-white mt-n3"> second, minute, hour, day of month, month, day(s) of week</h3> 
+        </div>
+      </div>
+
+       <div class="row">
+         <div class="form-group col-xs-3 col-md-3 text-left input-sm  offset-md-4">
+             <label for="cronTabExpression" class="control-label label-large text-white">Cron Tab Expression</label>
+             <input type="input" [ngClass]="{'border-red':scheduleForm.submitted && cronTabExpression.errors?.required}" 
+             class="form-control form-control-sm input" id="cronTabExpression" name="cronTabExpression" required 
+              [(ngModel)]="scheduleBean.cronTabExpression" #cronTabExpression="ngModel">
+              <font class="text-nowrap" *ngIf="scheduleForm.submitted && cronTabExpression.errors?.required" color="red">Cron Tab Expression is required</font>
+         </div>
+       </div>
+    </div>
+  
+    <div class="modal-body" >
+      
+        <center>
+     
+            <div class="" style="display: inline; padding-top: 3.5em; " >
+                       &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="submit" class="myButton">Update Cron Tab</button>&nbsp;&nbsp;
+            </div>
+    
+    
+         </center> 
+         <br/> 
+
+        <!-- <div [hidden]="hideSucceed" class="alert alert-success alert-dismissible fade show">
+          <strong> {{ message }}</strong>
+          <button type="button" class="close" data-dismiss="alert">&times;</button> 
+        </div>
+        <div [hidden]="hideError" class="alert alert-danger alert-dismissible fade show" >
+          <strong>Failed!</strong> {{errorMessage}}
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+   -->
+      </div>
+      
+    <div class="center" *ngIf="IsWait">
+      <mat-progress-spinner diameter=50 
+        overlay=true
+        mode="indeterminate"
+        color="accent">
+      </mat-progress-spinner>
+    </div>
+
+      <div class="center">  
+            <app-spinner></app-spinner>
+      </div>
+
+  </form>
+       <span [hidden]="hideErrorMessage" class="help-block" style="color: red; ">
+         <h3>{{errorMessage}}</h3>
+       </span>
+       <span [hidden]="hideMessage" class="help-block" style="color: rgb(7, 206, 24); ">
+        <h3>{{message}}</h3>
+      </span>
+  </center>

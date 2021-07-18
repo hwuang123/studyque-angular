@@ -1,5 +1,5 @@
 <form class="border border-light p-5 my-form" name="form" (ngSubmit)="isFromCancel=false; f.form.valid && onSubmit()" #f="ngForm" novalidate>
-    <!-- <form class="border border-light p-5 my-form" name="form" (ngSubmit)="isFromCancel=false; f.form.valid && onSubmit()" #f="ngForm" novalidate> -->
+ <!-- <form class="border border-light p-5 my-form" name="form" (ngSubmit)="isFromCancel=false; f.form.valid && onSubmit()" #f="ngForm" novalidate> -->
       <ng-template [ngIf]="isUpdate" [ngIfElse]="inputp">
         <p class="h4 mb-4" style="color: #d7e0a8; margin-top: -40px;">Edit Notification</p>       
       </ng-template>   
@@ -30,7 +30,7 @@
                 [selected]="assignment.pkAssignmentId === alert.pkAssignmentId">{{assignment.classname}}-{{assignment.assignmenttype}}</option>
             </select>               
           </div>
-          <div class="form-group col-xs-6 col-md-6 input-sm text-left">
+          <div [hidden]="isUpdate == false" class="form-group col-xs-6 col-md-6 input-sm text-left">
                 <br/>
                 <label class="control-label label-large">Assignment Due Date : </label>
                 <label class="control-label text-danger display-3">{{showDueDate | date : 'MM/dd/yyyy h:mm:ss a'}}</label>
@@ -185,6 +185,20 @@
             placeholder="Notification End Date" [(ngModel)]="alert.AlertEndDateTime" #end="ngModel"> -->
           </div>
  
+          <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+            <label for="status" class="control-label label-large">Notification Status</label>
+            <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
+            [ngClass]="{'border-red':!isFromCancel &&  f.submitted && status.errors?.selectZeroInvalid}" 
+             id="status" name="status" selectNonZero 
+             [(ngModel)]="alert.alertedStatus" #status="ngModel">
+             <option *ngFor="let status of notificationStatus" [value]="status.value"
+               [selected]="status.value == alert.alertedStatus">{{status.label}}</option>
+           </select>               
+
+           <span style="margin-left: 4px; float: left; width: 306px;">
+            <font *ngIf="f.submitted && status.errors?.required" color="red">Notification Status is required</font></span> 
+          </div>
+          
           <div class="form-row error-message14" [hidden]="isFromCancel">
                 <span style="margin-left: 4px; float: left; width: 300px;">
                    <font *ngIf="f.submitted && alerttime.errors?.required" color="red">Notification Time is required</font></span>      
@@ -193,6 +207,18 @@
                 <span style="margin-left: 4px; float: left; width: 306px;">
                    <font *ngIf="f.submitted && end.errors?.required" color="red">Notification End Date & Time  is required</font></span> 
            </div>     
+        </div>
+
+        <div class="row">
+          <div class="form-group flex-fill mr-2 text-left w-75 required">
+            <label for="alertsubject" class="control-label label-large" style="padding-left: 12px;">Notification Subject</label>
+            <textarea class="form-control rounded-0 my-textarea input" [ngClass]="{'border-red':!isFromCancel && f.submitted && alertmessage.errors?.required}" 
+            name="alertsubject" id="alertsubject" #alertsubject="ngModel" rows="1" [(ngModel)]="alert.alertSubject" placeholder="Notification Subject" required></textarea>
+          </div>
+          <div class="form-row error-message14" [hidden]="isFromCancel">
+            <span style="margin-left: 5px; float: left; width: 300px;">
+               <font *ngIf="f.submitted &&  alertsubject.errors?.required" color="red">Notification Subject is required</font></span>
+          </div>     
         </div>
 
         <div class="row">

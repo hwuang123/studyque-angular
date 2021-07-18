@@ -39,6 +39,8 @@
     "ag-grid": "^18.1.2",
     "ag-grid-angular": "^23.1.1",
     "ag-grid-community": "^23.2.1",
+    "angular-bootstrap-md": "^11.1.0",
+    "angular-bootstrap-switch": "^0.5.2",
     "angular-date-value-accessor": "^1.0.2",
     "aws-sdk": "^2.905.0",
     "bootstrap": "^4.4.1",

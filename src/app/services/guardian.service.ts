@@ -47,8 +47,12 @@ export class GuardianService {
   }
 
   deleteGuardian(id: number): Observable<any> {
-    this.errorMsg = " delete Guardian from Service "
-    return this.http.delete(`${this.baseUrl}/deleteGuardian/${id}`, { responseType: 'text' }).pipe(
+    this.errorMsg = " delete Guardian from Service ";
+    const headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': "*",
+    });
+   // return this.http.delete(`${this.baseUrl}/deleteGuardian/${id}`, { responseType: 'text' }).pipe(
+      return this.http.delete(`${this.baseUrl}/deleteGuardian/${id}`, { responseType: 'text', headers: headers }).pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);

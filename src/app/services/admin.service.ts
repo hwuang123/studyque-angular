@@ -401,4 +401,48 @@ export class AdminService {
     ); 
   } 
 
+ start(value: any): Observable<Object> {
+    this.errorMsg = " start Notification Cron Schedule Service ";
+    return this.http.post(`${this.baseUrl}/cron/start`, value).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }  
+  
+  stop(value: any): Observable<Object> {
+    this.errorMsg = " stop Notification Cron Schedule Service ";
+    return this.http.post(`${this.baseUrl}/cron/stop`,value).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }  
+
+  changeCron(value: any): Observable<Object> {
+    this.errorMsg = " change Notification Cron Schedule Service ";
+    return this.http.post(`${this.baseUrl}/cron/changeCron`, value).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }  
+
+  checkRunning(): Observable<any> {
+    this.errorMsg = " get Privilege List from Service ";
+    return this.http.get(`${this.baseUrl}/cron/check`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    ); 
+  } 
 }

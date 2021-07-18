@@ -33,6 +33,9 @@ export class LoadingScreenInterceptor implements HttpInterceptor {
     let displayLoadingScreen = true;
     let authReq = request;
     request.headers.set('Content-Type','application/json;charset=utf-8');
+    // request.headers.set('Access-Control-Allow-Origin', '*');
+    // request.headers.set('Access-Control-Allow-Methods', 'GET,PUT,DELETE,OPTIONS');
+    // request.headers.set('Access-Control-Allow-Headers', 'Access-Control-Allow-Origin, Content-Type, Accept, Accept-Language, Origin, User-Agent');
     const token = this.token.getToken();
     if (token != null) {
         authReq = request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)
