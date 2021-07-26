@@ -34,6 +34,30 @@ export class ContactService {
     ); 
   }
 
+  getStudentOnlyContactList(id: number): Observable<any> {
+    this.errorMsg = " get Contact List from Service ";
+    return this.http.get(`${this.baseUrl}/getStudentOnlyContactList/${id}`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    ); 
+  }
+
+  getContactListByGuardianId(id: number): Observable<any> {
+    this.errorMsg = " get Contact List by guaridan ID from Service ";
+    return this.http.get(`${this.baseUrl}/getContactListByGuardianId/${id}`).pipe(
+      catchError((err) => {
+        console.log('error caught in service')
+        console.error(err);
+        //Handle the error here
+        return throwError(err);    //Rethrow it back to component
+      })
+    ); 
+  }
+
   getContactList(): Observable<any> {
     this.errorMsg = " get Contact List from Service ";
     return this.http.get(`${this.baseUrl}/getContacts`).pipe(

@@ -27,8 +27,10 @@ import { AssignmentService } from './../../services/assignment.service';
 import { AlertService } from './../../services/alert.service';
 import { AddClassService } from './../../services/add-class.service';
 import { GuardianService } from './../../services/guardian.service';
+import { ContactService } from './../../services/contact.service';
 import { AlertBean } from './../../domains/alert-bean';
 import { GuardianBean } from './../../domains/guardian-bean';
+import { ContactBean } from './../../domains/contact-bean.bean';
 import { SearchassignmentBean } from './../../domains/searchassignment-bean';
 import { SearchAlertBean } from './../../domains/searchAlert-bean';
 import { SelectZeroValidatorDirective } from './../../directive/select-zero-validator.directive';
@@ -74,6 +76,7 @@ export class AlertComponent implements OnInit {
   private classnameList = [];
   private assignmentList = [];
   private guardianList = [];
+  private contactList = [];
   private methodList = [];
   private repeatDaysList = [];
   assignment: Assignment;
@@ -88,7 +91,7 @@ export class AlertComponent implements OnInit {
   hideMessage = true;
   hideErrorMessage = true; 
   IsWait = false;
-
+  isStudentNotification: string="No";
   formGroup : FormGroup;
   dateModel: Date = new Date();
   stringDateModel: string = new Date().toString();
@@ -97,6 +100,14 @@ export class AlertComponent implements OnInit {
   alertEndDatetime: any;
   alertTime: any;
   notificationStatus = [];
+  contactChoices: any[] = [{ 
+    "value":"Yes",
+    "label":"Yes"        
+   },
+   {
+    "value":"No",
+    "label":"No"        
+   }];
   constructor(
     private router: Router,
     private shareService: ShareService,
@@ -106,6 +117,7 @@ export class AlertComponent implements OnInit {
     private alertService: AlertService,
     private addClassService: AddClassService,
     private guardianService: GuardianService,
+    private contactService: ContactService,
     private commonFunctionService: CommonFunctionService,
     private datePipe: DatePipe,
     @Inject(LOCALE_ID) private locale: string
@@ -313,6 +325,82 @@ export class AlertComponent implements OnInit {
          );
   }
 
+getStudentContactList(){
+    this.contactList = [];
+    this.alert.mediaVal = '';
+    this.alert.pkGuardianId = 0;
+    this.alert.pkContactId = 0;
+    if(this.isStudentNotification == 'Yes'){
+       this.IsWait=true;    
+       this.contactService.getStudentOnlyContactList(0)
+         .subscribe(
+           data => {
+             console.log(data);
+             console.log(JSON.stringify(data));
+             const newContactBean: ContactBean = new ContactBean();
+             newContactBean.pkContactId = 0;
+             newContactBean.contactMethod = "Select a Method";
+             this.contactList = data;
+             if(this.contactList.length > 1){
+              this.contactList.unshift(JSON.parse(JSON.stringify(newContactBean)));
+             }
+             if(this.contactList.length == 1){
+                let contact: ContactBean = this.contactList[0];
+                this.alert.pkMethodId = contact.pkMethodId;
+                this.alert.mediaVal = contact.mediaVal;
+             }
+             this.IsWait=false;
+           },
+            error => {console.log(error); this.IsWait=false;}
+         );
+      }
+  }
+
+  getContactList(){
+    this.alert.mediaVal = '';
+    if(this.alert.pkGuardianId == 0){
+       this.alert.pkMethodId = 0;
+       this.contactList = [];
+    }
+    else{
+      this.IsWait=true;    
+      this.contactService.getContactListByGuardianId(this.alert.pkGuardianId)
+         .subscribe(
+           data => {
+             console.log(data);
+             console.log(JSON.stringify(data));
+             const newContactBean: ContactBean = new ContactBean();
+             newContactBean.pkContactId = 0;
+             newContactBean.contactMethod = "Select a Method";
+             this.contactList = data;
+             if(this.contactList.length > 1){
+              this.contactList.unshift(JSON.parse(JSON.stringify(newContactBean)));
+             }
+             if(this.contactList.length == 1){
+                let contact: ContactBean = this.contactList[0];
+                this.alert.pkMethodId = contact.pkMethodId;
+                this.alert.mediaVal = contact.mediaVal;
+             }
+          
+             this.IsWait=false;
+
+         
+           },
+           error => {console.log(error); this.IsWait=false;}
+         );
+    }  
+  }
+
+  getMediaValue(){
+    if(this.alert.pkMethodId == 0){
+      this.alert.mediaVal = '';
+    }
+    if(this.contactList.length > 0){
+       let contact: ContactBean = this.contactList.filter(i => i.pkMethodId === Number(this.alert.pkMethodId))[0];
+       this.alert.mediaVal = contact.mediaVal;
+    }
+   }
+
   getMethodList(){
     this.IsWait=true;
     this.alertService.getMethodList()
@@ -424,14 +512,33 @@ export class AlertComponent implements OnInit {
    }
 
   getStartDateTime(event: any){
+    
     this.alert.alertStartDateTime = this.datePipe.transform(event.value,this.fmt);
+    this.calculateEndTime();
+    // if(this.alert.repeatDays > 0){
+    //    this.alert.alertEndDateTime = moment(this.alert.alertStartDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();
+    //    this.alert.alertEndDateTime.setDate(this.alert.alertEndDateTime.getDate() + Number(this.alert.repeatDays));
+    //    this.alertEndDatetime = moment(this.alert.alertEndDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();  
+    // }
     console.log(this.alert.alertStartDateTime);
   }
 
+  calculateEndTime(){
+    if(this.alert.repeatDays > 0){
+      this.alert.alertEndDateTime = moment(this.alert.alertStartDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();
+      this.alert.alertEndDateTime.setDate(this.alert.alertEndDateTime.getDate() + Number(this.alert.repeatDays));
+      this.alertEndDatetime = moment(this.alert.alertEndDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();  
+   }
+  }
 
   getEndDateTime(event: any){
     this.alert.alertEndDateTime = this.datePipe.transform(event.value,this.fmt);
-    console.log(this.alert.alertEndDateTime);
+    this.alert.alertEndDateTime = moment(this.alert.alertEndDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();
+    this.alert.alertStartDateTime = moment(this.alert.alertStartDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();
+    let differenceInTime = this.alert.alertEndDateTime.getTime() - this.alert.alertStartDateTime.getTime();
+    // To calculate the no. of days between two dates
+    this.alert.repeatDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+     console.log(this.alert.alertEndDateTime);
   }
 
   getAlertTime(event: any){
@@ -553,6 +660,8 @@ export class AlertComponent implements OnInit {
       this.alertStartDatetime = null;
       this.alertEndDatetime = null;
       this.alertTime = null;
+      this.isStudentNotification = 'No';
+      this.contactList = [];
      }
     
   onGridReady(params: any) {

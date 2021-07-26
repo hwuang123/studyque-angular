@@ -7,7 +7,12 @@
         <p class="h4 mb-4" style="color: #d7e0a8; margin-top: -40px;">Input Notification</p>
       </ng-template>
       <div class="container">  
-
+      <center>
+        <div [hidden]="isUpdate == false" class="form-group col-xs-6 col-md-6 input-sm">
+          <label class="control-label label-large">Assignment Due Date : </label>
+          <label class="control-label text-danger display-3 pl-2"> {{showDueDate | date : 'MM/dd/yyyy h:mm:ss a'}}</label>
+        </div>
+      </center>
         <div class="row">
           <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
             <label for="classname" class="control-label label-large">Class Name :</label>
@@ -30,12 +35,18 @@
                 [selected]="assignment.pkAssignmentId === alert.pkAssignmentId">{{assignment.classname}}-{{assignment.assignmenttype}}</option>
             </select>               
           </div>
-          <div [hidden]="isUpdate == false" class="form-group col-xs-6 col-md-6 input-sm text-left">
-                <br/>
-                <label class="control-label label-large">Assignment Due Date : </label>
-                <label class="control-label text-danger display-3">{{showDueDate | date : 'MM/dd/yyyy h:mm:ss a'}}</label>
-          </div>
 
+          <div class="form-group col-xs-4 col-md-4 input-sm text-left form-inline required">
+            <label for="detailOptions" class="control-label label-large m-2">Is this for Student Notification? </label>
+            <div  *ngFor="let opt of contactChoices" style="display: block; text-align: left;">
+              <label style="padding-left: 1em;">
+                <input type="radio" (change)="getStudentContactList()" [(ngModel)]="isStudentNotification" [(value)]="opt.value" name="choice" 
+                [checked]="opt.value == isStudentNotification? true: false" #choice="ngModel"/>&nbsp;&nbsp;<span class="text-white">{{opt.label}}</span>
+              </label>
+            </div>  
+          </div> 
+
+      
           <div class="form-row error-message14" [hidden]="isFromCancel">
                 <span style="width: 306px; float: left;">
                    <font *ngIf="f.submitted &&  classname.errors?.selectZeroInvalid" color="red">Class Name is required</font></span>
@@ -47,11 +58,11 @@
         </div>
 
         <div class="row ">
-          <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
+          <div [hidden]="isStudentNotification == 'Yes'" class="form-group col-xs-3 col-md-3 input-sm text-left required">
             <label for="guardian" class="control-label label-large">Guardian :</label>
             <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
              [ngClass]="{'border-red':!isFromCancel &&  f.submitted && guardian.errors?.selectZeroInvalid}" 
-              id="guardian" name="guardian" selectNonZero 
+              id="guardian" name="guardian" (click)="getContactList()" selectNonZero 
               [(ngModel)]="alert.pkGuardianId" #guardian="ngModel">
               <option *ngFor="let guardian of guardianList" [value]="guardian.guardianId"
                 [selected]="guardian.guardianId == alert.pkGuardianId">{{guardian.firstName}} {{guardian.lastName}}</option>
@@ -61,10 +72,17 @@
             <label for="method" class="control-label label-large">Contact Method :</label>
             <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
              [ngClass]="{'border-red':!isFromCancel &&  f.submitted && method.errors?.selectZeroInvalid}" 
-              id="method" name="method" selectNonZero 
+              id="method" name="method"  (change)="getMediaValue()" selectNonZero 
               [(ngModel)]="alert.pkMethodId" #method="ngModel">
-              <option *ngFor="let method of methodList" [value]="method.pkMethodId"
+              <ng-template [ngIf]="contactList.length == 0" [ngIfElse]="methodOption">
+                <option *ngFor="let method of methodList" [value]="method.pkMethodId"
                 [selected]="method.pkMethodId == alert.pkMethodId">{{method.contactMethod}}</option>
+              </ng-template>   
+              <ng-template #methodOption >
+                <option *ngFor="let method of contactList" [value]="method.pkMethodId"
+                [selected]="method.pkMethodId == alert.pkMethodId">{{method.contactMethod}}</option>
+              </ng-template>
+
             </select>               
           </div>
           <div class="form-group col-xs-3 col-md-3 input-sm text-left required">
@@ -77,7 +95,7 @@
             <label for="repeat" class="control-label label-large">Notification Repeat Days</label>
             <select class="ng-prinstine ng-valid ng-touched input form-control form-control-sm" 
             [ngClass]="{'border-red':!isFromCancel &&  f.submitted && repeat.errors?.selectZeroInvalid}" 
-             id="repeat" name="repeat" selectNonZero 
+             id="repeat" name="repeat" selectNonZero (change)="calculateEndTime()"
              [(ngModel)]="alert.repeatDays" #repeat="ngModel">
              <option *ngFor="let repeat of repeatDaysList" [value]="repeat.value"
                [selected]="repeat.value == alert.repeatDays">{{repeat.label}}</option>

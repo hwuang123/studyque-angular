@@ -45,7 +45,7 @@
           <span style="margin-left: 5px; float: left; width: 300px;">
           <font *ngIf=" contactForm.submitted &&  method.errors?.selectZeroInvalid" color="red">Method is required</font></span>                            
         </div>
-      <ng-template [ngIf]="contactBean.pkMethodId == '1' || contactBean.pkMethodId == '2'" [ngIfElse]="isEmail">  
+      <ng-template [ngIf]="contactBean.pkMethodId == '2' || contactBean.pkMethodId == '4'" [ngIfElse]="isEmail">  
         <div class="form-group col-xs-4 col-md-4 input-sm text-left  required">
          <label for="phone" class="control-label label-large">Contact phone</label>
          <input type="input" [ngClass]="{'border-red':!isFromCancel && contactForm.submitted && phone.errors?.required}" 

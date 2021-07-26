@@ -6,6 +6,7 @@ export class ContactBean {
 	firstName: string;
 	lastName: string;
 	mediaVal: string;
+	contactMethod: string;
 	email: string;
 	phone: string;
 	relationship: string;
