@@ -475,7 +475,7 @@ getStudentContactList(){
   }
 
   updateAlert(){
-
+   // this.alert.alertEndDateTime = this.alertEndDatetime.toLocaleString();
     this.alertService.updateAlert(this.alert.pkAlertId,this.alert)
      .subscribe((data: AlertBean) => {
        console.log(data);
@@ -528,14 +528,15 @@ getStudentContactList(){
       this.alert.alertEndDateTime = moment(this.alert.alertStartDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();
       this.alert.alertEndDateTime.setDate(this.alert.alertEndDateTime.getDate() + Number(this.alert.repeatDays));
       this.alertEndDatetime = moment(this.alert.alertEndDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();  
-   }
+      this.alert.alertEndDateTime = moment(this.alertEndDatetime).format('MM/DD/YYYY h:mm:ss a');
+    }
   }
 
   getEndDateTime(event: any){
     this.alert.alertEndDateTime = this.datePipe.transform(event.value,this.fmt);
-    this.alert.alertEndDateTime = moment(this.alert.alertEndDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();
+    let endDate: Date = moment(this.alert.alertEndDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();
     this.alert.alertStartDateTime = moment(this.alert.alertStartDateTime, 'MM/DD/YYYY h:mm:ss a').toDate();
-    let differenceInTime = this.alert.alertEndDateTime.getTime() - this.alert.alertStartDateTime.getTime();
+    let differenceInTime = this.alertEndDatetime.getTime() - this.alert.alertStartDateTime.getTime();
     // To calculate the no. of days between two dates
     this.alert.repeatDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
      console.log(this.alert.alertEndDateTime);
